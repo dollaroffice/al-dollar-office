@@ -1,119 +1,416 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AL-DOLLAR OFFICE</title>
-<style>
-body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial;
-background:linear-gradient(180deg,#050814,#0b1226);
-color:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-min-height:100vh
-}
-.box{
-background:rgba(255,255,255,.06);
-border:1px solid rgba(255,255,255,.15);
-border-radius:20px;
-padding:25px;
-width:min(92%,500px);
-box-shadow:0 20px 40px rgba(0,0,0,.5)
-}
-h1{
-text-align:center;
-margin:10px 0 20px;
-font-size:36px;
-letter-spacing:1px;
-background:linear-gradient(90deg,gold,#fff);
--webkit-background-clip:text;
-color:transparent
-}
-button{
-width:100%;
-padding:14px;
-font-size:18px;
-font-weight:700;
-border-radius:14px;
-border:none;
-cursor:pointer;
-background:linear-gradient(90deg,gold,#6ee7ff)
-}
-pre{
-white-space:pre-wrap;
-line-height:1.8;
-font-size:14px;
-background:rgba(0,0,0,.3);
-padding:15px;
-border-radius:14px;
-border:1px solid rgba(255,255,255,.15)
-}
-.hide{display:none}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AL-DOLLAR OFFICE</title>
+
+  <!-- PWA / Icons -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#070a12">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <style>
+    :root{
+      --bg1:#070a12; --bg2:#0b1226;
+      --border: rgba(255,255,255,0.12);
+      --text:#eef2ff; --muted:#b4c0e6;
+      --shadow: 0 18px 45px rgba(0,0,0,0.45);
+      --r: 22px;
+      --gold1: rgba(255,215,0,0.95);
+      --gold2: rgba(255,255,255,0.95);
+      --aqua: rgba(110,231,255,0.22);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, "Noto Kufi Arabic", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 650px at 20% -10%, rgba(255, 215, 0, 0.14), transparent 55%),
+        radial-gradient(900px 650px at 110% 40%, rgba(110,231,255,0.14), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      display:grid;
+      place-items:center;
+      padding: 18px;
+    }
+
+    .screen{ display:none; width:min(920px, 95vw); }
+    .screen.active{ display:block; }
+
+    .card{
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      padding: 26px 22px;
+      text-align:center;
+    }
+    .card.wide{ text-align: start; }
+
+    .badge{
+      display:inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .logoWrap{
+      width:min(420px, 88%);
+      margin: 14px auto 8px;
+      padding: 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,215,0,0.18);
+      background:
+        radial-gradient(180px 120px at 20% 10%, rgba(255,215,0,0.18), transparent 65%),
+        rgba(0,0,0,0.18);
+      box-shadow: 0 18px 38px rgba(0,0,0,0.35);
+    }
+    .logoWrap img{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius: 16px;
+      filter: drop-shadow(0 16px 22px rgba(0,0,0,.45));
+    }
+
+    .title{
+      margin: 10px 0 6px;
+      font-size: 42px;
+      line-height: 1.05;
+      letter-spacing: 0.6px;
+      background: linear-gradient(90deg, var(--gold1), var(--gold2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-transform: uppercase;
+    }
+    .subtitle{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .hint{
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .form{
+      margin-top: 14px;
+      display:grid;
+      gap: 12px;
+      text-align:start;
+    }
+
+    .field{ display:grid; gap: 6px; }
+    .label{ color: var(--muted); font-size: 13px; padding-right: 4px; }
+
+    input{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.22);
+      color: var(--text);
+      outline: none;
+      font-size: 14px;
+    }
+    input::placeholder{ color: rgba(180,192,230,0.65); }
+
+    .btnPrimary{
+      cursor:pointer;
+      width:100%;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: linear-gradient(90deg, rgba(255,215,0,0.38), var(--aqua));
+      color: var(--text);
+      font-weight: 900;
+      font-size: 15px;
+      padding: 12px 18px;
+      border-radius: 16px;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+    }
+
+    .topRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .resultTitle{ margin:0; font-size: 18px; }
+
+    .actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btnGhost{
+      cursor:pointer;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-weight: 800;
+      font-size: 13px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      white-space: nowrap;
+    }
+
+    .message{
+      margin: 0;
+      padding: 16px;
+      border-radius: 16px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,0.25);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+      color: var(--text);
+      overflow:auto;
+      line-height: 1.85;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+
+    .smallMuted{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align:center;
+    }
+
+    .err{
+      display:none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,80,80,0.25);
+      background: rgba(255,80,80,0.10);
+      color: rgba(255,220,220,0.95);
+      font-size: 13px;
+      text-align:center;
+    }
+    .err.show{ display:block; }
+
+    @media (max-width: 480px){
+      .title{ font-size: 34px; }
+      .logoWrap{ width:min(360px, 92%); }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="box">
-  <div id="welcome">
-    <h1>AL-DOLLAR OFFICE</h1>
-    <button onclick="showResult()">مطابقة</button>
-  </div>
+  <!-- Screen 1: Welcome + Inputs -->
+  <main id="screenWelcome" class="screen active">
+    <div class="card">
+      <div class="badge">WELCOME</div>
 
-  <div id="result" class="hide">
-    <pre id="msg"></pre>
-    <button onclick="back()">رجوع</button>
-  </div>
-</div>
+      <!-- شعار المكتب -->
+      <div class="logoWrap">
+        <img src="logo.png" alt="Dollar Exchange Office">
+      </div>
 
-<script>
-function gmt2(){
- const n=new Date();
- return new Date(n.getTime()+((2*60)+n.getTimezoneOffset())*60000);
-}
-function f(d){
- return String(d.getDate()).padStart(2,'0')+'/'+
- String(d.getMonth()+1).padStart(2,'0')+'/'+
- d.getFullYear()+' '+
- String(d.getHours()).padStart(2,'0')+':'+
- String(d.getMinutes()).padStart(2,'0')+':'+
- String(d.getSeconds()).padStart(2,'0');
-}
-function text(){
- return `✅ الـــســـلام عــــليكــم ✅
+      <h1 class="title">AL-DOLLAR OFFICE</h1>
+      <p class="subtitle">اكتب البيانات ثم اضغط مطابقة</p>
+
+      <div class="form" role="form" aria-label="بيانات المطابقة">
+        <div class="field">
+          <div class="label">الاسم</div>
+          <input id="inpName" type="text" placeholder="مثال: أحمد محمد" autocomplete="name" />
+        </div>
+
+        <div class="field">
+          <div class="label">العملة</div>
+          <input id="inpCurrency" type="text" placeholder="مثال: USD / EUR / ILS" />
+        </div>
+
+        <div class="field">
+          <div class="label">المبلغ</div>
+          <input id="inpAmount" type="text" inputmode="decimal" placeholder="مثال: 250" />
+        </div>
+
+        <button id="btnMatch" class="btnPrimary">مطابقة</button>
+        <div id="errBox" class="err"></div>
+
+        <p class="hint">التاريخ والوقت داخل الرسالة يتحدثان حسب توقيت جرينتش +2</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Screen 2: Result -->
+  <main id="screenResult" class="screen">
+    <div class="card wide">
+      <div class="topRow">
+        <h2 class="resultTitle">نتيجة المطابقة</h2>
+        <div class="actions">
+          <button id="btnCopy" class="btnGhost">نسخ</button>
+          <button id="btnWhats" class="btnGhost">مشاركة واتساب</button>
+          <button id="btnBack" class="btnGhost">رجوع</button>
+        </div>
+      </div>
+
+      <pre id="messageBox" class="message" aria-live="polite"></pre>
+      <div class="smallMuted">يتم تحديث الوقت تلقائياً كل ثانية (GMT+2).</div>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+      const $ = (id) => document.getElementById(id);
+
+      const screenWelcome = $("screenWelcome");
+      const screenResult  = $("screenResult");
+
+      const inpName     = $("inpName");
+      const inpCurrency = $("inpCurrency");
+      const inpAmount   = $("inpAmount");
+
+      const btnMatch = $("btnMatch");
+      const btnBack  = $("btnBack");
+      const btnCopy  = $("btnCopy");
+      const btnWhats = $("btnWhats");
+
+      const messageBox = $("messageBox");
+      const errBox = $("errBox");
+
+      let timer = null;
+
+      // GMT+2 ثابت (بدون الاعتماد على توقيت الجهاز)
+      function nowGMTPlus2() {
+        const now = new Date();
+        const utcMs = now.getTime() + (now.getTimezoneOffset() * 60000);
+        return new Date(utcMs + (2 * 60 * 60 * 60000));
+      }
+
+      function pad2(n){ return String(n).padStart(2,"0"); }
+
+      function formatDDMMYYYY_HHMMSS(d){
+        const dd = pad2(d.getDate());
+        const mm = pad2(d.getMonth() + 1);
+        const yyyy = d.getFullYear();
+        const hh = pad2(d.getHours());
+        const mi = pad2(d.getMinutes());
+        const ss = pad2(d.getSeconds());
+        return `${dd}/${mm}/${yyyy} ${hh}:${mi}:${ss}`;
+      }
+
+      function sanitizeText(s){
+        return String(s ?? "").replace(/\s+/g, " ").trim();
+      }
+
+      function amountNormalize(s){
+        const raw = String(s ?? "").trim();
+        const cleaned = raw.replace(/[^\d.,]/g, "");
+        return cleaned || "";
+      }
+
+      function showError(msg){
+        errBox.textContent = msg;
+        errBox.classList.add("show");
+      }
+      function clearError(){
+        errBox.textContent = "";
+        errBox.classList.remove("show");
+      }
+
+      function buildMessage(name, currency, amount){
+        const dt = formatDDMMYYYY_HHMMSS(nowGMTPlus2());
+
+        return `✅ الـــســـلام عــــليكــم ✅
 
      ..........*مـكـتـب الـدولار*..........
 
    مــــطــــابــــقــــة حــــســــاب
 
-((((( لـ  - الاسم)))))
+((((( لـ  - ${name} )))))
 
- حتى تاريخ ${f(gmt2())}
+ حتى تاريخ ${dt}
 
 ---------------------------------------------------------
 
-لكم 《 0- 》 عملة 
+لكم 《 ${amount}- 》 ${currency}
 
 ---------------------------------------------------------
 Al-Dollar Exchange Office
 *ملاحظة : يرجى التأكيد على صحة المطابقة* `;
-}
-let t;
-function showResult(){
- document.getElementById('welcome').classList.add('hide');
- document.getElementById('result').classList.remove('hide');
- const m=document.getElementById('msg');
- m.textContent=text();
- t=setInterval(()=>m.textContent=text(),1000);
-}
-function back(){
- clearInterval(t);
- document.getElementById('result').classList.add('hide');
- document.getElementById('welcome').classList.remove('hide');
-}
-</script>
+      }
+
+      function showWelcome(){
+        screenResult.classList.remove("active");
+        screenWelcome.classList.add("active");
+        if (timer){ clearInterval(timer); timer = null; }
+      }
+
+      function showResult(){
+        clearError();
+
+        const name = sanitizeText(inpName.value);
+        const currency = sanitizeText(inpCurrency.value);
+        const amount = amountNormalize(inpAmount.value);
+
+        if (!name) return showError("اكتب الاسم لو سمحت.");
+        if (!currency) return showError("اكتب العملة لو سمحت (مثال: USD).");
+        if (!amount) return showError("اكتب المبلغ لو سمحت.");
+
+        screenWelcome.classList.remove("active");
+        screenResult.classList.add("active");
+
+        const render = () => {
+          messageBox.textContent = buildMessage(name, currency, amount);
+        };
+
+        render();
+        if (timer) clearInterval(timer);
+        timer = setInterval(render, 1000);
+      }
+
+      async function copyMessage(){
+        const txt = messageBox.textContent || "";
+        try{
+          await navigator.clipboard.writeText(txt);
+        }catch{
+          const ta = document.createElement("textarea");
+          ta.value = txt;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+        }
+        btnCopy.textContent = "تم ✅";
+        setTimeout(() => (btnCopy.textContent = "نسخ"), 1200);
+      }
+
+      function shareWhatsApp(){
+        const txt = messageBox.textContent || "";
+        const url = "https://wa.me/?text=" + encodeURIComponent(txt);
+        window.open(url, "_blank", "noopener,noreferrer");
+      }
+
+      btnMatch.addEventListener("click", showResult);
+      btnBack.addEventListener("click", showWelcome);
+      btnCopy.addEventListener("click", copyMessage);
+      btnWhats.addEventListener("click", shareWhatsApp);
+
+      // Enter للتنفيذ بسرعة
+      [inpName, inpCurrency, inpAmount].forEach((inp) => {
+        inp.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") showResult();
+        });
+      });
+
+      showWelcome();
+    })();
+  </script>
 
 </body>
 </html>
