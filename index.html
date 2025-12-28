@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AL-DOLLAR OFFICE</title>
 
-  <!-- PWA / Icons -->
+  <!-- PWA / Icons (تشتغل إذا رفعت الملفات) -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#070a12">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -110,7 +110,6 @@
       gap: 12px;
       text-align:start;
     }
-
     .field{ display:grid; gap: 6px; }
     .label{ color: var(--muted); font-size: 13px; padding-right: 4px; }
 
@@ -125,6 +124,27 @@
       font-size: 14px;
     }
     input::placeholder{ color: rgba(180,192,230,0.65); }
+
+    .choiceRow{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      padding: 6px 2px 2px;
+      align-items:center;
+    }
+    .choice{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+      user-select:none;
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.18);
+    }
+    .choice input{ width:auto; padding:0; }
 
     .btnPrimary{
       cursor:pointer;
@@ -153,7 +173,6 @@
       gap: 10px;
       flex-wrap: wrap;
     }
-
     .btnGhost{
       cursor:pointer;
       border: 1px solid var(--border);
@@ -209,12 +228,11 @@
 
 <body>
 
-  <!-- Screen 1: Welcome + Inputs -->
+  <!-- Screen 1 -->
   <main id="screenWelcome" class="screen active">
     <div class="card">
       <div class="badge">WELCOME</div>
 
-      <!-- شعار المكتب -->
       <div class="logoWrap">
         <img src="logo.png" alt="Dollar Exchange Office">
       </div>
@@ -238,6 +256,20 @@
           <input id="inpAmount" type="text" inputmode="decimal" placeholder="مثال: 250" />
         </div>
 
+        <div class="field">
+          <div class="label">الجهة</div>
+          <div class="choiceRow">
+            <label class="choice">
+              <input type="radio" name="side" value="لكم" checked>
+              <span>لكم</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="side" value="لنا">
+              <span>لنا</span>
+            </label>
+          </div>
+        </div>
+
         <button id="btnMatch" class="btnPrimary">مطابقة</button>
         <div id="errBox" class="err"></div>
 
@@ -246,7 +278,7 @@
     </div>
   </main>
 
-  <!-- Screen 2: Result -->
+  <!-- Screen 2 -->
   <main id="screenResult" class="screen">
     <div class="card wide">
       <div class="topRow">
@@ -285,7 +317,7 @@
 
       let timer = null;
 
-      // GMT+2 ثابت (بدون الاعتماد على توقيت الجهاز)
+      // GMT+2 ثابت
       function nowGMTPlus2() {
         const now = new Date();
         const utcMs = now.getTime() + (now.getTimezoneOffset() * 60000);
@@ -323,7 +355,7 @@
         errBox.classList.remove("show");
       }
 
-      function buildMessage(name, currency, amount){
+      function buildMessage(name, currency, amount, side){
         const dt = formatDDMMYYYY_HHMMSS(nowGMTPlus2());
 
         return `✅ الـــســـلام عــــليكــم ✅
@@ -338,7 +370,7 @@
 
 ---------------------------------------------------------
 
-لكم 《 ${amount}- 》 ${currency}
+${side} 《 ${amount}- 》 ${currency}
 
 ---------------------------------------------------------
 Al-Dollar Exchange Office
@@ -357,6 +389,7 @@ Al-Dollar Exchange Office
         const name = sanitizeText(inpName.value);
         const currency = sanitizeText(inpCurrency.value);
         const amount = amountNormalize(inpAmount.value);
+        const side = document.querySelector('input[name="side"]:checked')?.value || "لكم";
 
         if (!name) return showError("اكتب الاسم لو سمحت.");
         if (!currency) return showError("اكتب العملة لو سمحت (مثال: USD).");
@@ -366,7 +399,7 @@ Al-Dollar Exchange Office
         screenResult.classList.add("active");
 
         const render = () => {
-          messageBox.textContent = buildMessage(name, currency, amount);
+          messageBox.textContent = buildMessage(name, currency, amount, side);
         };
 
         render();
@@ -401,7 +434,6 @@ Al-Dollar Exchange Office
       btnCopy.addEventListener("click", copyMessage);
       btnWhats.addEventListener("click", shareWhatsApp);
 
-      // Enter للتنفيذ بسرعة
       [inpName, inpCurrency, inpAmount].forEach((inp) => {
         inp.addEventListener("keydown", (e) => {
           if (e.key === "Enter") showResult();
