@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AL-DOLLAR OFFICE</title>
 
-  <!-- PWA / Icons (تشتغل إذا رفعت الملفات) -->
+  <!-- PWA / Icons (إذا ملفاتك مرفوعة) -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#070a12">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -99,11 +99,7 @@
       text-align:center;
     }
 
-    .menu{
-      margin-top: 14px;
-      display:grid;
-      gap: 12px;
-    }
+    .menu{ margin-top: 14px; display:grid; gap: 12px; }
 
     .btnPrimary{
       cursor:pointer;
@@ -135,44 +131,22 @@
     }
 
     .icon{
-      width:22px;
-      height:22px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
+      width:22px; height:22px;
+      display:inline-flex; align-items:center; justify-content:center;
     }
     .icon svg{ width:100%; height:100%; }
 
     .topRow{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-      margin-bottom: 14px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 14px; margin-bottom: 14px;
     }
+    .actions{ display:flex; gap: 10px; flex-wrap: wrap; }
+    .sectionTitle{ margin:0; font-size: 18px; }
 
-    .actions{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .sectionTitle{
-      margin:0;
-      font-size: 18px;
-    }
-
-    .list{
-      display:grid;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
+    .list{ display:grid; gap: 10px; margin-top: 10px; }
     .itemBtn{
       width:100%;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+      display:flex; align-items:center; justify-content:space-between;
       gap: 10px;
       padding: 12px 14px;
       border-radius: 16px;
@@ -182,7 +156,6 @@
       text-decoration:none;
       font-weight: 900;
     }
-
     .pill{
       font-size: 12px;
       color: var(--muted);
@@ -214,18 +187,13 @@
     input::placeholder{ color: rgba(180,192,230,0.65); }
 
     .choiceRow{
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
+      display:flex; gap:14px; flex-wrap:wrap;
       padding: 6px 2px 2px;
       align-items:center;
     }
     .choice{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      cursor:pointer;
-      user-select:none;
+      display:flex; align-items:center; gap:8px;
+      cursor:pointer; user-select:none;
       color: var(--text);
       padding: 8px 10px;
       border-radius: 14px;
@@ -268,11 +236,7 @@
     }
     .err.show{ display:block; }
 
-    .offers{
-      color: var(--text);
-      line-height: 1.95;
-      font-size: 14px;
-    }
+    .offers{ color: var(--text); line-height: 1.95; font-size: 14px; }
     .offers .muted{ color: var(--muted); }
 
     @media (max-width: 480px){
@@ -316,7 +280,7 @@
                   <stop offset="100%" stop-color="#515bd4"/>
                 </linearGradient>
               </defs>
-              <path fill="url(#igGrad)" d="M16 7.3c2.8 0 3.1 0 4.2.1 1 .1 1.6.2 2 .4.5.2.8.4 1.2.8.4.4.6.7.8 1.2.2.4.3 1 .4 2 .1 1.1.1 1.4.1 4.2s0 3.1-.1 4.2c-.1 1-.2 1.6-.4 2-.2.5-.4.8-.8 1.2-.4.4-.7.6-1.2.8-.4.2-1 .3-2 .4-1.1.1-1.4.1-4.2.1s-3.1 0-4.2-.1c-1-.1-1.6-.2-2-.4-.5-.2-.8-.4-1.2-.8-.4-.4-.6-.7-.8-1.2-.2-.4-.3-1-.4-2-.1-1.1-.1-1.4-.1-4.2s0-3.1.1-4.2c.1-1 .2-1.6.4-2 .2-.5.4-.8.8-1.2.4-.4.7-.6 1.2-.8.4-.2 1-.3 2-.4 1.1-.1 1.4-.1 4.2-.1zm0-1.8c-2.9 0-3.2 0-4.3.1-1.2.1-2 .3-2.7.6-.7.3-1.3.7-1.9 1.3-.6.6-1 1.2-1.3 1.9-.3.7-.5 1.5-.6 2.7-.1 1.1-.1 1.4-.1 4.3s0 3.2.1 4.3c.1 1.2.3 2 .6 2.7.3.7.7 1.3 1.3 1.9.6.6 1.2 1 1.9 1.3.7.3 1.5.5 2.7.6 1.1.1 1.4.1 4.3.1s3.2 0 4.3-.1c1.2-.1 2-.3 2.7-.6.7-.3 1.3-.7 1.9-1.3.6-.6 1-1.2 1.3-1.9.3-.7.5-1.5.6-2.7.1-1.1.1-1.4.1-4.3s0-3.2-.1-4.3c-.1-1.2-.3-2-.6-2.7-.3-.7-.7-1.3-1.3-1.9-.6-.6-1.2-1-1.9-1.3-.7-.3-1.5-.5-2.7-.6-1.1-.1-1.4-.1-4.3-.1z"/>
+              <path fill="url(#igGrad)" d="M16 7.3c2.8 0 3.1 0 4.2.1 1 .1 1.6.2 2 .4.5.2.8.4 1.2.8.4.4.6.7.8 1.2.2.4.3 1 .4 2 .1 1.1.1 1.4.1 4.2s0 3.1-.1 4.2c-.1 1-.2 1.6-.4 2-.2.5-.4.8-.8 1.2-.4.4-.7.6-1.2.8-.4.2-1 .3-2 .4-1.1.1-1.4.1-4.2.1s-3.1 0-4.2-.1c-1-.1-1.6-.2-2-.4-.5-.2-.8-.4-1.2-.8-.4-.4-.6-.7-.8-1.2-.2-.4-.3-1-.4-2-.1-1.1-.1-1.4-.1-4.2s0-3.1.1-4.2c.1-1 .2-1.6.4-2 .2-.5.4-.8.8-1.2.4-.4.7-.6 1.2-.8.4-.2 1-.3 2-.4 1.1-.1 1.4-.1 4.2-.1zm0-1.8c-2.9 0-3.2 0-4.3.1-1.2.1-2 .3-2.7.6-.7.3-1.3.7-1.9 1.3-.6.6-1 1.2-1.3 1.9-.3.7-.5 1.5-.6 2.7-.1 1.1-.1 1.4-.1 4.3s0 3.2.1 4.3c.1 1.2.3 2 .6 2.7.3.7.7 1.3 1.3 1.9.6.6 1.2 1 1.9 1.3.7.3 1.5.5 2.7.6 1.1.1 1.4.1 4.3.1s3.2 0 4.3-.1c1.2-.1 2-.3 2.7-.6.7-.3 1.3-.7 1.9-1.3.6-.6 1-1.2 1.3-1.9.3-.7.5-1.5.6-2.7.1-1.1.1-1.4.1-4.3s0-3.2-.1-4.3c-.1-1.2-.3-2-.6-2.7-.3-.7-.7-.3-1.3-1.9-.6-.6-1.2-1-1.9-1.3-.7-.3-1.5-.5-2.7-.6-1.1-.1-1.4-.1-4.3-.1z"/>
               <circle cx="16" cy="16" r="4.1" fill="white"/>
               <circle cx="23.5" cy="8.5" r="1" fill="white"/>
             </svg>
@@ -325,6 +289,10 @@
         </button>
 
         <button class="btnPrimary" onclick="go('offers')">عروضنا</button>
+
+        <!-- NEW: إضافة العملية -->
+        <button class="btnPrimary" onclick="go('addOp')">إضافة العملية</button>
+
         <button class="btnPrimary" onclick="go('match')">طباعة مطابقة</button>
       </div>
 
@@ -396,15 +364,78 @@
       </div>
 
       <div class="offers">
-        <div class="offers muted">✨ AL-DOLLAR OFFICE ✨</div>
+        <div class="muted">✨ AL-DOLLAR OFFICE ✨</div>
         نستقبل حوالاتكم من <b>جميع دول العالم بدون استثناء</b> وبسرعة وأمان.<br/>
         <br/>• حوالات داخلية وخارجية
         <br/>• صرف عملات بأسعار منافسة
         <br/>• متابعة فورية عبر واتساب
         <br/><br/>
-        <div class="offers muted">🕘 ساعات العمل</div>
+        <div class="muted">🕘 ساعات العمل</div>
         من <b>السبت إلى الجمعة</b> — <b>على مدار الساعة (24/7)</b> ✅
       </div>
+    </div>
+  </main>
+
+  <!-- NEW: Add Operation -->
+  <main id="addOp" class="screen">
+    <div class="card">
+      <div class="badge">OPERATION</div>
+
+      <div class="logoWrap">
+        <img src="logo.png" alt="Dollar Exchange Office">
+      </div>
+
+      <h1 class="title">إضافة العملية</h1>
+      <p class="subtitle">اختر (لكم/لنا) وأدخل المبلغ والعملة</p>
+
+      <div class="form">
+        <div class="field">
+          <div class="label">الجهة</div>
+          <div class="choiceRow">
+            <label class="choice">
+              <input type="radio" name="opSide" value="لكم" checked>
+              <span>لكم</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="opSide" value="لنا">
+              <span>لنا</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="label">المبلغ</div>
+          <input id="opAmount" type="text" inputmode="decimal" placeholder="مثال: 250" />
+        </div>
+
+        <div class="field">
+          <div class="label">العملة</div>
+          <input id="opCurrency" type="text" placeholder="مثال: USD / ILS / EUR" />
+        </div>
+
+        <button id="btnOpPrint" class="btnPrimary">طباعة</button>
+        <button class="btnGhost" onclick="go('home')" type="button">رجوع للقائمة</button>
+        <div id="opErrBox" class="err"></div>
+
+        <div class="smallMuted">رقم العملية يبدأ من 011009 ويزيد تلقائيًا ✅</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- NEW: Operation Result (Copy only) -->
+  <main id="opResult" class="screen">
+    <div class="card wide">
+      <div class="topRow">
+        <h2 class="sectionTitle">طباعة العملية</h2>
+        <div class="actions">
+          <button id="btnOpCopy" class="btnGhost">نسخ</button>
+          <button class="btnGhost" onclick="go('addOp')">رجوع</button>
+          <button class="btnGhost" onclick="go('home')">القائمة</button>
+        </div>
+      </div>
+
+      <pre id="opOut" class="message" aria-live="polite"></pre>
+      <div class="smallMuted">زر النسخ فقط كما طلبتي ✅</div>
     </div>
   </main>
 
@@ -481,42 +512,16 @@
     (() => {
       "use strict";
       const $ = (id) => document.getElementById(id);
-      const screens = ["home","wa","ig","offers","match","result"];
+      const screens = ["home","wa","ig","offers","addOp","opResult","match","result"];
+
       window.go = (id) => {
         screens.forEach(s => $(s).classList.remove("active"));
         $(id).classList.add("active");
       };
 
-      const inpName = $("inpName");
-      const inpCurrency = $("inpCurrency");
-      const inpAmount = $("inpAmount");
-      const btnMatch = $("btnMatch");
-      const errBox = $("errBox");
-
-      const msgBox = $("messageBox");
-      const btnCopy = $("btnCopy");
-      const btnWhats = $("btnWhats");
-      let timer = null;
-
-      function showError(msg){
-        errBox.textContent = msg;
-        errBox.classList.add("show");
-      }
-      function clearError(){
-        errBox.textContent = "";
-        errBox.classList.remove("show");
-      }
-
-      function sanitizeText(s){
-        return String(s ?? "").replace(/\s+/g, " ").trim();
-      }
-      function amountNormalize(s){
-        const raw = String(s ?? "").trim();
-        const cleaned = raw.replace(/[^\d.,]/g, "");
-        return cleaned || "";
-      }
-
-      // GMT+2 ثابت (حل نهائي للـ day/month)
+      // ======================
+      // FIXED GMT+2 date/time
+      // ======================
       const dtf = new Intl.DateTimeFormat("en-GB", {
         timeZone: "Etc/GMT-2",
         year: "numeric", month: "2-digit", day: "2-digit",
@@ -532,7 +537,38 @@
         return `${dd}/${mm}/${yyyy} ${hh}:${mi}:${ss}`;
       }
 
-      function buildMessage(name, currency, amount, side){
+      // ======================
+      // MATCH (existing)
+      // ======================
+      const inpName = $("inpName");
+      const inpCurrency = $("inpCurrency");
+      const inpAmount = $("inpAmount");
+      const btnMatch = $("btnMatch");
+      const errBox = $("errBox");
+
+      const msgBox = $("messageBox");
+      const btnCopy = $("btnCopy");
+      const btnWhats = $("btnWhats");
+      let matchTimer = null;
+
+      function showError(el, msg){
+        el.textContent = msg;
+        el.classList.add("show");
+      }
+      function clearError(el){
+        el.textContent = "";
+        el.classList.remove("show");
+      }
+      function sanitizeText(s){
+        return String(s ?? "").replace(/\s+/g, " ").trim();
+      }
+      function amountNormalize(s){
+        const raw = String(s ?? "").trim();
+        const cleaned = raw.replace(/[^\d.,]/g, "");
+        return cleaned || "";
+      }
+
+      function buildMatchMessage(name, currency, amount, side){
         const dt = formatGMT2();
         return `✅ الـــســـلام عــــليكــم ✅
 
@@ -553,33 +589,34 @@ Al-Dollar Exchange Office
 *ملاحظة : يرجى التأكيد على صحة المطابقة* `;
       }
 
-      function renderMessage(name, currency, amount, side){
-        msgBox.textContent = buildMessage(name, currency, amount, side);
+      function renderMatch(name, currency, amount, side){
+        msgBox.textContent = buildMatchMessage(name, currency, amount, side);
       }
 
-      function startResult(name, currency, amount, side){
+      function startMatchResult(name, currency, amount, side){
         go("result");
-        renderMessage(name, currency, amount, side);
-        if (timer) clearInterval(timer);
-        timer = setInterval(() => renderMessage(name, currency, amount, side), 1000);
+        renderMatch(name, currency, amount, side);
+        if (matchTimer) clearInterval(matchTimer);
+        matchTimer = setInterval(() => renderMatch(name, currency, amount, side), 1000);
       }
 
-      btnMatch.addEventListener("click", () => {
-        clearError();
-        const name = sanitizeText(inpName.value);
-        const currency = sanitizeText(inpCurrency.value);
-        const amount = amountNormalize(inpAmount.value);
-        const side = document.querySelector('input[name="side"]:checked')?.value || "لكم";
+      if (btnMatch){
+        btnMatch.addEventListener("click", () => {
+          clearError(errBox);
+          const name = sanitizeText(inpName.value);
+          const currency = sanitizeText(inpCurrency.value);
+          const amount = amountNormalize(inpAmount.value);
+          const side = document.querySelector('input[name="side"]:checked')?.value || "لكم";
 
-        if (!name) return showError("اكتب الاسم لو سمحت.");
-        if (!currency) return showError("اكتب العملة لو سمحت (مثال: USD).");
-        if (!amount) return showError("اكتب المبلغ لو سمحت.");
+          if (!name) return showError(errBox, "اكتب الاسم لو سمحت.");
+          if (!currency) return showError(errBox, "اكتب العملة لو سمحت (مثال: USD).");
+          if (!amount) return showError(errBox, "اكتب المبلغ لو سمحت.");
 
-        startResult(name, currency, amount, side);
-      });
+          startMatchResult(name, currency, amount, side);
+        });
+      }
 
-      async function copyMessage(){
-        const txt = msgBox.textContent || "";
+      async function copyText(txt){
         try{ await navigator.clipboard.writeText(txt); }
         catch{
           const ta = document.createElement("textarea");
@@ -587,17 +624,84 @@ Al-Dollar Exchange Office
           ta.select(); document.execCommand("copy");
           document.body.removeChild(ta);
         }
-        btnCopy.textContent = "تم ✅";
-        setTimeout(()=> btnCopy.textContent="نسخ", 1200);
       }
 
-      function shareWhatsApp(){
-        const txt = msgBox.textContent || "";
-        window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener,noreferrer");
+      if (btnCopy){
+        btnCopy.addEventListener("click", async () => {
+          await copyText(msgBox.textContent || "");
+          btnCopy.textContent = "تم ✅";
+          setTimeout(()=> btnCopy.textContent="نسخ", 1200);
+        });
       }
 
-      btnCopy.addEventListener("click", copyMessage);
-      btnWhats.addEventListener("click", shareWhatsApp);
+      if (btnWhats){
+        btnWhats.addEventListener("click", () => {
+          const txt = msgBox.textContent || "";
+          window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener,noreferrer");
+        });
+      }
+
+      // ======================
+      // NEW: ADD OPERATION
+      // ======================
+      const OP_KEY = "al_dollar_op_counter";
+      const OP_START = 11009; // 011009
+
+      function getOpCounter(){
+        const v = Number(localStorage.getItem(OP_KEY));
+        if (!Number.isFinite(v) || v <= 0){
+          localStorage.setItem(OP_KEY, String(OP_START));
+          return OP_START;
+        }
+        return v;
+      }
+
+      function nextOpNumber(){
+        const current = getOpCounter();
+        const next = current + 1;
+        localStorage.setItem(OP_KEY, String(next));
+        return current; // نرجّع الحالي لطباعته
+      }
+
+      function pad6(n){
+        return String(n).padStart(6, "0");
+      }
+
+      const opAmount = $("opAmount");
+      const opCurrency = $("opCurrency");
+      const btnOpPrint = $("btnOpPrint");
+      const opErrBox = $("opErrBox");
+      const opOut = $("opOut");
+      const btnOpCopy = $("btnOpCopy");
+
+      function buildOpText(side, amount, currency, opNo){
+        return `${side} ${amount} ${currency}\nتم اضافة العملية برقم ${pad6(opNo)}`;
+      }
+
+      if (btnOpPrint){
+        btnOpPrint.addEventListener("click", () => {
+          clearError(opErrBox);
+
+          const side = document.querySelector('input[name="opSide"]:checked')?.value || "لكم";
+          const amount = amountNormalize(opAmount.value);
+          const currency = sanitizeText(opCurrency.value);
+
+          if (!amount) return showError(opErrBox, "اكتب المبلغ لو سمحت.");
+          if (!currency) return showError(opErrBox, "اكتب العملة لو سمحت (مثال: USD).");
+
+          const opNo = nextOpNumber(); // يبدأ من 011009
+          opOut.textContent = buildOpText(side, amount, currency, opNo);
+          go("opResult");
+        });
+      }
+
+      if (btnOpCopy){
+        btnOpCopy.addEventListener("click", async () => {
+          await copyText(opOut.textContent || "");
+          btnOpCopy.textContent = "تم ✅";
+          setTimeout(()=> btnOpCopy.textContent="نسخ", 1200);
+        });
+      }
     })();
   </script>
 </body>
