@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AL-DOLLAR OFFICE</title>
 
-  <!-- PWA / Icons (تشتغل إذا رفعت الملفات) -->
+  <!-- Icons (إذا ملفاتك مرفوعة) -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#070a12">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -23,7 +23,6 @@
       --gold2: rgba(255,255,255,0.95);
       --aqua: rgba(110,231,255,0.22);
     }
-
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
@@ -38,8 +37,7 @@
       place-items:center;
       padding: 18px;
     }
-
-    .screen{ display:none; width:min(920px, 95vw); }
+    .screen{ display:none; width:min(980px, 95vw); }
     .screen.active{ display:block; }
 
     .card{
@@ -84,7 +82,7 @@
 
     .title{
       margin: 10px 0 6px;
-      font-size: 42px;
+      font-size: 40px;
       line-height: 1.05;
       letter-spacing: 0.6px;
       background: linear-gradient(90deg, var(--gold1), var(--gold2));
@@ -92,16 +90,98 @@
       background-clip: text;
       color: transparent;
       text-transform: uppercase;
+      text-align:center;
     }
     .subtitle{
-      margin: 0 0 18px;
+      margin: 0 0 16px;
       color: var(--muted);
       font-size: 14px;
+      text-align:center;
     }
-    .hint{
-      margin: 14px 0 0;
-      color: var(--muted);
+
+    .menu{
+      margin-top: 14px;
+      display:grid;
+      gap: 12px;
+    }
+
+    .btnPrimary{
+      cursor:pointer;
+      width:100%;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: linear-gradient(90deg, rgba(255,215,0,0.38), var(--aqua));
+      color: var(--text);
+      font-weight: 900;
+      font-size: 15px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+    }
+
+    .btnGhost{
+      cursor:pointer;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-weight: 800;
+      font-size: 13px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      white-space: nowrap;
+    }
+
+    .topRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .sectionTitle{
+      margin:0;
+      font-size: 18px;
+    }
+
+    .list{
+      display:grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .itemBtn{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,0.22);
+      color: var(--text);
+      text-decoration:none;
+      font-weight: 900;
+    }
+
+    .pill{
       font-size: 12px;
+      color: var(--muted);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.05);
+      white-space: nowrap;
     }
 
     .form{
@@ -112,7 +192,6 @@
     }
     .field{ display:grid; gap: 6px; }
     .label{ color: var(--muted); font-size: 13px; padding-right: 4px; }
-
     input{
       width:100%;
       padding: 12px 12px;
@@ -145,45 +224,6 @@
       background: rgba(0,0,0,0.18);
     }
     .choice input{ width:auto; padding:0; }
-
-    .btnPrimary{
-      cursor:pointer;
-      width:100%;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: linear-gradient(90deg, rgba(255,215,0,0.38), var(--aqua));
-      color: var(--text);
-      font-weight: 900;
-      font-size: 15px;
-      padding: 12px 18px;
-      border-radius: 16px;
-      box-shadow: 0 14px 30px rgba(0,0,0,0.25);
-    }
-
-    .topRow{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-      margin-bottom: 14px;
-    }
-    .resultTitle{ margin:0; font-size: 18px; }
-
-    .actions{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .btnGhost{
-      cursor:pointer;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.05);
-      color: var(--text);
-      font-weight: 800;
-      font-size: 13px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      white-space: nowrap;
-    }
 
     .message{
       margin: 0;
@@ -219,6 +259,13 @@
     }
     .err.show{ display:block; }
 
+    .offers{
+      color: var(--text);
+      line-height: 1.95;
+      font-size: 14px;
+    }
+    .offers .muted{ color: var(--muted); }
+
     @media (max-width: 480px){
       .title{ font-size: 34px; }
       .logoWrap{ width:min(360px, 92%); }
@@ -228,19 +275,121 @@
 
 <body>
 
-  <!-- Screen 1 -->
-  <main id="screenWelcome" class="screen active">
+  <!-- HOME -->
+  <main id="home" class="screen active">
     <div class="card">
-      <div class="badge">WELCOME</div>
+      <div class="badge">AL-DOLLAR</div>
 
       <div class="logoWrap">
         <img src="logo.png" alt="Dollar Exchange Office">
       </div>
 
       <h1 class="title">AL-DOLLAR OFFICE</h1>
+      <p class="subtitle">اختر الخدمة المطلوبة</p>
+
+      <div class="menu">
+        <button class="btnPrimary" onclick="go('wa')">🟢 حساباتنا في واتساب</button>
+        <button class="btnPrimary" onclick="go('ig')">📸 حساباتنا في انستقرام</button>
+        <button class="btnPrimary" onclick="go('offers')">✨ عروضنا</button>
+        <button class="btnPrimary" onclick="go('match')">🧾 طباعة مطابقة</button>
+      </div>
+
+      <div class="smallMuted">الوقت والتاريخ في المطابقة مضبوطين على GMT+2 ✅</div>
+    </div>
+  </main>
+
+  <!-- WhatsApp -->
+  <main id="wa" class="screen">
+    <div class="card wide">
+      <div class="topRow">
+        <h2 class="sectionTitle">حساباتنا في واتساب</h2>
+        <div class="actions">
+          <button class="btnGhost" onclick="go('home')">رجوع</button>
+        </div>
+      </div>
+
+      <div class="list">
+        <a class="itemBtn" href="https://wa.me/972595172007?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B" target="_blank" rel="noopener">
+          <span>عماد زعرب</span>
+          <span class="pill">WhatsApp</span>
+        </a>
+
+        <a class="itemBtn" href="https://wa.me/972567490629?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B" target="_blank" rel="noopener">
+          <span>منة قديح</span>
+          <span class="pill">WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Instagram -->
+  <main id="ig" class="screen">
+    <div class="card wide">
+      <div class="topRow">
+        <h2 class="sectionTitle">حساباتنا في انستقرام</h2>
+        <div class="actions">
+          <button class="btnGhost" onclick="go('home')">رجوع</button>
+        </div>
+      </div>
+
+      <div class="list">
+        <a class="itemBtn" href="https://www.instagram.com/emad_dollar?igsh=MXRydGc3YmFwYXNjbQ==" target="_blank" rel="noopener">
+          <span>عماد زعرب</span>
+          <span class="pill">Instagram</span>
+        </a>
+
+        <a class="itemBtn" href="https://www.instagram.com/menna.qudeih?igsh=MWI0cWw4a3BxYjdvaA==" target="_blank" rel="noopener">
+          <span>منة قديح</span>
+          <span class="pill">Instagram</span>
+        </a>
+
+        <a class="itemBtn" href="https://www.instagram.com/menna.qudeih?igsh=MWI0cWw4a3BxYjdvaA==" target="_blank" rel="noopener">
+          <span>صفحة المكتب</span>
+          <span class="pill">Instagram</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Offers -->
+  <main id="offers" class="screen">
+    <div class="card wide">
+      <div class="topRow">
+        <h2 class="sectionTitle">عروضنا وخدماتنا</h2>
+        <div class="actions">
+          <button class="btnGhost" onclick="go('home')">رجوع</button>
+        </div>
+      </div>
+
+      <div class="offers">
+        <div class="muted">✨ AL-DOLLAR OFFICE ✨</div>
+        نستقبل حوالاتكم من **جميع دول العالم بدون استثناء** وبسرعة وأمان.<br/>
+        خدماتنا تشمل:
+        <br/>• حوالات داخلية وخارجية
+        <br/>• صرف عملات بأسعار منافسة
+        <br/>• متابعة فورية عبر واتساب
+        <br/><br/>
+        <div class="muted">🕘 ساعات العمل</div>
+        من **السبت إلى الجمعة** — **على مدار الساعة (24/7)** ✅
+        <br/><br/>
+        <div class="smallMuted">للاستفسار السريع: ادخل على “حساباتنا في واتساب” وتواصل معنا مباشرة.</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Match -->
+  <main id="match" class="screen">
+    <div class="card">
+      <div class="badge">MATCH</div>
+
+      <div class="logoWrap">
+        <img src="logo.png" alt="Dollar Exchange Office">
+      </div>
+
+      <h1 class="title">طباعة مطابقة</h1>
       <p class="subtitle">اكتب البيانات ثم اضغط مطابقة</p>
 
-      <div class="form" role="form" aria-label="بيانات المطابقة">
+      <div class="form">
         <div class="field">
           <div class="label">الاسم</div>
           <input id="inpName" type="text" placeholder="مثال: أحمد محمد" autocomplete="name" />
@@ -271,22 +420,24 @@
         </div>
 
         <button id="btnMatch" class="btnPrimary">مطابقة</button>
+        <button class="btnGhost" onclick="go('home')" type="button">رجوع للقائمة</button>
         <div id="errBox" class="err"></div>
 
-        <p class="hint">التاريخ والوقت داخل الرسالة يتحدثان حسب توقيت جرينتش +2</p>
+        <div class="smallMuted">التاريخ والوقت مضبوطين على GMT+2 ✅</div>
       </div>
     </div>
   </main>
 
-  <!-- Screen 2 -->
-  <main id="screenResult" class="screen">
+  <!-- Result -->
+  <main id="result" class="screen">
     <div class="card wide">
       <div class="topRow">
-        <h2 class="resultTitle">نتيجة المطابقة</h2>
+        <h2 class="sectionTitle">نتيجة المطابقة</h2>
         <div class="actions">
           <button id="btnCopy" class="btnGhost">نسخ</button>
           <button id="btnWhats" class="btnGhost">مشاركة واتساب</button>
-          <button id="btnBack" class="btnGhost">رجوع</button>
+          <button class="btnGhost" onclick="go('match')">رجوع</button>
+          <button class="btnGhost" onclick="go('home')">القائمة</button>
         </div>
       </div>
 
@@ -299,52 +450,24 @@
     (() => {
       "use strict";
       const $ = (id) => document.getElementById(id);
+      const screens = ["home","wa","ig","offers","match","result"];
 
-      const screenWelcome = $("screenWelcome");
-      const screenResult  = $("screenResult");
+      window.go = (id) => {
+        screens.forEach(s => $(s).classList.remove("active"));
+        $(id).classList.add("active");
+      };
 
-      const inpName     = $("inpName");
+      const inpName = $("inpName");
       const inpCurrency = $("inpCurrency");
-      const inpAmount   = $("inpAmount");
-
+      const inpAmount = $("inpAmount");
       const btnMatch = $("btnMatch");
-      const btnBack  = $("btnBack");
-      const btnCopy  = $("btnCopy");
-      const btnWhats = $("btnWhats");
-
-      const messageBox = $("messageBox");
       const errBox = $("errBox");
 
+      const msgBox = $("messageBox");
+      const btnCopy = $("btnCopy");
+      const btnWhats = $("btnWhats");
+
       let timer = null;
-
-      // GMT+2 ثابت
-      function nowGMTPlus2() {
-        const now = new Date();
-        const utcMs = now.getTime() + (now.getTimezoneOffset() * 60000);
-        return new Date(utcMs + (2 * 60 * 60 * 60000));
-      }
-
-      function pad2(n){ return String(n).padStart(2,"0"); }
-
-      function formatDDMMYYYY_HHMMSS(d){
-        const dd = pad2(d.getDate());
-        const mm = pad2(d.getMonth() + 1);
-        const yyyy = d.getFullYear();
-        const hh = pad2(d.getHours());
-        const mi = pad2(d.getMinutes());
-        const ss = pad2(d.getSeconds());
-        return `${dd}/${mm}/${yyyy} ${hh}:${mi}:${ss}`;
-      }
-
-      function sanitizeText(s){
-        return String(s ?? "").replace(/\s+/g, " ").trim();
-      }
-
-      function amountNormalize(s){
-        const raw = String(s ?? "").trim();
-        const cleaned = raw.replace(/[^\d.,]/g, "");
-        return cleaned || "";
-      }
 
       function showError(msg){
         errBox.textContent = msg;
@@ -355,9 +478,34 @@
         errBox.classList.remove("show");
       }
 
-      function buildMessage(name, currency, amount, side){
-        const dt = formatDDMMYYYY_HHMMSS(nowGMTPlus2());
+      function sanitizeText(s){
+        return String(s ?? "").replace(/\s+/g, " ").trim();
+      }
+      function amountNormalize(s){
+        const raw = String(s ?? "").trim();
+        const cleaned = raw.replace(/[^\d.,]/g, "");
+        return cleaned || "";
+      }
 
+      // ✅ حل نهائي لمشكلة اليوم/الشهر: نستخدم Intl مع timezone ثابت GMT+2
+      const dtf = new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Etc/GMT-2",
+        year: "numeric", month: "2-digit", day: "2-digit",
+        hour: "2-digit", minute: "2-digit", second: "2-digit",
+        hour12: false
+      });
+
+      function formatGMT2(){
+        // en-GB يعطينا: DD/MM/YYYY, HH:MM:SS
+        const parts = dtf.formatToParts(new Date());
+        const get = (t) => parts.find(p => p.type === t)?.value || "";
+        const dd = get("day"), mm = get("month"), yyyy = get("year");
+        const hh = get("hour"), mi = get("minute"), ss = get("second");
+        return `${dd}/${mm}/${yyyy} ${hh}:${mi}:${ss}`;
+      }
+
+      function buildMessage(name, currency, amount, side){
+        const dt = formatGMT2();
         return `✅ الـــســـلام عــــليكــم ✅
 
      ..........*مـكـتـب الـدولار*..........
@@ -377,15 +525,19 @@ Al-Dollar Exchange Office
 *ملاحظة : يرجى التأكيد على صحة المطابقة* `;
       }
 
-      function showWelcome(){
-        screenResult.classList.remove("active");
-        screenWelcome.classList.add("active");
-        if (timer){ clearInterval(timer); timer = null; }
+      function renderMessage(name, currency, amount, side){
+        msgBox.textContent = buildMessage(name, currency, amount, side);
       }
 
-      function showResult(){
-        clearError();
+      function startResult(name, currency, amount, side){
+        go("result");
+        renderMessage(name, currency, amount, side);
+        if (timer) clearInterval(timer);
+        timer = setInterval(() => renderMessage(name, currency, amount, side), 1000);
+      }
 
+      btnMatch.addEventListener("click", () => {
+        clearError();
         const name = sanitizeText(inpName.value);
         const currency = sanitizeText(inpCurrency.value);
         const amount = amountNormalize(inpAmount.value);
@@ -395,54 +547,30 @@ Al-Dollar Exchange Office
         if (!currency) return showError("اكتب العملة لو سمحت (مثال: USD).");
         if (!amount) return showError("اكتب المبلغ لو سمحت.");
 
-        screenWelcome.classList.remove("active");
-        screenResult.classList.add("active");
-
-        const render = () => {
-          messageBox.textContent = buildMessage(name, currency, amount, side);
-        };
-
-        render();
-        if (timer) clearInterval(timer);
-        timer = setInterval(render, 1000);
-      }
+        startResult(name, currency, amount, side);
+      });
 
       async function copyMessage(){
-        const txt = messageBox.textContent || "";
-        try{
-          await navigator.clipboard.writeText(txt);
-        }catch{
+        const txt = msgBox.textContent || "";
+        try{ await navigator.clipboard.writeText(txt); }
+        catch{
           const ta = document.createElement("textarea");
-          ta.value = txt;
-          document.body.appendChild(ta);
-          ta.select();
-          document.execCommand("copy");
+          ta.value = txt; document.body.appendChild(ta);
+          ta.select(); document.execCommand("copy");
           document.body.removeChild(ta);
         }
         btnCopy.textContent = "تم ✅";
-        setTimeout(() => (btnCopy.textContent = "نسخ"), 1200);
+        setTimeout(()=> btnCopy.textContent="نسخ", 1200);
       }
 
       function shareWhatsApp(){
-        const txt = messageBox.textContent || "";
-        const url = "https://wa.me/?text=" + encodeURIComponent(txt);
-        window.open(url, "_blank", "noopener,noreferrer");
+        const txt = msgBox.textContent || "";
+        window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener,noreferrer");
       }
 
-      btnMatch.addEventListener("click", showResult);
-      btnBack.addEventListener("click", showWelcome);
       btnCopy.addEventListener("click", copyMessage);
       btnWhats.addEventListener("click", shareWhatsApp);
-
-      [inpName, inpCurrency, inpAmount].forEach((inp) => {
-        inp.addEventListener("keydown", (e) => {
-          if (e.key === "Enter") showResult();
-        });
-      });
-
-      showWelcome();
     })();
   </script>
-
 </body>
 </html>
