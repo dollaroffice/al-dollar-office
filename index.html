@@ -5,13 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AL-DOLLAR OFFICE</title>
 
-  <!-- PWA / Icons (إذا ملفاتك مرفوعة) -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#070a12">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
   <style>
     :root{
       --bg1:#070a12; --bg2:#0b1226;
@@ -37,6 +30,7 @@
       place-items:center;
       padding: 18px;
     }
+
     .screen{ display:none; width:min(980px, 95vw); }
     .screen.active{ display:block; }
 
@@ -238,27 +232,36 @@
 
     .offers{ color: var(--text); line-height: 1.95; font-size: 14px; }
     .offers .muted{ color: var(--muted); }
-
-    @media (max-width: 480px){
-      .title{ font-size: 34px; }
-      .logoWrap{ width:min(360px, 92%); }
-    }
   </style>
 </head>
 
 <body>
 
-  <!-- HOME -->
-  <main id="home" class="screen active">
+  <!-- START -->
+  <main id="start" class="screen active">
     <div class="card">
-      <div class="badge">AL-DOLLAR</div>
+      <div class="badge">WELCOME</div>
 
       <div class="logoWrap">
         <img src="logo.png" alt="Dollar Exchange Office">
       </div>
 
       <h1 class="title">AL-DOLLAR OFFICE</h1>
-      <p class="subtitle">اختر الخدمة المطلوبة</p>
+      <p class="subtitle">مرحباً بكم — اختر نوع الدخول</p>
+
+      <div class="menu">
+        <button class="btnPrimary" onclick="go('visitor')">زائر</button>
+        <button class="btnPrimary" onclick="go('adminLogin')">المدير</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- VISITOR HOME -->
+  <main id="visitor" class="screen">
+    <div class="card">
+      <div class="badge">VISITOR</div>
+      <h1 class="title" style="font-size:32px">واجهة الزائر</h1>
+      <p class="subtitle">تواصل معنا أو شاهد عروضنا</p>
 
       <div class="menu">
         <button class="btnPrimary" onclick="go('wa')">
@@ -267,7 +270,7 @@
               <path d="M16 2.7c-7.4 0-13.3 5.9-13.3 13.3 0 2.3.6 4.6 1.8 6.6L2 30l7.6-2.4c2 .9 4.2 1.4 6.4 1.4 7.4 0 13.3-5.9 13.3-13.3S23.4 2.7 16 2.7zm0 24.2c-2 0-3.9-.5-5.6-1.4l-.4-.2-4.5 1.4 1.4-4.4-.2-.4c-1-1.8-1.6-3.9-1.6-6 0-6.2 5-11.2 11.2-11.2s11.2 5 11.2 11.2-5 11.2-11.2 11.2z"/>
             </svg>
           </span>
-          حساباتنا في واتساب
+          واتساب
         </button>
 
         <button class="btnPrimary" onclick="go('ig')">
@@ -280,23 +283,60 @@
                   <stop offset="100%" stop-color="#515bd4"/>
                 </linearGradient>
               </defs>
-              <path fill="url(#igGrad)" d="M16 7.3c2.8 0 3.1 0 4.2.1 1 .1 1.6.2 2 .4.5.2.8.4 1.2.8.4.4.6.7.8 1.2.2.4.3 1 .4 2 .1 1.1.1 1.4.1 4.2s0 3.1-.1 4.2c-.1 1-.2 1.6-.4 2-.2.5-.4.8-.8 1.2-.4.4-.7.6-1.2.8-.4.2-1 .3-2 .4-1.1.1-1.4.1-4.2.1s-3.1 0-4.2-.1c-1-.1-1.6-.2-2-.4-.5-.2-.8-.4-1.2-.8-.4-.4-.6-.7-.8-1.2-.2-.4-.3-1-.4-2-.1-1.1-.1-1.4-.1-4.2s0-3.1.1-4.2c.1-1 .2-1.6.4-2 .2-.5.4-.8.8-1.2.4-.4.7-.6 1.2-.8.4-.2 1-.3 2-.4 1.1-.1 1.4-.1 4.2-.1zm0-1.8c-2.9 0-3.2 0-4.3.1-1.2.1-2 .3-2.7.6-.7.3-1.3.7-1.9 1.3-.6.6-1 1.2-1.3 1.9-.3.7-.5 1.5-.6 2.7-.1 1.1-.1 1.4-.1 4.3s0 3.2.1 4.3c.1 1.2.3 2 .6 2.7.3.7.7 1.3 1.3 1.9.6.6 1.2 1 1.9 1.3.7.3 1.5.5 2.7.6 1.1.1 1.4.1 4.3.1s3.2 0 4.3-.1c1.2-.1 2-.3 2.7-.6.7-.3 1.3-.7 1.9-1.3.6-.6 1-1.2 1.3-1.9.3-.7.5-1.5.6-2.7.1-1.1.1-1.4.1-4.3s0-3.2-.1-4.3c-.1-1.2-.3-2-.6-2.7-.3-.7-.7-.3-1.3-1.9-.6-.6-1.2-1-1.9-1.3-.7-.3-1.5-.5-2.7-.6-1.1-.1-1.4-.1-4.3-.1z"/>
+              <path fill="url(#igGrad)" d="M16 7.3c2.8 0 3.1 0 4.2.1 1 .1 1.6.2 2 .4.5.2.8.4 1.2.8.4.4.6.7.8 1.2.2.4.3 1 .4 2 .1 1.1.1 1.4.1 4.2s0 3.1-.1 4.2c-.1 1-.2 1.6-.4 2-.2.5-.4.8-.8 1.2-.4.4-.7.6-1.2.8-.4.2-1 .3-2 .4-1.1.1-1.4.1-4.2.1s-3.1 0-4.2-.1c-1-.1-1.6-.2-2-.4-.5-.2-.8-.4-1.2-.8-.4-.4-.6-.7-.8-1.2-.2-.4-.3-1-.4-2-.1-1.1-.1-1.4-.1-4.2s0-3.1.1-4.2c.1-1 .2-1.6.4-2 .2-.5.4-.8.8-1.2.4-.4.7-.6 1.2-.8.4-.2 1-.3 2-.4 1.1-.1 1.4-.1 4.2-.1z"/>
               <circle cx="16" cy="16" r="4.1" fill="white"/>
               <circle cx="23.5" cy="8.5" r="1" fill="white"/>
             </svg>
           </span>
-          حساباتنا في انستقرام
+          إنستقرام
         </button>
 
         <button class="btnPrimary" onclick="go('offers')">عروضنا</button>
 
-        <!-- NEW: إضافة العملية -->
-        <button class="btnPrimary" onclick="go('addOp')">إضافة العملية</button>
-
-        <button class="btnPrimary" onclick="go('match')">طباعة مطابقة</button>
+        <button class="btnGhost" onclick="go('start')" type="button">رجوع</button>
       </div>
+    </div>
+  </main>
 
-      <div class="smallMuted">الوقت والتاريخ في المطابقة مضبوطين على GMT+2 ✅</div>
+  <!-- ADMIN LOGIN -->
+  <main id="adminLogin" class="screen">
+    <div class="card">
+      <div class="badge">ADMIN</div>
+      <h1 class="title" style="font-size:32px">تسجيل دخول المدير</h1>
+      <p class="subtitle">أدخل اسم المستخدم وكلمة المرور</p>
+
+      <div class="form">
+        <div class="field">
+          <div class="label">اسم المستخدم</div>
+          <input id="adminUser" type="text" placeholder="Username" autocomplete="username">
+        </div>
+
+        <div class="field">
+          <div class="label">كلمة المرور</div>
+          <input id="adminPass" type="password" placeholder="Password" autocomplete="current-password">
+        </div>
+
+        <button id="btnAdminLogin" class="btnPrimary">دخول</button>
+        <button class="btnGhost" onclick="go('start')" type="button">رجوع</button>
+        <div id="adminErr" class="err"></div>
+
+        <div class="smallMuted">ملاحظة: حماية دخول داخلية (بدون سيرفر).</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ADMIN PANEL -->
+  <main id="adminPanel" class="screen">
+    <div class="card">
+      <div class="badge">ADMIN PANEL</div>
+      <h1 class="title" style="font-size:32px">لوحة المدير</h1>
+      <p class="subtitle">اختر العملية المطلوبة</p>
+
+      <div class="menu">
+        <button class="btnPrimary" onclick="requireAdminThen('addOp')">إضافة العملية</button>
+        <button class="btnPrimary" onclick="requireAdminThen('match')">طباعة مطابقة</button>
+        <button id="btnLogout" class="btnGhost" type="button">تسجيل خروج</button>
+      </div>
     </div>
   </main>
 
@@ -306,7 +346,7 @@
       <div class="topRow">
         <h2 class="sectionTitle">حساباتنا في واتساب</h2>
         <div class="actions">
-          <button class="btnGhost" onclick="go('home')">رجوع</button>
+          <button class="btnGhost" onclick="go('visitor')">رجوع</button>
         </div>
       </div>
 
@@ -330,7 +370,7 @@
       <div class="topRow">
         <h2 class="sectionTitle">حساباتنا في انستقرام</h2>
         <div class="actions">
-          <button class="btnGhost" onclick="go('home')">رجوع</button>
+          <button class="btnGhost" onclick="go('visitor')">رجوع</button>
         </div>
       </div>
 
@@ -359,7 +399,7 @@
       <div class="topRow">
         <h2 class="sectionTitle">عروضنا وخدماتنا</h2>
         <div class="actions">
-          <button class="btnGhost" onclick="go('home')">رجوع</button>
+          <button class="btnGhost" onclick="go('visitor')">رجوع</button>
         </div>
       </div>
 
@@ -376,16 +416,11 @@
     </div>
   </main>
 
-  <!-- NEW: Add Operation -->
+  <!-- Add Operation (Admin only) -->
   <main id="addOp" class="screen">
     <div class="card">
       <div class="badge">OPERATION</div>
-
-      <div class="logoWrap">
-        <img src="logo.png" alt="Dollar Exchange Office">
-      </div>
-
-      <h1 class="title">إضافة العملية</h1>
+      <h1 class="title" style="font-size:32px">إضافة العملية</h1>
       <p class="subtitle">اختر (لكم/لنا) وأدخل المبلغ والعملة</p>
 
       <div class="form">
@@ -414,7 +449,7 @@
         </div>
 
         <button id="btnOpPrint" class="btnPrimary">طباعة</button>
-        <button class="btnGhost" onclick="go('home')" type="button">رجوع للقائمة</button>
+        <button class="btnGhost" onclick="go('adminPanel')" type="button">رجوع للوحة المدير</button>
         <div id="opErrBox" class="err"></div>
 
         <div class="smallMuted">رقم العملية يبدأ من 011009 ويزيد تلقائيًا ✅</div>
@@ -422,7 +457,7 @@
     </div>
   </main>
 
-  <!-- NEW: Operation Result (Copy only) -->
+  <!-- Operation Result (Admin only) -->
   <main id="opResult" class="screen">
     <div class="card wide">
       <div class="topRow">
@@ -430,25 +465,20 @@
         <div class="actions">
           <button id="btnOpCopy" class="btnGhost">نسخ</button>
           <button class="btnGhost" onclick="go('addOp')">رجوع</button>
-          <button class="btnGhost" onclick="go('home')">القائمة</button>
+          <button class="btnGhost" onclick="go('adminPanel')">لوحة المدير</button>
         </div>
       </div>
 
-      <pre id="opOut" class="message" aria-live="polite"></pre>
-      <div class="smallMuted">زر النسخ فقط كما طلبتي ✅</div>
+      <pre id="opOut" class="message"></pre>
+      <div class="smallMuted">نسخ فقط ✅</div>
     </div>
   </main>
 
-  <!-- Match -->
+  <!-- Match (Admin only) -->
   <main id="match" class="screen">
     <div class="card">
       <div class="badge">MATCH</div>
-
-      <div class="logoWrap">
-        <img src="logo.png" alt="Dollar Exchange Office">
-      </div>
-
-      <h1 class="title">طباعة مطابقة</h1>
+      <h1 class="title" style="font-size:32px">طباعة مطابقة</h1>
       <p class="subtitle">اكتب البيانات ثم اضغط مطابقة</p>
 
       <div class="form">
@@ -482,15 +512,13 @@
         </div>
 
         <button id="btnMatch" class="btnPrimary">مطابقة</button>
-        <button class="btnGhost" onclick="go('home')" type="button">رجوع للقائمة</button>
+        <button class="btnGhost" onclick="go('adminPanel')" type="button">رجوع للوحة المدير</button>
         <div id="errBox" class="err"></div>
-
-        <div class="smallMuted">التاريخ والوقت مضبوطين على GMT+2 ✅</div>
       </div>
     </div>
   </main>
 
-  <!-- Result -->
+  <!-- Match Result -->
   <main id="result" class="screen">
     <div class="card wide">
       <div class="topRow">
@@ -499,12 +527,12 @@
           <button id="btnCopy" class="btnGhost">نسخ</button>
           <button id="btnWhats" class="btnGhost">مشاركة واتساب</button>
           <button class="btnGhost" onclick="go('match')">رجوع</button>
-          <button class="btnGhost" onclick="go('home')">القائمة</button>
+          <button class="btnGhost" onclick="go('adminPanel')">لوحة المدير</button>
         </div>
       </div>
 
-      <pre id="messageBox" class="message" aria-live="polite"></pre>
-      <div class="smallMuted">يتم تحديث الوقت تلقائياً كل ثانية (GMT+2).</div>
+      <pre id="messageBox" class="message"></pre>
+      <div class="smallMuted">توقيت GMT+2 ✅</div>
     </div>
   </main>
 
@@ -512,34 +540,146 @@
     (() => {
       "use strict";
       const $ = (id) => document.getElementById(id);
-      const screens = ["home","wa","ig","offers","addOp","opResult","match","result"];
 
-      window.go = (id) => {
+      const screens = [
+        "start","visitor","adminLogin","adminPanel",
+        "wa","ig","offers",
+        "addOp","opResult",
+        "match","result"
+      ];
+
+      function setActive(id){
         screens.forEach(s => $(s).classList.remove("active"));
         $(id).classList.add("active");
-      };
+      }
 
-      // ======================
-      // FIXED GMT+2 date/time
-      // ======================
-      const dtf = new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Etc/GMT-2",
-        year: "numeric", month: "2-digit", day: "2-digit",
-        hour: "2-digit", minute: "2-digit", second: "2-digit",
-        hour12: false
+      window.go = (id) => setActive(id);
+
+      // ===== Admin auth (client-side) =====
+      const ADMIN_USER = "emad";
+      const ADMIN_PASS = "Asd@2003";
+      const AUTH_KEY = "al_dollar_admin_auth";
+
+      function isAdmin(){
+        return sessionStorage.getItem(AUTH_KEY) === "1";
+      }
+      function requireAdminThen(target){
+        if (!isAdmin()){
+          setActive("adminLogin");
+          return;
+        }
+        setActive(target);
+      }
+      window.requireAdminThen = requireAdminThen;
+
+      // Login
+      const adminUser = $("adminUser");
+      const adminPass = $("adminPass");
+      const btnAdminLogin = $("btnAdminLogin");
+      const adminErr = $("adminErr");
+
+      function showErr(el,msg){ el.textContent=msg; el.classList.add("show"); }
+      function clearErr(el){ el.textContent=""; el.classList.remove("show"); }
+
+      btnAdminLogin.addEventListener("click", () => {
+        clearErr(adminErr);
+        const u = (adminUser.value||"").trim();
+        const p = (adminPass.value||"");
+        if (u === ADMIN_USER && p === ADMIN_PASS){
+          sessionStorage.setItem(AUTH_KEY, "1");
+          adminPass.value = "";
+          setActive("adminPanel");
+        } else {
+          showErr(adminErr, "اسم المستخدم أو كلمة المرور غير صحيحة.");
+        }
       });
 
+      // Logout
+      $("btnLogout").addEventListener("click", () => {
+        sessionStorage.removeItem(AUTH_KEY);
+        setActive("start");
+      });
+
+      // ===== Helpers =====
+      function sanitizeText(s){ return String(s ?? "").replace(/\s+/g, " ").trim(); }
+      function amountNormalize(s){
+        const raw = String(s ?? "").trim();
+        const cleaned = raw.replace(/[^\d.,]/g, "");
+        return cleaned || "";
+      }
+      async function copyText(txt){
+        try{ await navigator.clipboard.writeText(txt); }
+        catch{
+          const ta = document.createElement("textarea");
+          ta.value = txt; document.body.appendChild(ta);
+          ta.select(); document.execCommand("copy");
+          document.body.removeChild(ta);
+        }
+      }
+
+      // ===== GMT+2 time =====
+      const dtf = new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Etc/GMT-2",
+        year:"numeric", month:"2-digit", day:"2-digit",
+        hour:"2-digit", minute:"2-digit", second:"2-digit",
+        hour12:false
+      });
       function formatGMT2(){
         const parts = dtf.formatToParts(new Date());
         const get = (t) => parts.find(p => p.type === t)?.value || "";
-        const dd = get("day"), mm = get("month"), yyyy = get("year");
-        const hh = get("hour"), mi = get("minute"), ss = get("second");
-        return `${dd}/${mm}/${yyyy} ${hh}:${mi}:${ss}`;
+        return `${get("day")}/${get("month")}/${get("year")} ${get("hour")}:${get("minute")}:${get("second")}`;
       }
 
-      // ======================
-      // MATCH (existing)
-      // ======================
+      // ===== Add Operation (Admin only) =====
+      const OP_KEY = "al_dollar_op_counter";
+      const OP_START = 11009; // 011009
+
+      function getOpCounter(){
+        const v = Number(localStorage.getItem(OP_KEY));
+        if (!Number.isFinite(v) || v <= 0){
+          localStorage.setItem(OP_KEY, String(OP_START));
+          return OP_START;
+        }
+        return v;
+      }
+      function nextOpNumber(){
+        const current = getOpCounter();
+        localStorage.setItem(OP_KEY, String(current + 1));
+        return current;
+      }
+      function pad6(n){ return String(n).padStart(6, "0"); }
+
+      const opAmount = $("opAmount");
+      const opCurrency = $("opCurrency");
+      const btnOpPrint = $("btnOpPrint");
+      const opErrBox = $("opErrBox");
+      const opOut = $("opOut");
+      const btnOpCopy = $("btnOpCopy");
+
+      btnOpPrint.addEventListener("click", () => {
+        if (!isAdmin()){ setActive("adminLogin"); return; }
+        clearErr(opErrBox);
+
+        const side = document.querySelector('input[name="opSide"]:checked')?.value || "لكم";
+        const amount = amountNormalize(opAmount.value);
+        const currency = sanitizeText(opCurrency.value);
+
+        if (!amount) return showErr(opErrBox, "اكتب المبلغ لو سمحت.");
+        if (!currency) return showErr(opErrBox, "اكتب العملة لو سمحت (مثال: USD).");
+
+        const opNo = nextOpNumber(); // يبدأ 011009
+        opOut.textContent = `${side} ${amount} ${currency}\nتم اضافة العملية برقم ${pad6(opNo)}`;
+        setActive("opResult");
+      });
+
+      btnOpCopy.addEventListener("click", async () => {
+        if (!isAdmin()){ setActive("adminLogin"); return; }
+        await copyText(opOut.textContent || "");
+        btnOpCopy.textContent = "تم ✅";
+        setTimeout(()=> btnOpCopy.textContent="نسخ", 1200);
+      });
+
+      // ===== Match (Admin only) =====
       const inpName = $("inpName");
       const inpCurrency = $("inpCurrency");
       const inpAmount = $("inpAmount");
@@ -549,28 +689,23 @@
       const msgBox = $("messageBox");
       const btnCopy = $("btnCopy");
       const btnWhats = $("btnWhats");
-      let matchTimer = null;
 
-      function showError(el, msg){
-        el.textContent = msg;
-        el.classList.add("show");
-      }
-      function clearError(el){
-        el.textContent = "";
-        el.classList.remove("show");
-      }
-      function sanitizeText(s){
-        return String(s ?? "").replace(/\s+/g, " ").trim();
-      }
-      function amountNormalize(s){
-        const raw = String(s ?? "").trim();
-        const cleaned = raw.replace(/[^\d.,]/g, "");
-        return cleaned || "";
-      }
+      btnMatch.addEventListener("click", () => {
+        if (!isAdmin()){ setActive("adminLogin"); return; }
+        clearErr(errBox);
 
-      function buildMatchMessage(name, currency, amount, side){
+        const name = sanitizeText(inpName.value);
+        const currency = sanitizeText(inpCurrency.value);
+        const amount = amountNormalize(inpAmount.value);
+        const side = document.querySelector('input[name="side"]:checked')?.value || "لكم";
+
+        if (!name) return showErr(errBox, "اكتب الاسم لو سمحت.");
+        if (!currency) return showErr(errBox, "اكتب العملة لو سمحت (مثال: USD).");
+        if (!amount) return showErr(errBox, "اكتب المبلغ لو سمحت.");
+
         const dt = formatGMT2();
-        return `✅ الـــســـلام عــــليكــم ✅
+
+        msgBox.textContent = `✅ الـــســـلام عــــليكــم ✅
 
      ..........*مـكـتـب الـدولار*..........
 
@@ -587,121 +722,25 @@ ${side} 《 ${amount}- 》 ${currency}
 ---------------------------------------------------------
 Al-Dollar Exchange Office
 *ملاحظة : يرجى التأكيد على صحة المطابقة* `;
-      }
 
-      function renderMatch(name, currency, amount, side){
-        msgBox.textContent = buildMatchMessage(name, currency, amount, side);
-      }
+        setActive("result");
+      });
 
-      function startMatchResult(name, currency, amount, side){
-        go("result");
-        renderMatch(name, currency, amount, side);
-        if (matchTimer) clearInterval(matchTimer);
-        matchTimer = setInterval(() => renderMatch(name, currency, amount, side), 1000);
-      }
+      btnCopy.addEventListener("click", async () => {
+        if (!isAdmin()){ setActive("adminLogin"); return; }
+        await copyText(msgBox.textContent || "");
+        btnCopy.textContent = "تم ✅";
+        setTimeout(()=> btnCopy.textContent="نسخ", 1200);
+      });
 
-      if (btnMatch){
-        btnMatch.addEventListener("click", () => {
-          clearError(errBox);
-          const name = sanitizeText(inpName.value);
-          const currency = sanitizeText(inpCurrency.value);
-          const amount = amountNormalize(inpAmount.value);
-          const side = document.querySelector('input[name="side"]:checked')?.value || "لكم";
+      btnWhats.addEventListener("click", () => {
+        if (!isAdmin()){ setActive("adminLogin"); return; }
+        const txt = msgBox.textContent || "";
+        window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener,noreferrer");
+      });
 
-          if (!name) return showError(errBox, "اكتب الاسم لو سمحت.");
-          if (!currency) return showError(errBox, "اكتب العملة لو سمحت (مثال: USD).");
-          if (!amount) return showError(errBox, "اكتب المبلغ لو سمحت.");
-
-          startMatchResult(name, currency, amount, side);
-        });
-      }
-
-      async function copyText(txt){
-        try{ await navigator.clipboard.writeText(txt); }
-        catch{
-          const ta = document.createElement("textarea");
-          ta.value = txt; document.body.appendChild(ta);
-          ta.select(); document.execCommand("copy");
-          document.body.removeChild(ta);
-        }
-      }
-
-      if (btnCopy){
-        btnCopy.addEventListener("click", async () => {
-          await copyText(msgBox.textContent || "");
-          btnCopy.textContent = "تم ✅";
-          setTimeout(()=> btnCopy.textContent="نسخ", 1200);
-        });
-      }
-
-      if (btnWhats){
-        btnWhats.addEventListener("click", () => {
-          const txt = msgBox.textContent || "";
-          window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener,noreferrer");
-        });
-      }
-
-      // ======================
-      // NEW: ADD OPERATION
-      // ======================
-      const OP_KEY = "al_dollar_op_counter";
-      const OP_START = 11009; // 011009
-
-      function getOpCounter(){
-        const v = Number(localStorage.getItem(OP_KEY));
-        if (!Number.isFinite(v) || v <= 0){
-          localStorage.setItem(OP_KEY, String(OP_START));
-          return OP_START;
-        }
-        return v;
-      }
-
-      function nextOpNumber(){
-        const current = getOpCounter();
-        const next = current + 1;
-        localStorage.setItem(OP_KEY, String(next));
-        return current; // نرجّع الحالي لطباعته
-      }
-
-      function pad6(n){
-        return String(n).padStart(6, "0");
-      }
-
-      const opAmount = $("opAmount");
-      const opCurrency = $("opCurrency");
-      const btnOpPrint = $("btnOpPrint");
-      const opErrBox = $("opErrBox");
-      const opOut = $("opOut");
-      const btnOpCopy = $("btnOpCopy");
-
-      function buildOpText(side, amount, currency, opNo){
-        return `${side} ${amount} ${currency}\nتم اضافة العملية برقم ${pad6(opNo)}`;
-      }
-
-      if (btnOpPrint){
-        btnOpPrint.addEventListener("click", () => {
-          clearError(opErrBox);
-
-          const side = document.querySelector('input[name="opSide"]:checked')?.value || "لكم";
-          const amount = amountNormalize(opAmount.value);
-          const currency = sanitizeText(opCurrency.value);
-
-          if (!amount) return showError(opErrBox, "اكتب المبلغ لو سمحت.");
-          if (!currency) return showError(opErrBox, "اكتب العملة لو سمحت (مثال: USD).");
-
-          const opNo = nextOpNumber(); // يبدأ من 011009
-          opOut.textContent = buildOpText(side, amount, currency, opNo);
-          go("opResult");
-        });
-      }
-
-      if (btnOpCopy){
-        btnOpCopy.addEventListener("click", async () => {
-          await copyText(opOut.textContent || "");
-          btnOpCopy.textContent = "تم ✅";
-          setTimeout(()=> btnOpCopy.textContent="نسخ", 1200);
-        });
-      }
+      // Guard direct navigation (optional): if page loads and session exists, keep start as default.
+      // You can change this behavior if you want auto-open adminPanel when logged in.
     })();
   </script>
 </body>
