@@ -232,6 +232,13 @@
 
     .offers{ color: var(--text); line-height: 1.95; font-size: 14px; }
     .offers .muted{ color: var(--muted); }
+
+    .divider{
+      margin-top: 6px;
+      height:1px;
+      background: rgba(255,255,255,0.10);
+      border:0;
+    }
   </style>
 </head>
 
@@ -292,6 +299,7 @@
         </button>
 
         <button class="btnPrimary" onclick="go('offers')">عروضنا</button>
+        <button class="btnPrimary" onclick="go('codes')">اكواد</button>
 
         <button class="btnGhost" onclick="go('start')" type="button">رجوع</button>
       </div>
@@ -412,6 +420,61 @@
         <br/><br/>
         <div class="muted">🕘 ساعات العمل</div>
         من <b>السبت إلى الجمعة</b> — <b>على مدار الساعة (24/7)</b> ✅
+      </div>
+    </div>
+  </main>
+
+  <!-- CODES (Visitor) -->
+  <main id="codes" class="screen">
+    <div class="card">
+      <div class="badge">CODES</div>
+      <h1 class="title" style="font-size:32px">اكواد</h1>
+      <p class="subtitle">ادخل المعلومات</p>
+
+      <div class="form">
+        <div class="field">
+          <div class="label">رقم الهوية</div>
+          <input id="c_id" type="text" inputmode="numeric" placeholder="0">
+        </div>
+
+        <div class="field">
+          <div class="label">رقم الجوال</div>
+          <input id="c_phone" type="text" inputmode="tel" placeholder="0">
+        </div>
+
+        <div class="field">
+          <div class="label">رقم الكود</div>
+          <input id="c_code" type="text" inputmode="numeric" placeholder="0">
+        </div>
+
+        <div class="field">
+          <div class="label">المبلغ</div>
+          <input id="c_amount" type="text" inputmode="decimal" placeholder="0">
+        </div>
+
+        <hr class="divider"/>
+
+        <div class="badge">معلومات المحفظة</div>
+
+        <div class="field">
+          <div class="label">رقم الهوية</div>
+          <input id="w_id" type="text" inputmode="numeric" placeholder="0">
+        </div>
+
+        <div class="field">
+          <div class="label">رقم الجوال</div>
+          <input id="w_phone" type="text" inputmode="tel" placeholder="0">
+        </div>
+
+        <div class="field">
+          <div class="label">نسبة الخصم %</div>
+          <input id="w_discount" type="text" inputmode="decimal" placeholder="0">
+        </div>
+
+        <button id="btnCodesCopy" class="btnPrimary" type="button">نسخ المعلومات</button>
+        <button class="btnGhost" onclick="go('visitor')" type="button">رجوع</button>
+
+        <div id="codesHint" class="smallMuted" style="display:none;"></div>
       </div>
     </div>
   </main>
@@ -543,7 +606,7 @@
 
       const screens = [
         "start","visitor","adminLogin","adminPanel",
-        "wa","ig","offers",
+        "wa","ig","offers","codes",
         "addOp","opResult",
         "match","result"
       ];
@@ -552,7 +615,6 @@
         screens.forEach(s => $(s).classList.remove("active"));
         $(id).classList.add("active");
       }
-
       window.go = (id) => setActive(id);
 
       // ===== Admin auth (client-side) =====
@@ -617,6 +679,36 @@
         }
       }
 
+      // ===== Visitor: Codes (copy) =====
+      const btnCodesCopy = $("btnCodesCopy");
+      const codesHint = $("codesHint");
+      const v = (id) => (($(id)?.value || "").trim() || "0");
+
+      async function copyCodesText(){
+        const text =
+`رقم الهوية : ${v("c_id")}
+رقم الجوال : ${v("c_phone")}
+رقم الكود : ${v("c_code")}
+المبلغ : ${v("c_amount")}
+
+معلومات المحفظة
+رقم الهوية : ${v("w_id")}
+رقم الجوال : ${v("w_phone")}
+نسبة الخصم : ${v("w_discount")} %`;
+
+        await copyText(text);
+
+        if (codesHint){
+          codesHint.style.display = "block";
+          codesHint.textContent = "تم النسخ ✅";
+          setTimeout(()=>{ codesHint.style.display="none"; }, 1200);
+        }
+      }
+
+      if (btnCodesCopy){
+        btnCodesCopy.addEventListener("click", copyCodesText);
+      }
+
       // ===== GMT+2 time =====
       const dtf = new Intl.DateTimeFormat("en-GB", {
         timeZone: "Etc/GMT-2",
@@ -667,7 +759,7 @@
         if (!amount) return showErr(opErrBox, "اكتب المبلغ لو سمحت.");
         if (!currency) return showErr(opErrBox, "اكتب العملة لو سمحت (مثال: USD).");
 
-        const opNo = nextOpNumber(); // يبدأ 011009
+        const opNo = nextOpNumber();
         opOut.textContent = `${side} ${amount} ${currency}\nتم اضافة العملية برقم ${pad6(opNo)}`;
         setActive("opResult");
       });
@@ -739,8 +831,7 @@ Al-Dollar Exchange Office
         window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener,noreferrer");
       });
 
-      // Guard direct navigation (optional): if page loads and session exists, keep start as default.
-      // You can change this behavior if you want auto-open adminPanel when logged in.
+      // Optional: prevent going to admin screens from URL changes (no routing anyway)
     })();
   </script>
 </body>
