@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AL-DOLLAR OFFICE</title>
 
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#070a12">
+
   <style>
     :root{
       --bg1:#070a12; --bg2:#0b1226;
@@ -208,6 +214,7 @@
       line-height: 1.85;
       font-size: 14px;
       white-space: pre-wrap;
+      word-break: break-word;
     }
 
     .smallMuted{
@@ -239,6 +246,17 @@
       background: rgba(255,255,255,0.10);
       border:0;
     }
+
+    .imgBox{
+      width:min(560px, 100%);
+      margin: 12px auto 0;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,0.12);
+      overflow:hidden;
+      background: rgba(0,0,0,0.18);
+      box-shadow: 0 18px 38px rgba(0,0,0,0.30);
+    }
+    .imgBox img{ width:100%; height:auto; display:block; }
   </style>
 </head>
 
@@ -301,50 +319,32 @@
         <button class="btnPrimary" onclick="go('offers')">عروضنا</button>
         <button class="btnPrimary" onclick="go('codes')">اكواد</button>
 
+        <!-- ✅ زر محفظة باينانس -->
+        <button class="btnPrimary" onclick="go('binance')">محفظة باينانس</button>
+
         <button class="btnGhost" onclick="go('start')" type="button">رجوع</button>
       </div>
     </div>
   </main>
 
-  <!-- ADMIN LOGIN -->
-  <main id="adminLogin" class="screen">
-    <div class="card">
-      <div class="badge">ADMIN</div>
-      <h1 class="title" style="font-size:32px">تسجيل دخول المدير</h1>
-      <p class="subtitle">أدخل اسم المستخدم وكلمة المرور</p>
-
-      <div class="form">
-        <div class="field">
-          <div class="label">اسم المستخدم</div>
-          <input id="adminUser" type="text" placeholder="Username" autocomplete="username">
+  <!-- BINANCE WALLET (Visitor) -->
+  <main id="binance" class="screen">
+    <div class="card wide">
+      <div class="topRow">
+        <h2 class="sectionTitle">محفظة باينانس</h2>
+        <div class="actions">
+          <a class="btnGhost" href="binance-wallet.jpg" download>حفظ الصورة بالجهاز</a>
+          <button id="btnBinanceCopy" class="btnGhost" type="button">نسخ الرابط</button>
+          <button class="btnGhost" onclick="go('visitor')" type="button">رجوع</button>
         </div>
-
-        <div class="field">
-          <div class="label">كلمة المرور</div>
-          <input id="adminPass" type="password" placeholder="Password" autocomplete="current-password">
-        </div>
-
-        <button id="btnAdminLogin" class="btnPrimary">دخول</button>
-        <button class="btnGhost" onclick="go('start')" type="button">رجوع</button>
-        <div id="adminErr" class="err"></div>
-
-        <div class="smallMuted">ملاحظة: حماية دخول داخلية (بدون سيرفر).</div>
       </div>
-    </div>
-  </main>
 
-  <!-- ADMIN PANEL -->
-  <main id="adminPanel" class="screen">
-    <div class="card">
-      <div class="badge">ADMIN PANEL</div>
-      <h1 class="title" style="font-size:32px">لوحة المدير</h1>
-      <p class="subtitle">اختر العملية المطلوبة</p>
-
-      <div class="menu">
-        <button class="btnPrimary" onclick="requireAdminThen('addOp')">إضافة العملية</button>
-        <button class="btnPrimary" onclick="requireAdminThen('match')">طباعة مطابقة</button>
-        <button id="btnLogout" class="btnGhost" type="button">تسجيل خروج</button>
+      <div class="imgBox">
+        <img src="binance-wallet.jpg" alt="Binance Wallet">
       </div>
+
+      <div class="smallMuted">الرابط ثابت ويُنسخ كما هو تمامًا.</div>
+      <pre id="binanceText" class="message"></pre>
     </div>
   </main>
 
@@ -429,7 +429,7 @@
     <div class="card">
       <div class="badge">CODES</div>
       <h1 class="title" style="font-size:32px">اكواد</h1>
-      <p class="subtitle">ادخل المعلومات</p>
+      <p class="subtitle">ادخل المعلومات ثم اضغط طباعة</p>
 
       <div class="form">
         <div class="field">
@@ -471,10 +471,69 @@
           <input id="w_discount" type="text" inputmode="decimal" placeholder="0">
         </div>
 
-        <button id="btnCodesCopy" class="btnPrimary" type="button">نسخ المعلومات</button>
+        <button id="btnCodesPrint" class="btnPrimary" type="button">طباعة</button>
         <button class="btnGhost" onclick="go('visitor')" type="button">رجوع</button>
 
-        <div id="codesHint" class="smallMuted" style="display:none;"></div>
+        <div class="smallMuted">سيتم عرض النص في صفحة نتيجة مع زر نسخ ✅</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- CODES RESULT -->
+  <main id="codesResult" class="screen">
+    <div class="card wide">
+      <div class="topRow">
+        <h2 class="sectionTitle">نتيجة الأكواد</h2>
+        <div class="actions">
+          <button id="btnCodesCopy" class="btnGhost">نسخ</button>
+          <button class="btnGhost" onclick="go('codes')">رجوع</button>
+          <button class="btnGhost" onclick="go('visitor')">واجهة الزائر</button>
+        </div>
+      </div>
+
+      <pre id="codesOut" class="message"></pre>
+      <div class="smallMuted">نسخ بضغطة واحدة ✅</div>
+    </div>
+  </main>
+
+  <!-- ADMIN LOGIN -->
+  <main id="adminLogin" class="screen">
+    <div class="card">
+      <div class="badge">ADMIN</div>
+      <h1 class="title" style="font-size:32px">تسجيل دخول المدير</h1>
+      <p class="subtitle">أدخل اسم المستخدم وكلمة المرور</p>
+
+      <div class="form">
+        <div class="field">
+          <div class="label">اسم المستخدم</div>
+          <input id="adminUser" type="text" placeholder="Username" autocomplete="username">
+        </div>
+
+        <div class="field">
+          <div class="label">كلمة المرور</div>
+          <input id="adminPass" type="password" placeholder="Password" autocomplete="current-password">
+        </div>
+
+        <button id="btnAdminLogin" class="btnPrimary">دخول</button>
+        <button class="btnGhost" onclick="go('start')" type="button">رجوع</button>
+        <div id="adminErr" class="err"></div>
+
+        <div class="smallMuted">ملاحظة: حماية دخول داخلية (بدون سيرفر).</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ADMIN PANEL -->
+  <main id="adminPanel" class="screen">
+    <div class="card">
+      <div class="badge">ADMIN PANEL</div>
+      <h1 class="title" style="font-size:32px">لوحة المدير</h1>
+      <p class="subtitle">اختر العملية المطلوبة</p>
+
+      <div class="menu">
+        <button class="btnPrimary" onclick="requireAdminThen('addOp')">إضافة العملية</button>
+        <button class="btnPrimary" onclick="requireAdminThen('match')">طباعة مطابقة</button>
+        <button id="btnLogout" class="btnGhost" type="button">تسجيل خروج</button>
       </div>
     </div>
   </main>
@@ -605,10 +664,9 @@
       const $ = (id) => document.getElementById(id);
 
       const screens = [
-        "start","visitor","adminLogin","adminPanel",
-        "wa","ig","offers","codes",
-        "addOp","opResult",
-        "match","result"
+        "start","visitor","binance","adminLogin","adminPanel",
+        "wa","ig","offers","codes","codesResult",
+        "addOp","opResult","match","result"
       ];
 
       function setActive(id){
@@ -667,7 +725,7 @@
       function amountNormalize(s){
         const raw = String(s ?? "").trim();
         const cleaned = raw.replace(/[^\d.,]/g, "");
-        return cleaned || "";
+        return cleaned || "0";
       }
       async function copyText(txt){
         try{ await navigator.clipboard.writeText(txt); }
@@ -679,14 +737,30 @@
         }
       }
 
-      // ===== Visitor: Codes (copy) =====
+      // ===== ✅ Binance Wallet (Visitor) =====
+      // الرابط ثابت حرفيًا ولا يتم تغييره
+      const BINANCE_WALLET_TEXT = "TZGjoUZzjY9RDDwrDYhF4WAQQWcVQasj5T";
+      const binanceText = $("binanceText");
+      const btnBinanceCopy = $("btnBinanceCopy");
+
+      if (binanceText) binanceText.textContent = BINANCE_WALLET_TEXT;
+
+      if (btnBinanceCopy){
+        btnBinanceCopy.addEventListener("click", async () => {
+          await copyText(BINANCE_WALLET_TEXT); // نسخ حرفي
+          btnBinanceCopy.textContent = "تم ✅";
+          setTimeout(()=> btnBinanceCopy.textContent="نسخ الرابط", 1200);
+        });
+      }
+
+      // ===== Visitor: Codes (print -> result -> copy) =====
+      const btnCodesPrint = $("btnCodesPrint");
       const btnCodesCopy = $("btnCodesCopy");
-      const codesHint = $("codesHint");
+      const codesOut = $("codesOut");
       const v = (id) => (($(id)?.value || "").trim() || "0");
 
-      async function copyCodesText(){
-        const text =
-`رقم الهوية : ${v("c_id")}
+      function buildCodesText(){
+        return `رقم الهوية : ${v("c_id")}
 رقم الجوال : ${v("c_phone")}
 رقم الكود : ${v("c_code")}
 المبلغ : ${v("c_amount")}
@@ -695,18 +769,21 @@
 رقم الهوية : ${v("w_id")}
 رقم الجوال : ${v("w_phone")}
 نسبة الخصم : ${v("w_discount")} %`;
+      }
 
-        await copyText(text);
-
-        if (codesHint){
-          codesHint.style.display = "block";
-          codesHint.textContent = "تم النسخ ✅";
-          setTimeout(()=>{ codesHint.style.display="none"; }, 1200);
-        }
+      if (btnCodesPrint){
+        btnCodesPrint.addEventListener("click", () => {
+          codesOut.textContent = buildCodesText();
+          setActive("codesResult");
+        });
       }
 
       if (btnCodesCopy){
-        btnCodesCopy.addEventListener("click", copyCodesText);
+        btnCodesCopy.addEventListener("click", async () => {
+          await copyText(codesOut.textContent || "");
+          btnCodesCopy.textContent = "تم ✅";
+          setTimeout(()=> btnCodesCopy.textContent="نسخ", 1200);
+        });
       }
 
       // ===== GMT+2 time =====
@@ -756,7 +833,6 @@
         const amount = amountNormalize(opAmount.value);
         const currency = sanitizeText(opCurrency.value);
 
-        if (!amount) return showErr(opErrBox, "اكتب المبلغ لو سمحت.");
         if (!currency) return showErr(opErrBox, "اكتب العملة لو سمحت (مثال: USD).");
 
         const opNo = nextOpNumber();
@@ -793,7 +869,6 @@
 
         if (!name) return showErr(errBox, "اكتب الاسم لو سمحت.");
         if (!currency) return showErr(errBox, "اكتب العملة لو سمحت (مثال: USD).");
-        if (!amount) return showErr(errBox, "اكتب المبلغ لو سمحت.");
 
         const dt = formatGMT2();
 
@@ -831,7 +906,6 @@ Al-Dollar Exchange Office
         window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener,noreferrer");
       });
 
-      // Optional: prevent going to admin screens from URL changes (no routing anyway)
     })();
   </script>
 </body>
