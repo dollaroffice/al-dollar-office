@@ -37,6 +37,25 @@
       padding: 18px;
     }
 
+    /* ✅ Mini Dhikr Bar */
+    .dhikrMini{
+      position: sticky;
+      top: 10px;
+      z-index: 9999;
+      width: min(980px, 95vw);
+      margin: 0 auto 12px;
+      padding: 8px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.22);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.22);
+      text-align:center;
+      font-size: 13px;
+      color: rgba(238,242,255,0.95);
+      user-select:none;
+    }
+
     .screen{ display:none; width:min(980px, 95vw); }
     .screen.active{ display:block; }
 
@@ -262,6 +281,11 @@
 
 <body>
 
+  <!-- ✅ شريط الأذكار الصغير -->
+  <div id="dhikrMini" class="dhikrMini" aria-live="polite">
+    <span id="dhikrMiniText"></span>
+  </div>
+
   <!-- START -->
   <main id="start" class="screen active">
     <div class="card">
@@ -318,8 +342,6 @@
 
         <button class="btnPrimary" onclick="go('offers')">عروضنا</button>
         <button class="btnPrimary" onclick="go('codes')">اكواد</button>
-
-        <!-- ✅ زر محفظة باينانس -->
         <button class="btnPrimary" onclick="go('binance')">محفظة باينانس</button>
 
         <button class="btnGhost" onclick="go('start')" type="button">رجوع</button>
@@ -327,7 +349,7 @@
     </div>
   </main>
 
-  <!-- BINANCE WALLET (Visitor) -->
+  <!-- BINANCE WALLET -->
   <main id="binance" class="screen">
     <div class="card wide">
       <div class="topRow">
@@ -424,7 +446,7 @@
     </div>
   </main>
 
-  <!-- CODES (Visitor) -->
+  <!-- Codes -->
   <main id="codes" class="screen">
     <div class="card">
       <div class="badge">CODES</div>
@@ -479,7 +501,7 @@
     </div>
   </main>
 
-  <!-- CODES RESULT -->
+  <!-- Codes Result -->
   <main id="codesResult" class="screen">
     <div class="card wide">
       <div class="topRow">
@@ -496,7 +518,7 @@
     </div>
   </main>
 
-  <!-- ADMIN LOGIN -->
+  <!-- Admin Login -->
   <main id="adminLogin" class="screen">
     <div class="card">
       <div class="badge">ADMIN</div>
@@ -518,12 +540,12 @@
         <button class="btnGhost" onclick="go('start')" type="button">رجوع</button>
         <div id="adminErr" class="err"></div>
 
-        <div class="smallMuted">ملاحظة: حماية دخول داخلية (بدون سيرفر).</div>
+        <div class="smallMuted">حماية داخلية (بدون سيرفر).</div>
       </div>
     </div>
   </main>
 
-  <!-- ADMIN PANEL -->
+  <!-- Admin Panel -->
   <main id="adminPanel" class="screen">
     <div class="card">
       <div class="badge">ADMIN PANEL</div>
@@ -538,7 +560,7 @@
     </div>
   </main>
 
-  <!-- Add Operation (Admin only) -->
+  <!-- Add Operation -->
   <main id="addOp" class="screen">
     <div class="card">
       <div class="badge">OPERATION</div>
@@ -579,7 +601,7 @@
     </div>
   </main>
 
-  <!-- Operation Result (Admin only) -->
+  <!-- Operation Result -->
   <main id="opResult" class="screen">
     <div class="card wide">
       <div class="topRow">
@@ -596,7 +618,7 @@
     </div>
   </main>
 
-  <!-- Match (Admin only) -->
+  <!-- Match -->
   <main id="match" class="screen">
     <div class="card">
       <div class="badge">MATCH</div>
@@ -675,7 +697,7 @@
       }
       window.go = (id) => setActive(id);
 
-      // ===== Admin auth (client-side) =====
+      // ===== Admin auth =====
       const ADMIN_USER = "emad";
       const ADMIN_PASS = "Asd@2003";
       const AUTH_KEY = "al_dollar_admin_auth";
@@ -692,7 +714,6 @@
       }
       window.requireAdminThen = requireAdminThen;
 
-      // Login
       const adminUser = $("adminUser");
       const adminPass = $("adminPass");
       const btnAdminLogin = $("btnAdminLogin");
@@ -714,7 +735,6 @@
         }
       });
 
-      // Logout
       $("btnLogout").addEventListener("click", () => {
         sessionStorage.removeItem(AUTH_KEY);
         setActive("start");
@@ -737,23 +757,17 @@
         }
       }
 
-      // ===== ✅ Binance Wallet (Visitor) =====
-      // الرابط ثابت حرفيًا ولا يتم تغييره
+      // ===== Binance Wallet (fixed) =====
       const BINANCE_WALLET_TEXT = "TZGjoUZzjY9RDDwrDYhF4WAQQWcVQasj5T";
-      const binanceText = $("binanceText");
-      const btnBinanceCopy = $("btnBinanceCopy");
+      $("binanceText").textContent = BINANCE_WALLET_TEXT;
 
-      if (binanceText) binanceText.textContent = BINANCE_WALLET_TEXT;
+      $("btnBinanceCopy").addEventListener("click", async () => {
+        await copyText(BINANCE_WALLET_TEXT);
+        $("btnBinanceCopy").textContent = "تم ✅";
+        setTimeout(()=> $("btnBinanceCopy").textContent="نسخ الرابط", 1200);
+      });
 
-      if (btnBinanceCopy){
-        btnBinanceCopy.addEventListener("click", async () => {
-          await copyText(BINANCE_WALLET_TEXT); // نسخ حرفي
-          btnBinanceCopy.textContent = "تم ✅";
-          setTimeout(()=> btnBinanceCopy.textContent="نسخ الرابط", 1200);
-        });
-      }
-
-      // ===== Visitor: Codes (print -> result -> copy) =====
+      // ===== Codes =====
       const btnCodesPrint = $("btnCodesPrint");
       const btnCodesCopy = $("btnCodesCopy");
       const codesOut = $("codesOut");
@@ -771,20 +785,16 @@
 نسبة الخصم : ${v("w_discount")} %`;
       }
 
-      if (btnCodesPrint){
-        btnCodesPrint.addEventListener("click", () => {
-          codesOut.textContent = buildCodesText();
-          setActive("codesResult");
-        });
-      }
+      btnCodesPrint.addEventListener("click", () => {
+        codesOut.textContent = buildCodesText();
+        setActive("codesResult");
+      });
 
-      if (btnCodesCopy){
-        btnCodesCopy.addEventListener("click", async () => {
-          await copyText(codesOut.textContent || "");
-          btnCodesCopy.textContent = "تم ✅";
-          setTimeout(()=> btnCodesCopy.textContent="نسخ", 1200);
-        });
-      }
+      btnCodesCopy.addEventListener("click", async () => {
+        await copyText(codesOut.textContent || "");
+        btnCodesCopy.textContent = "تم ✅";
+        setTimeout(()=> btnCodesCopy.textContent="نسخ", 1200);
+      });
 
       // ===== GMT+2 time =====
       const dtf = new Intl.DateTimeFormat("en-GB", {
@@ -799,7 +809,7 @@
         return `${get("day")}/${get("month")}/${get("year")} ${get("hour")}:${get("minute")}:${get("second")}`;
       }
 
-      // ===== Add Operation (Admin only) =====
+      // ===== Add Operation =====
       const OP_KEY = "al_dollar_op_counter";
       const OP_START = 11009; // 011009
 
@@ -847,7 +857,7 @@
         setTimeout(()=> btnOpCopy.textContent="نسخ", 1200);
       });
 
-      // ===== Match (Admin only) =====
+      // ===== Match =====
       const inpName = $("inpName");
       const inpCurrency = $("inpCurrency");
       const inpAmount = $("inpAmount");
@@ -904,6 +914,69 @@ Al-Dollar Exchange Office
         if (!isAdmin()){ setActive("adminLogin"); return; }
         const txt = msgBox.textContent || "";
         window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener,noreferrer");
+      });
+
+      // ===== ✅ Mini Dhikr (option 2: auto + on any button click) =====
+      const dhikrEl = $("dhikrMiniText");
+
+      const morning = [
+        "أصبحنا وأصبح الملك لله",
+        "اللهم بك أصبحنا وبك أمسينا",
+        "سبحان الله وبحمده",
+        "استغفر الله",
+        "اللهم صلِّ على محمد",
+        "حسبي الله ونعم الوكيل",
+        "لا حول ولا قوة إلا بالله"
+      ];
+
+      const night = [
+        "أمسينا وأمسى الملك لله",
+        "اللهم بك أمسينا وبك أصبحنا",
+        "سبحان الله العظيم",
+        "استغفر الله",
+        "اللهم صلِّ على محمد",
+        "لا إله إلا الله",
+        "حسبي الله ونعم الوكيل"
+      ];
+
+      function getHourGMT2(){
+        const h = new Intl.DateTimeFormat("en-GB", { timeZone: "Etc/GMT-2", hour:"2-digit", hour12:false })
+          .format(new Date());
+        return Number(h);
+      }
+
+      function isMorning(){
+        const h = getHourGMT2();
+        return h >= 5 && h < 17;
+      }
+
+      function pick(arr){
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      function renderDhikr(){
+        const arr = isMorning() ? morning : night;
+        const prefix = isMorning() ? "☀️" : "🌙";
+        dhikrEl.textContent = `${prefix} ${pick(arr)}`;
+      }
+
+      // عند الدخول
+      renderDhikr();
+
+      // تلقائي كل 25 ثانية
+      setInterval(renderDhikr, 25000);
+
+      // كل ما يضغط أي زر بالموقع (مع قفل بسيط لمنع التكرار السريع)
+      let dhikrLock = false;
+      document.addEventListener("click", (e) => {
+        const target = e.target;
+        const isButton = target && (target.tagName === "BUTTON" || target.closest("button"));
+        if (!isButton) return;
+
+        if (dhikrLock) return;
+        dhikrLock = true;
+        renderDhikr();
+        setTimeout(() => dhikrLock = false, 700);
       });
 
     })();
