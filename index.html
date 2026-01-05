@@ -1,77 +1,944 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AL-DOLLAR OFFICE</title>
-<meta name="theme-color" content="#070a12">
-<style>
-body{margin:0;font-family:Arial,Tahoma,sans-serif;background:#070a12;color:#eef2ff}
-.screen{display:none;padding:20px}
-.screen.active{display:block}
-button{padding:12px 16px;border-radius:12px;border:none;background:#c9a24d;color:#000;font-weight:bold}
-input{padding:10px;border-radius:8px;border:1px solid #555;background:#111;color:#fff;width:100%}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AL-DOLLAR OFFICE</title>
+  <meta name="theme-color" content="#070a12">
+  <style>
+    :root{
+      --bg1:#070a12; --bg2:#0b1226;
+      --text:#eef2ff; --muted:#b4c0e6;
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 18px 45px rgba(0,0,0,0.45);
+      --r: 22px;
+      --gold1: rgba(255,215,0,0.95);
+      --gold2: rgba(255,255,255,0.95);
+      --aqua: rgba(110,231,255,0.22);
+      --danger: rgba(255,80,80,0.12);
+      --dangerBorder: rgba(255,80,80,0.25);
+      --ok: rgba(90,255,170,0.10);
+      --okBorder: rgba(90,255,170,0.25);
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, "Noto Kufi Arabic", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 650px at 20% -10%, rgba(255, 215, 0, 0.14), transparent 55%),
+        radial-gradient(900px 650px at 110% 40%, rgba(110,231,255,0.14), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      padding: 16px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .topWrap{
+      width:min(980px, 96vw);
+      margin: 0 auto;
+      display:grid;
+      gap: 10px;
+      align-content:start;
+    }
+
+    .dhikrMini{
+      position: sticky;
+      top: 10px;
+      z-index: 9999;
+      padding: 8px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.22);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.22);
+      text-align:center;
+      font-size: 13px;
+      color: rgba(238,242,255,0.95);
+      user-select:none;
+    }
+
+    .screen{ display:none; width:100%; }
+    .screen.active{ display:block; }
+
+    .card{
+      width:100%;
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      padding: 24px 20px;
+      text-align:center;
+    }
+    .card.wide{ text-align:start; }
+
+    .badge{
+      display:inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .logoWrap{
+      width:min(420px, 92%);
+      margin: 14px auto 8px;
+      padding: 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,215,0,0.18);
+      background:
+        radial-gradient(180px 120px at 20% 10%, rgba(255,215,0,0.18), transparent 65%),
+        rgba(0,0,0,0.18);
+      box-shadow: 0 18px 38px rgba(0,0,0,0.35);
+    }
+    .logoWrap img{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius: 16px;
+      filter: drop-shadow(0 16px 22px rgba(0,0,0,.45));
+    }
+
+    .title{
+      margin: 10px 0 6px;
+      font-size: 40px;
+      line-height: 1.05;
+      letter-spacing: 0.6px;
+      background: linear-gradient(90deg, var(--gold1), var(--gold2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-transform: uppercase;
+      text-align:center;
+    }
+    .subtitle{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align:center;
+    }
+
+    .pledgeBox{
+      margin: 12px auto 0;
+      width: min(560px, 100%);
+      border-radius: 18px;
+      border: 1px solid rgba(255,215,0,0.18);
+      background: rgba(0,0,0,0.18);
+      padding: 12px 14px;
+      text-align: center;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.22);
+    }
+    .pledgeTitle{
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: .5px;
+      margin-bottom: 6px;
+      background: linear-gradient(90deg, rgba(255,215,0,0.95), rgba(255,255,255,0.92));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .pledgeText{
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(238,242,255,0.92);
+    }
+
+    .menu{ margin-top: 14px; display:grid; gap: 12px; }
+
+    .btnPrimary{
+      cursor:pointer;
+      width:100%;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: linear-gradient(90deg, rgba(255,215,0,0.38), var(--aqua));
+      color: var(--text);
+      font-weight: 900;
+      font-size: 15px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+    }
+
+    .btnGhost{
+      cursor:pointer;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-weight: 800;
+      font-size: 13px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      white-space: nowrap;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+
+    .btnDanger{
+      cursor:pointer;
+      border: 1px solid rgba(255,80,80,0.28);
+      background: rgba(255,80,80,0.10);
+      color: rgba(255,230,230,0.98);
+      font-weight: 900;
+      font-size: 13px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      white-space: nowrap;
+    }
+
+    .topRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap:wrap;
+    }
+    .sectionTitle{ margin:0; font-size: 18px; }
+    .actions{ display:flex; gap: 10px; flex-wrap: wrap; justify-content:flex-end; }
+
+    .list{ display:grid; gap: 10px; margin-top: 10px; }
+    .itemBtn{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,0.22);
+      color: var(--text);
+      text-decoration:none;
+      font-weight: 900;
+    }
+    .pill{
+      font-size: 12px;
+      color: var(--muted);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.05);
+      white-space: nowrap;
+    }
+
+    .form{
+      margin-top: 14px;
+      display:grid;
+      gap: 12px;
+      text-align:start;
+    }
+    .field{ display:grid; gap: 6px; }
+    .label{ color: var(--muted); font-size: 13px; padding-right: 4px; }
+    input{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.22);
+      color: var(--text);
+      outline: none;
+      font-size: 14px;
+    }
+    input::placeholder{ color: rgba(180,192,230,0.65); }
+
+    .choiceRow{
+      display:flex; gap:14px; flex-wrap:wrap;
+      padding: 6px 2px 2px;
+      align-items:center;
+    }
+    .choice{
+      display:flex; align-items:center; gap:8px;
+      cursor:pointer; user-select:none;
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.18);
+    }
+    .choice input{ width:auto; padding:0; }
+
+    .message{
+      margin: 0;
+      padding: 16px;
+      border-radius: 16px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,0.25);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+      color: var(--text);
+      overflow:auto;
+      line-height: 1.85;
+      font-size: 14px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .note{
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,215,0,0.18);
+      background: rgba(0,0,0,0.18);
+      color: rgba(238,242,255,0.92);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .err{
+      display:none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--dangerBorder);
+      background: var(--danger);
+      color: rgba(255,220,220,0.95);
+      font-size: 13px;
+      text-align:center;
+    }
+    .ok{
+      display:none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--okBorder);
+      background: var(--ok);
+      color: rgba(210,255,235,0.95);
+      font-size: 13px;
+      text-align:center;
+    }
+    .show{ display:block; }
+
+    .divider{
+      margin-top: 6px;
+      height:1px;
+      background: rgba(255,255,255,0.10);
+      border:0;
+    }
+
+    .imgBox{
+      width:min(560px, 100%);
+      margin: 12px auto 0;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,0.12);
+      overflow:hidden;
+      background: rgba(0,0,0,0.18);
+      box-shadow: 0 18px 38px rgba(0,0,0,0.30);
+    }
+    .imgBox img{ width:100%; height:auto; display:block; }
+
+    .icon{ width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; }
+    .icon svg{ width:100%; height:100%; display:block; }
+
+    @media (max-width:420px){
+      .title{ font-size: 34px; }
+    }
+  </style>
 </head>
+
 <body>
+  <div class="topWrap">
 
-<div id="start" class="screen active">
-<h2>AL-DOLLAR OFFICE</h2>
-<button onclick="go('match')">طباعة مطابقة</button>
-</div>
+    <div class="dhikrMini" aria-live="polite">
+      <span id="dhikrMiniText"></span>
+    </div>
 
-<div id="match" class="screen">
-<h3>طباعة مطابقة</h3>
-<input id="name" placeholder="الاسم"><br><br>
-<input id="amount" placeholder="المبلغ"><br><br>
-<input id="currency" placeholder="العملة"><br><br>
-<button onclick="makeMatch()">مطابقة</button>
-</div>
+    <!-- START -->
+    <main id="start" class="screen active">
+      <div class="card">
+        <div class="badge">WELCOME</div>
 
-<div id="result" class="screen">
-<pre id="out"></pre>
-<button onclick="copy()">نسخ</button>
-</div>
+        <div class="logoWrap">
+          <img src="logo.png" alt="Dollar Exchange Office">
+        </div>
+
+        <h1 class="title">AL-DOLLAR OFFICE</h1>
+        <p id="smartWelcome" class="subtitle"></p>
+
+        <div class="pledgeBox">
+          <div class="pledgeTitle">تعهد المكتب</div>
+          <div class="pledgeText">نلتزم بالوضوح، الأمان، والسرعة في كل عملية.</div>
+        </div>
+
+        <div class="menu">
+          <button class="btnPrimary" onclick="go('visitorHome')">زائر</button>
+          <button class="btnPrimary" onclick="go('adminLogin')">المدير</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- VISITOR HOME -->
+    <main id="visitorHome" class="screen">
+      <div class="card">
+        <div class="badge">VISITOR</div>
+        <h1 class="title" style="font-size:32px">واجهة الزائر</h1>
+        <p class="subtitle">اختر الخدمة المطلوبة</p>
+
+        <div class="menu">
+          <button class="btnPrimary" onclick="go('visitorWhatsApp')">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="#25D366">
+                <path d="M16 2.7c-7.4 0-13.3 5.9-13.3 13.3 0 2.3.6 4.6 1.8 6.6L2 30l7.6-2.4c2 .9 4.2 1.4 6.4 1.4 7.4 0 13.3-5.9 13.3-13.3S23.4 2.7 16 2.7zm0 24.2c-2 0-3.9-.5-5.6-1.4l-.4-.2-4.5 1.4 1.4-4.4-.2-.4c-1-1.8-1.6-3.9-1.6-6 0-6.2 5-11.2 11.2-11.2s11.2 5 11.2 11.2-5 11.2-11.2 11.2z"/>
+              </svg>
+            </span>
+            واتساب
+          </button>
+
+          <button class="btnPrimary" onclick="go('visitorInstagram')">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32">
+                <defs>
+                  <linearGradient id="igGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f58529"/>
+                    <stop offset="50%" stop-color="#dd2a7b"/>
+                    <stop offset="100%" stop-color="#515bd4"/>
+                  </linearGradient>
+                </defs>
+                <path fill="url(#igGrad)" d="M16 7.3c2.8 0 3.1 0 4.2.1 1 .1 1.6.2 2 .4.5.2.8.4 1.2.8.4.4.6.7.8 1.2.2.4.3 1 .4 2 .1 1.1.1 1.4.1 4.2s0 3.1-.1 4.2c-.1 1-.2 1.6-.4 2-.2.5-.4.8-.8 1.2-.4.4-.7.6-1.2.8-.4.2-1 .3-2 .4-1.1.1-1.4.1-4.2.1s-3.1 0-4.2-.1c-1-.1-1.6-.2-2-.4-.5-.2-.8-.4-1.2-.8-.4-.4-.6-.7-.8-1.2-.2-.4-.3-1-.4-2-.1-1.1-.1-1.4-.1-4.2s0-3.1.1-4.2c.1-1 .2-1.6.4-2 .2-.5.4-.8.8-1.2.4-.4.7-.6 1.2-.8.4-.2 1-.3 2-.4 1.1-.1 1.4-.1 4.2-.1z"/>
+                <circle cx="16" cy="16" r="4.1" fill="white"/>
+                <circle cx="23.5" cy="8.5" r="1" fill="white"/>
+              </svg>
+            </span>
+            إنستقرام
+          </button>
+
+          <button class="btnPrimary" onclick="go('visitorOffers')">عروضنا</button>
+          <button class="btnPrimary" onclick="go('visitorCodes')">اكواد</button>
+          <button class="btnPrimary" onclick="go('visitorBinance')">محفظة باينانس</button>
+
+          <button class="btnGhost" onclick="go('start')">رجوع</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- VISITOR: WHATSAPP -->
+    <main id="visitorWhatsApp" class="screen">
+      <div class="card wide">
+        <div class="topRow">
+          <h2 class="sectionTitle">حساباتنا في واتساب</h2>
+          <div class="actions">
+            <button class="btnGhost" onclick="go('visitorHome')">رجوع</button>
+          </div>
+        </div>
+
+        <div class="list">
+          <a class="itemBtn" href="https://wa.me/972595172007?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B" target="_blank" rel="noopener">
+            <span>عماد زعرب</span>
+            <span class="pill">WhatsApp</span>
+          </a>
+
+          <a class="itemBtn" href="https://wa.me/972567490629?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B" target="_blank" rel="noopener">
+            <span>منة قديح</span>
+            <span class="pill">WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- VISITOR: INSTAGRAM -->
+    <main id="visitorInstagram" class="screen">
+      <div class="card wide">
+        <div class="topRow">
+          <h2 class="sectionTitle">حساباتنا في إنستقرام</h2>
+          <div class="actions">
+            <button class="btnGhost" onclick="go('visitorHome')">رجوع</button>
+          </div>
+        </div>
+
+        <div class="list">
+          <a class="itemBtn" href="https://www.instagram.com/emad_dollar?igsh=MXRydGc3YmFwYXNjbQ==" target="_blank" rel="noopener">
+            <span>عماد زعرب</span>
+            <span class="pill">Instagram</span>
+          </a>
+
+          <a class="itemBtn" href="https://www.instagram.com/menna.qudeih?igsh=MWI0cWw4a3BxYjdvaA==" target="_blank" rel="noopener">
+            <span>منة قديح</span>
+            <span class="pill">Instagram</span>
+          </a>
+
+          <a class="itemBtn" href="https://www.instagram.com/dollar._pay?igsh=MW1yYzA0bDVveGpwMQ==" target="_blank" rel="noopener">
+            <span>صفحة المكتب</span>
+            <span class="pill">Instagram</span>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- VISITOR: OFFERS -->
+    <main id="visitorOffers" class="screen">
+      <div class="card wide">
+        <div class="topRow">
+          <h2 class="sectionTitle">عروضنا وخدماتنا</h2>
+          <div class="actions">
+            <button class="btnGhost" onclick="go('visitorHome')">رجوع</button>
+          </div>
+        </div>
+
+        <pre class="message">✨ AL-DOLLAR OFFICE ✨
+نستقبل حوالاتكم من جميع دول العالم بدون استثناء وبسرعة وأمان.
+
+• حوالات داخلية وخارجية
+• صرف عملات بأسعار منافسة
+• متابعة فورية عبر واتساب
+
+🕘 ساعات العمل:
+من السبت إلى الجمعة — على مدار الساعة (24/7) ✅</pre>
+      </div>
+    </main>
+
+    <!-- VISITOR: CODES -->
+    <main id="visitorCodes" class="screen">
+      <div class="card">
+        <div class="badge">CODES</div>
+        <h1 class="title" style="font-size:32px">اكواد</h1>
+        <p class="subtitle">ادخل المعلومات ثم اضغط طباعة</p>
+
+        <div class="form">
+          <div class="field"><div class="label">رقم الهوية</div><input id="c_id" type="text" inputmode="numeric" placeholder="0"></div>
+          <div class="field"><div class="label">رقم الجوال</div><input id="c_phone" type="text" inputmode="tel" placeholder="0"></div>
+          <div class="field"><div class="label">رقم الكود</div><input id="c_code" type="text" inputmode="numeric" placeholder="0"></div>
+          <div class="field"><div class="label">المبلغ</div><input id="c_amount" type="text" inputmode="decimal" placeholder="0"></div>
+
+          <hr class="divider"/>
+
+          <div class="badge">معلومات المحفظة</div>
+
+          <div class="field"><div class="label">رقم الهوية</div><input id="w_id" type="text" inputmode="numeric" placeholder="0"></div>
+          <div class="field"><div class="label">رقم الجوال</div><input id="w_phone" type="text" inputmode="tel" placeholder="0"></div>
+          <div class="field"><div class="label">نسبة الخصم %</div><input id="w_discount" type="text" inputmode="decimal" placeholder="0"></div>
+
+          <button id="btnCodesPrint" class="btnPrimary" type="button">طباعة</button>
+          <button class="btnGhost" onclick="go('visitorHome')" type="button">رجوع</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- CODES RESULT -->
+    <main id="codesResult" class="screen">
+      <div class="card wide">
+        <div class="topRow">
+          <h2 class="sectionTitle">نتيجة الأكواد</h2>
+          <div class="actions">
+            <button id="btnCodesCopy" class="btnGhost">نسخ</button>
+            <button class="btnGhost" onclick="go('visitorCodes')">رجوع</button>
+            <button class="btnGhost" onclick="go('visitorHome')">واجهة الزائر</button>
+          </div>
+        </div>
+
+        <pre id="codesOut" class="message"></pre>
+        <div class="ok" id="codesOk"></div>
+      </div>
+    </main>
+
+    <!-- VISITOR: BINANCE -->
+    <main id="visitorBinance" class="screen">
+      <div class="card wide">
+        <div class="topRow">
+          <h2 class="sectionTitle">محفظة باينانس</h2>
+          <div class="actions">
+            <a class="btnGhost" href="binance-wallet.jpg" download>حفظ الصورة</a>
+            <button id="btnBinanceCopy" class="btnGhost" type="button">نسخ الرابط</button>
+            <button class="btnGhost" onclick="go('visitorHome')" type="button">رجوع</button>
+          </div>
+        </div>
+
+        <div class="imgBox"><img src="binance-wallet.jpg" alt="Binance Wallet"></div>
+
+        <div class="note">⚠️ العنوان أدناه ثابت ويتم نسخه كما هو تمامًا.</div>
+
+        <pre id="binanceText" class="message"></pre>
+        <div class="ok" id="binanceOk"></div>
+      </div>
+    </main>
+
+    <!-- ADMIN LOGIN -->
+    <main id="adminLogin" class="screen">
+      <div class="card">
+        <div class="badge">ADMIN</div>
+        <h1 class="title" style="font-size:32px">تسجيل دخول المدير</h1>
+        <p class="subtitle">أدخل اسم المستخدم وكلمة المرور</p>
+
+        <div class="form">
+          <div class="field"><div class="label">اسم المستخدم</div><input id="adminUser" type="text" placeholder="Username" autocomplete="username"></div>
+          <div class="field"><div class="label">كلمة المرور</div><input id="adminPass" type="password" placeholder="Password" autocomplete="current-password"></div>
+
+          <button id="btnAdminLogin" class="btnPrimary" type="button">دخول</button>
+          <button class="btnGhost" onclick="go('start')" type="button">رجوع</button>
+
+          <div id="adminErr" class="err"></div>
+          <div class="note">🔒 حماية داخلية بدون سيرفر (حماية قوية 100% تحتاج سيرفر).</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ADMIN PANEL -->
+    <main id="adminPanel" class="screen">
+      <div class="card">
+        <div class="badge">ADMIN PANEL</div>
+        <h1 class="title" style="font-size:32px">لوحة المدير</h1>
+        <p class="subtitle">اختر العملية المطلوبة</p>
+
+        <div class="menu">
+          <button class="btnPrimary" onclick="requireAdminThen('addOp')">إضافة العملية</button>
+          <button class="btnPrimary" onclick="requireAdminThen('match')">طباعة مطابقة</button>
+          <button id="btnLogout" class="btnDanger" type="button">تسجيل خروج</button>
+        </div>
+
+        <div class="note">✅ رقم العملية يبدأ من <b>011009</b> ويزيد تلقائيًا على نفس الجهاز.</div>
+      </div>
+    </main>
+
+    <!-- ADD OP -->
+    <main id="addOp" class="screen">
+      <div class="card">
+        <div class="badge">OPERATION</div>
+        <h1 class="title" style="font-size:32px">إضافة العملية</h1>
+        <p class="subtitle">اختر (لكم/لنا) وأدخل المبلغ والعملة</p>
+
+        <div class="form">
+          <div class="field">
+            <div class="label">الجهة</div>
+            <div class="choiceRow">
+              <label class="choice"><input type="radio" name="opSide" value="لكم" checked><span>لكم</span></label>
+              <label class="choice"><input type="radio" name="opSide" value="لنا"><span>لنا</span></label>
+            </div>
+          </div>
+
+          <div class="field"><div class="label">المبلغ</div><input id="opAmount" type="text" inputmode="decimal" placeholder="مثال: 250"></div>
+          <div class="field"><div class="label">العملة (اكتبها أنت)</div><input id="opCurrency" type="text" placeholder="مثال: USD / ILS / EUR"></div>
+
+          <button id="btnOpPrint" class="btnPrimary" type="button">طباعة</button>
+
+          <div class="actions" style="justify-content:flex-start">
+            <button class="btnGhost" onclick="go('adminPanel')" type="button">رجوع</button>
+          </div>
+
+          <div id="opErrBox" class="err"></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- OP RESULT -->
+    <main id="opResult" class="screen">
+      <div class="card wide">
+        <div class="topRow">
+          <h2 class="sectionTitle">نتيجة العملية</h2>
+          <div class="actions">
+            <button id="btnOpCopy" class="btnGhost">نسخ</button>
+            <button class="btnGhost" onclick="go('addOp')">رجوع</button>
+            <button class="btnGhost" onclick="go('adminPanel')">لوحة المدير</button>
+          </div>
+        </div>
+
+        <pre id="opOut" class="message"></pre>
+        <div class="ok" id="opOk"></div>
+      </div>
+    </main>
+
+    <!-- MATCH -->
+    <main id="match" class="screen">
+      <div class="card">
+        <div class="badge">MATCH</div>
+        <h1 class="title" style="font-size:32px">طباعة مطابقة</h1>
+        <p class="subtitle">اكتب البيانات ثم اضغط مطابقة</p>
+
+        <div class="form">
+          <div class="field"><div class="label">الاسم</div><input id="inpName" type="text" placeholder="مثال: أحمد محمد"></div>
+          <div class="field"><div class="label">العملة (اكتبها أنت)</div><input id="inpCurrency" type="text" placeholder="مثال: USD / EUR / ILS"></div>
+          <div class="field"><div class="label">المبلغ</div><input id="inpAmount" type="text" inputmode="decimal" placeholder="مثال: 250"></div>
+
+          <div class="field">
+            <div class="label">الكلمة</div>
+            <div class="choiceRow">
+              <label class="choice"><input type="radio" name="side" value="لكم" checked><span>لكم</span></label>
+              <label class="choice"><input type="radio" name="side" value="لنا"><span>لنا</span></label>
+            </div>
+          </div>
+
+          <button id="btnMatch" class="btnPrimary" type="button">مطابقة</button>
+
+          <div class="actions" style="justify-content:flex-start">
+            <button class="btnGhost" onclick="go('adminPanel')" type="button">رجوع</button>
+          </div>
+
+          <div id="errBox" class="err"></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- MATCH RESULT -->
+    <main id="result" class="screen">
+      <div class="card wide">
+        <div class="topRow">
+          <h2 class="sectionTitle">نتيجة المطابقة</h2>
+          <div class="actions">
+            <button id="btnCopy" class="btnGhost">نسخ</button>
+            <button id="btnWhats" class="btnGhost">مشاركة واتساب</button>
+            <button class="btnGhost" onclick="go('match')">رجوع</button>
+            <button class="btnGhost" onclick="go('adminPanel')">لوحة المدير</button>
+          </div>
+        </div>
+
+        <pre id="messageBox" class="message"></pre>
+        <div class="ok" id="matchOk"></div>
+        <div class="note">🕒 التوقيت داخل النص مضبوط على GMT+2.</div>
+      </div>
+    </main>
+
+  </div>
 
 <script>
-function go(id){
- document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
- document.getElementById(id).classList.add('active');
-}
-function makeMatch(){
- const n=name.value||'';
- const a=amount.value||'0';
- const c=currency.value||'';
- const d=new Date().toLocaleString('en-GB',{timeZone:'Etc/GMT-2'});
- out.textContent =
+(() => {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+
+  const screens = [
+    "start","visitorHome","visitorWhatsApp","visitorInstagram","visitorOffers","visitorCodes","codesResult","visitorBinance",
+    "adminLogin","adminPanel","addOp","opResult","match","result"
+  ];
+
+  function setActive(id){
+    screens.forEach(s => $(s).classList.remove("active"));
+    $(id).classList.add("active");
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
+  window.go = (id) => setActive(id);
+
+  // ===== Admin auth =====
+  const ADMIN_USER = "emad";
+  const ADMIN_PASS = "Asd@2003";
+  const AUTH_KEY = "al_dollar_admin_auth";
+
+  function isAdmin(){ return sessionStorage.getItem(AUTH_KEY) === "1"; }
+  function requireAdminThen(target){
+    if (!isAdmin()) { setActive("adminLogin"); return; }
+    setActive(target);
+  }
+  window.requireAdminThen = requireAdminThen;
+
+  const adminErr = $("adminErr");
+  function show(el,msg){ el.textContent = msg; el.classList.add("show"); }
+  function hide(el){ el.textContent=""; el.classList.remove("show"); }
+  function okFlash(el,msg="تم ✅"){ el.textContent=msg; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"),1300); }
+
+  $("btnAdminLogin").addEventListener("click", () => {
+    hide(adminErr);
+    const u = ($("adminUser").value||"").trim();
+    const p = ($("adminPass").value||"");
+    if (u === ADMIN_USER && p === ADMIN_PASS){
+      sessionStorage.setItem(AUTH_KEY,"1");
+      $("adminPass").value = "";
+      setActive("adminPanel");
+    } else {
+      show(adminErr,"اسم المستخدم أو كلمة المرور غير صحيحة.");
+    }
+  });
+
+  $("btnLogout").addEventListener("click", () => {
+    sessionStorage.removeItem(AUTH_KEY);
+    setActive("start");
+  });
+
+  // ===== Helpers =====
+  function sanitizeText(s){ return String(s ?? "").replace(/\s+/g," ").trim(); }
+  function amountNormalize(s){
+    const raw = String(s ?? "").trim();
+    const cleaned = raw.replace(/[^\d.,]/g,"");
+    return cleaned || "0";
+  }
+  async function copyText(txt){
+    try { await navigator.clipboard.writeText(txt); }
+    catch{
+      const ta=document.createElement("textarea");
+      ta.value=txt; document.body.appendChild(ta);
+      ta.select(); document.execCommand("copy");
+      document.body.removeChild(ta);
+    }
+  }
+
+  // ===== GMT+2 time =====
+  const dtf = new Intl.DateTimeFormat("en-GB",{
+    timeZone:"Etc/GMT-2",
+    year:"numeric",month:"2-digit",day:"2-digit",
+    hour:"2-digit",minute:"2-digit",second:"2-digit",
+    hour12:false
+  });
+
+  function formatGMT2(){
+    const parts = dtf.formatToParts(new Date());
+    const get = (t) => parts.find(p=>p.type===t)?.value || "";
+    return `${get("day")}/${get("month")}/${get("year")} ${get("hour")}:${get("minute")}:${get("second")}`;
+  }
+
+  function getHourGMT2(){
+    const h = new Intl.DateTimeFormat("en-GB",{timeZone:"Etc/GMT-2",hour:"2-digit",hour12:false}).format(new Date());
+    return Number(h);
+  }
+  function isMorning(){ const h=getHourGMT2(); return h>=5 && h<17; }
+
+  // ===== Smart Welcome =====
+  function renderSmartWelcome(){
+    const morningMsg = "صباح الخير، جاهزين لخدمتكم بكل محبة 🌿";
+    const nightMsg   = "مساء الخير، الخدمة مستمرة بكل أمان 🌙";
+    $("smartWelcome").textContent = isMorning() ? morningMsg : nightMsg;
+  }
+  renderSmartWelcome();
+  setInterval(renderSmartWelcome, 60000);
+
+  // ===== Dhikr mini (auto + on button click) =====
+  const dhikrEl = $("dhikrMiniText");
+  const dhikrMorning = ["سبحان الله وبحمده","استغفر الله","اللهم صلِّ على محمد","حسبي الله ونعم الوكيل","لا حول ولا قوة إلا بالله"];
+  const dhikrNight   = ["سبحان الله العظيم","استغفر الله","لا إله إلا الله","اللهم صلِّ على محمد","حسبي الله ونعم الوكيل"];
+  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+  function renderDhikr(){
+    const prefix = isMorning() ? "☀️" : "🌙";
+    const arr = isMorning() ? dhikrMorning : dhikrNight;
+    dhikrEl.textContent = `${prefix} ${pick(arr)}`;
+  }
+  renderDhikr();
+  setInterval(renderDhikr, 25000);
+
+  let dhikrLock=false;
+  document.addEventListener("click",(e)=>{
+    const t=e.target;
+    const isBtn = t && (t.tagName==="BUTTON" || t.closest("button"));
+    if(!isBtn) return;
+    if(dhikrLock) return;
+    dhikrLock=true;
+    renderDhikr();
+    setTimeout(()=>dhikrLock=false,650);
+  });
+
+  // ===== Binance (fixed text) =====
+  const BINANCE_WALLET_TEXT = "TZGjoUZzjY9RDDwrDYhF4WAQQWcVQasj5T";
+  $("binanceText").textContent = BINANCE_WALLET_TEXT;
+  $("btnBinanceCopy").addEventListener("click", async () => {
+    await copyText(BINANCE_WALLET_TEXT);
+    okFlash($("binanceOk"),"تم نسخ العنوان ✅");
+  });
+
+  // ===== Codes =====
+  const v = (id) => (($ (id).value || "").trim() || "0");
+  function buildCodesText(){
+    return `رقم الهوية : ${v("c_id")}
+رقم الجوال : ${v("c_phone")}
+رقم الكود : ${v("c_code")}
+المبلغ : ${v("c_amount")}
+
+معلومات المحفظة
+رقم الهوية : ${v("w_id")}
+رقم الجوال : ${v("w_phone")}
+نسبة الخصم : ${v("w_discount")} %`;
+  }
+
+  $("btnCodesPrint").addEventListener("click", () => {
+    $("codesOut").textContent = buildCodesText();
+    setActive("codesResult");
+  });
+
+  $("btnCodesCopy").addEventListener("click", async () => {
+    await copyText($("codesOut").textContent || "");
+    okFlash($("codesOk"),"تم النسخ ✅");
+  });
+
+  // ===== Add Operation =====
+  const OP_KEY="al_dollar_op_counter";
+  const OP_START=11009; // 011009
+  function getOpCounter(){
+    const n=Number(localStorage.getItem(OP_KEY));
+    if(!Number.isFinite(n)||n<=0){ localStorage.setItem(OP_KEY,String(OP_START)); return OP_START; }
+    return n;
+  }
+  function nextOpNumber(){
+    const current=getOpCounter();
+    localStorage.setItem(OP_KEY,String(current+1));
+    return current;
+  }
+  function pad6(n){ return String(n).padStart(6,"0"); }
+
+  $("btnOpPrint").addEventListener("click", () => {
+    if(!isAdmin()){ setActive("adminLogin"); return; }
+    const err=$("opErrBox"); hide(err);
+
+    const side = document.querySelector('input[name="opSide"]:checked')?.value || "لكم";
+    const amount = amountNormalize($("opAmount").value);
+    const currency = sanitizeText($("opCurrency").value);
+
+    if(!currency) return show(err,"اكتب العملة لو سمحت (مثال: USD).");
+
+    const opNo = nextOpNumber();
+    $("opOut").textContent = `${side} ${amount} ${currency}\nتم اضافة العملية برقم ${pad6(opNo)}`;
+    setActive("opResult");
+  });
+
+  $("btnOpCopy").addEventListener("click", async () => {
+    if(!isAdmin()){ setActive("adminLogin"); return; }
+    await copyText($("opOut").textContent || "");
+    okFlash($("opOk"),"تم النسخ ✅");
+  });
+
+  // ===== Match =====
+  $("btnMatch").addEventListener("click", () => {
+    if(!isAdmin()){ setActive("adminLogin"); return; }
+    const err=$("errBox"); hide(err);
+
+    const name = sanitizeText($("inpName").value);
+    const currency = sanitizeText($("inpCurrency").value);
+    const amount = amountNormalize($("inpAmount").value);
+    const side = document.querySelector('input[name="side"]:checked')?.value || "لكم";
+
+    if(!name) return show(err,"اكتب الاسم لو سمحت.");
+    if(!currency) return show(err,"اكتب العملة لو سمحت (مثال: USD).");
+
+    const dt = formatGMT2();
+    $("messageBox").textContent =
 `✅ الـــســـلام عــــليكــم ✅
 
-..........*مـكـتـب الـدولار*..........
+     ..........*مـكـتـب الـدولار*..........
 
-مــــطــــابــــقــــة حــــســــاب
+   مــــطــــابــــقــــة حــــســــاب
 
-((((( لـ  - ${n} )))))
+((((( لـ  - ${name} )))))
 
-حتى تاريخ ${d}
+ حتى تاريخ ${dt}
 
--------------------------------------
+---------------------------------------------------------
 
-لكم 《 ${a} 》 ${c}
+${side} 《 ${amount}- 》 ${currency}
 
--------------------------------------
+---------------------------------------------------------
 Al-Dollar Exchange Office
 
 رابط المكتب الرسمي:
 https://dollaroffice.github.io/al-dollar-office/
 
-*ملاحظة : يرجى التأكيد على صحة المطابقة*`;
- go('result');
-}
-function copy(){
- navigator.clipboard.writeText(out.textContent);
- alert('تم النسخ');
-}
-</script>
+*ملاحظة : يرجى التأكيد على صحة المطابقة* `;
 
+    setActive("result");
+  });
+
+  $("btnCopy").addEventListener("click", async () => {
+    if(!isAdmin()){ setActive("adminLogin"); return; }
+    await copyText($("messageBox").textContent || "");
+    okFlash($("matchOk"),"تم النسخ ✅");
+  });
+
+  $("btnWhats").addEventListener("click", () => {
+    if(!isAdmin()){ setActive("adminLogin"); return; }
+    const txt = $("messageBox").textContent || "";
+    window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener,noreferrer");
+  });
+
+})();
+</script>
 </body>
 </html>
