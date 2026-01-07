@@ -342,7 +342,43 @@
     @media (max-width:420px){
       .title{ font-size: 34px; }
     }
-  </style>
+  
+/* ===== Landing (animated like premium sites) ===== */
+.landing{margin-top:18px;display:grid;gap:18px}
+.heroBtns{display:grid;gap:12px}
+.secTitle{margin:10px 0 0;font-size:18px;color:rgba(238,242,255,.95);text-align:center}
+.trustStrip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.trustCard{border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.18);border-radius:18px;padding:12px 12px;box-shadow:0 12px 26px rgba(0,0,0,.20);text-align:center}
+.trustTitle{font-weight:900;background:linear-gradient(90deg, rgba(255,215,0,.95), rgba(255,255,255,.92));-webkit-background-clip:text;background-clip:text;color:transparent}
+.trustText{font-size:12.5px;line-height:1.7;color:rgba(238,242,255,.88);margin-top:6px}
+
+.servicesGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.svcCard{border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.20);border-radius:18px;padding:14px;text-align:center}
+.svcIcon{font-size:22px}
+.svcName{margin-top:6px;font-weight:900}
+.svcDesc{margin-top:6px;font-size:12.5px;line-height:1.7;color:rgba(238,242,255,.84)}
+
+.counters{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.countBox{border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.18);border-radius:18px;padding:14px;text-align:center}
+.countNum{font-size:30px;font-weight:1000;background:linear-gradient(90deg, rgba(255,215,0,.95), rgba(255,255,255,.92));-webkit-background-clip:text;background-clip:text;color:transparent}
+.countLbl{margin-top:6px;font-size:12.5px;color:rgba(238,242,255,.85)}
+
+.contactBox{border:1px solid rgba(255,215,0,.18);background:rgba(0,0,0,.18);border-radius:18px;padding:14px;text-align:center}
+.contactTitle{font-weight:1000;margin-bottom:10px}
+.contactBtns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.contactNote{margin-top:10px;font-size:12px;line-height:1.7;color:rgba(238,242,255,.86)}
+.mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;word-break:break-all}
+
+/* Reveal on scroll */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease, transform .55s ease}
+.reveal.show{opacity:1;transform:translateY(0)}
+
+/* Responsive */
+@media (max-width:780px){
+  .trustStrip,.servicesGrid,.counters{grid-template-columns:1fr;gap:12px}
+}
+
+</style>
 </head>
 
 <body>
@@ -363,13 +399,80 @@
 
         <h1 class="title">AL-DOLLAR OFFICE</h1>
         <p id="smartWelcome" class="subtitle"></p>
+        <section class="landing">
+          <div class="heroBtns stagger">
+            <button class="btnPrimary" onclick="go('visitorHome')">زائر</button>
+            <button class="btnPrimary" onclick="go('adminLogin')">المدير</button>
+          </div>
+
+          <div class="trustStrip reveal">
+            <div class="trustCard">
+              <div class="trustTitle">ثقة + سرعة</div>
+              <div class="trustText">نظام واضح، مطابقة دقيقة، وتواصل مباشر.</div>
+            </div>
+            <div class="trustCard">
+              <div class="trustTitle">دعم فوري</div>
+              <div class="trustText">واتساب وإنستقرام بخطوة واحدة.</div>
+            </div>
+            <div class="trustCard">
+              <div class="trustTitle">24/7</div>
+              <div class="trustText">من السبت إلى الجمعة — على مدار الساعة.</div>
+            </div>
+          </div>
+
+          <h2 class="secTitle reveal">خدماتنا</h2>
+          <div class="servicesGrid">
+            <div class="svcCard reveal">
+              <div class="svcIcon">⚡</div>
+              <div class="svcName">تحويلات سريعة</div>
+              <div class="svcDesc">تنفيذ مرتب وواضح خطوة بخطوة.</div>
+            </div>
+            <div class="svcCard reveal">
+              <div class="svcIcon">🧾</div>
+              <div class="svcName">مطابقة حساب</div>
+              <div class="svcDesc">نص رسمي بتوقيت GMT+2 ورابط المكتب الرسمي.</div>
+            </div>
+            <div class="svcCard reveal">
+              <div class="svcIcon">🛡️</div>
+              <div class="svcName">أمان وخصوصية</div>
+              <div class="svcDesc">ثبات في الأسلوب والمحتوى يعطي ثقة للعميل.</div>
+            </div>
+          </div>
+
+          <h2 class="secTitle reveal">أرقام تثبت الثقة</h2>
+          <div class="counters">
+            <div class="countBox reveal">
+              <div class="countNum" data-count="24">0</div>
+              <div class="countLbl">ساعة خدمة</div>
+            </div>
+            <div class="countBox reveal">
+              <div class="countNum" data-count="7">0</div>
+              <div class="countLbl">أيام بالأسبوع</div>
+            </div>
+            <div class="countBox reveal">
+              <div class="countNum" data-count="2">0</div>
+              <div class="countLbl">قنوات تواصل</div>
+            </div>
+          </div>
+
+          <div class="contactBox reveal">
+            <div class="contactTitle">تواصل سريع</div>
+            <div class="contactBtns">
+              <a class="btnGhost" href="https://wa.me/972595172007?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B" target="_blank" rel="noopener">واتساب عماد</a>
+              <a class="btnGhost" href="https://wa.me/972567490629?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B" target="_blank" rel="noopener">واتساب منة</a>
+              <a class="btnGhost" href="https://www.instagram.com/dollar._pay?igsh=MW1yYzA0bDVveGpwMQ==" target="_blank" rel="noopener">إنستقرام المكتب</a>
+            </div>
+            <div class="contactNote">AL‑DOLLAR OFFICE — رابطنا الرسمي: <span class="mono">https://dollaroffice.github.io/al-dollar-office/</span></div>
+          </div>
+        </section>
+
 
         <div class="pledgeBox">
           <div class="pledgeTitle">تعهد المكتب</div>
           <div class="pledgeText">نلتزم بالوضوح، الأمان، والسرعة في كل عملية.</div>
         </div>
 
-        <div class="menu">
+        <div class="menu" style="display:none">
           <button class="btnPrimary" onclick="go('visitorHome')">زائر</button>
           <button class="btnPrimary" onclick="go('adminLogin')">المدير</button>
         </div>
@@ -958,6 +1061,44 @@ https://dollaroffice.github.io/al-dollar-office/
     const txt = $("messageBox").textContent || "";
     window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener,noreferrer");
   });
+
+
+  // ===== Landing reveal + counters =====
+  const revealEls = document.querySelectorAll(".reveal");
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add("show");
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  function animateCount(el, to){
+    const dur = 900;
+    const start = performance.now();
+    const from = 0;
+    function step(t){
+      const p = Math.min(1, (t-start)/dur);
+      const v = Math.round(from + (to-from)*p);
+      el.textContent = String(v);
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const counterEls = document.querySelectorAll(".countNum[data-count]");
+  const cio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el = e.target;
+        const to = Number(el.getAttribute("data-count")||"0");
+        animateCount(el, to);
+        cio.unobserve(el);
+      }
+    });
+  }, {threshold: 0.3});
+  counterEls.forEach(el=>cio.observe(el));
 
 })();
 </script>
