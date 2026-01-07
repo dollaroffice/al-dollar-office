@@ -7,24 +7,45 @@
   <meta name="theme-color" content="#070a12">
   <style>
     :root{
+      /* Light defaults (will be overridden if system is dark) */
+      --bg:#f6f8ff; --bg2:#ffffff;
+      --text:#0b1226; --muted:#3a4a7a;
+      --border:rgba(10,20,50,.14);
+      --gold:rgba(186,140,0,.95);
+      --aqua:rgba(0,120,255,.10);
+      --shadow:0 16px 40px rgba(10,20,50,.10);
+      --r:22px;
+    }
+    /* Dark theme */
+    [data-theme="dark"]{
       --bg:#070a12; --bg2:#0b1226;
       --text:#eef2ff; --muted:#b4c0e6;
       --border:rgba(255,255,255,.12);
       --gold:rgba(255,215,0,.9);
       --aqua:rgba(110,231,255,.18);
       --shadow:0 18px 45px rgba(0,0,0,.45);
-      --r:22px;
     }
+    /* Light theme (explicit) */
+    [data-theme="light"]{
+      --bg:#f6f8ff; --bg2:#ffffff;
+      --text:#0b1226; --muted:#3a4a7a;
+      --border:rgba(10,20,50,.14);
+      --gold:rgba(186,140,0,.95);
+      --aqua:rgba(0,120,255,.10);
+      --shadow:0 16px 40px rgba(10,20,50,.10);
+    }
+
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, "Noto Kufi Arabic", sans-serif;
       color:var(--text);
       background:
-        radial-gradient(900px 650px at 20% -10%, rgba(255, 215, 0, 0.14), transparent 55%),
-        radial-gradient(900px 650px at 110% 40%, rgba(110,231,255,0.14), transparent 55%),
+        radial-gradient(900px 650px at 20% -10%, rgba(255, 215, 0, 0.10), transparent 55%),
+        radial-gradient(900px 650px at 110% 40%, rgba(0,120,255,0.08), transparent 55%),
         linear-gradient(180deg, var(--bg), var(--bg2));
     }
+
     a{color:inherit}
     .wrap{width:min(1100px, 94vw); margin:0 auto; padding:16px 0 48px}
     .topBar{
@@ -63,6 +84,13 @@
       font-weight:900;
       font-size:12px;
     }
+    /* Theme UI tweaks */
+    [data-theme="light"] .topBar{ background: rgba(255,255,255,.75); }
+    [data-theme="light"] .chip{ background: rgba(255,255,255,.85); }
+    [data-theme="light"] .chip.primary{ background: linear-gradient(90deg, rgba(186,140,0,0.22), rgba(0,120,255,0.12)); }
+    [data-theme="light"] .brandMark{ background: radial-gradient(18px 18px at 30% 30%, rgba(186,140,0,.18), rgba(255,255,255,.75)); }
+    [data-theme="light"] .pill{ color: rgba(30,40,70,.8); border-color: rgba(10,20,50,.14); background: rgba(255,255,255,.75); }
+
     .chip.primary{
       background: linear-gradient(90deg, rgba(255,215,0,.30), var(--aqua));
     }
@@ -81,32 +109,6 @@
     }
 
     /* Sections */
-
-    /* Hero background video */
-    .heroWithVideo{position:relative}
-    .heroVideoWrap{
-      position:absolute; inset:0;
-      overflow:hidden;
-      border-radius: 0;
-      z-index:0;
-      pointer-events:none;
-    }
-    .heroVideo{
-      width:100%; height:100%;
-      object-fit:cover;
-      filter: saturate(0.95) contrast(1.05) brightness(0.75);
-      transform: scale(1.05);
-    }
-    .heroOverlay{
-      position:absolute; inset:0;
-      background:
-        radial-gradient(900px 650px at 20% -10%, rgba(255, 215, 0, 0.18), transparent 55%),
-        radial-gradient(900px 650px at 110% 40%, rgba(110,231,255,0.18), transparent 55%),
-        linear-gradient(180deg, rgba(7,10,18,0.40), rgba(11,18,38,0.78));
-      backdrop-filter: blur(0px);
-    }
-    .hero .heroGrid{position:relative; z-index:1}
-
     section{padding:26px 0}
     .hero{
       display:grid; gap:16px;
@@ -117,7 +119,8 @@
     }
     .card{
       border:1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.55));
+      /* dark will still look fine due to page bg */
       border-radius: var(--r);
       box-shadow: var(--shadow);
       padding: 22px 18px;
@@ -332,7 +335,36 @@
     .reveal{opacity:0; transform:translateY(14px); transition:opacity .55s ease, transform .55s ease}
     .reveal.show{opacity:1; transform:translateY(0)}
 
-    @media (max-width:860px){
+    /* Dark card override */
+    [data-theme="dark"] .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04)) !important;
+    }
+    [data-theme="dark"] .svcCard,
+    [data-theme="dark"] .countBox,
+    [data-theme="dark"] .item,
+    [data-theme="dark"] .marquee,
+    [data-theme="dark"] .dhikrMini,
+    [data-theme="dark"] .logoBox,
+    [data-theme="dark"] .noteWarn,
+    [data-theme="dark"] .msg,
+    [data-theme="dark"] input,
+    [data-theme="dark"] dialog{
+      background: rgba(0,0,0,0.20) !important;
+    }
+    [data-theme="light"] .svcCard,
+    [data-theme="light"] .countBox,
+    [data-theme="light"] .item,
+    [data-theme="light"] .marquee,
+    [data-theme="light"] .dhikrMini,
+    [data-theme="light"] .logoBox,
+    [data-theme="light"] .noteWarn,
+    [data-theme="light"] .msg,
+    [data-theme="light"] input,
+    [data-theme="light"] dialog{
+      background: rgba(255,255,255,0.72) !important;
+    }
+
+@media (max-width:860px){
       .heroGrid{grid-template-columns:1fr}
       h1{font-size:34px}
       .grid3,.grid2,.counters{grid-template-columns:1fr}
@@ -355,6 +387,7 @@
           <a class="chip" href="#services">الخدمات</a>
           <a class="chip" href="#visitor">تواصل</a>
           <a class="chip primary" href="#admin" id="openAdmin">المدير</a>
+          <button class="chip" id="themeToggle" type="button" aria-label="تبديل الوضع">🌙</button>
         </div>
       </div>
 
@@ -367,14 +400,7 @@
   <div class="wrap">
 
     <!-- HERO -->
-    <section id="home" class="hero heroWithVideo">
-      <div class="heroVideoWrap" aria-hidden="true">
-        <video class="heroVideo" autoplay muted loop playsinline preload="auto">
-          <source src="bg.mp4" type="video/mp4">
-        </video>
-        <div class="heroOverlay"></div>
-      </div>
-
+    <section id="home" class="hero">
       <div class="heroGrid">
         <div class="card reveal">
           <span class="kicker">Secure • Organized</span>
@@ -644,6 +670,53 @@
 <script>
 (() => {
   "use strict";
+
+  // ===== Theme (System default + user override) =====
+  const THEME_KEY = "al_dollar_theme";
+  const themeBtn = document.getElementById("themeToggle");
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+  function systemPrefersDark(){
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function applyTheme(mode){
+    // mode: "light" | "dark"
+    document.documentElement.setAttribute("data-theme", mode);
+    if(metaTheme){
+      metaTheme.setAttribute("content", mode === "dark" ? "#070a12" : "#f6f8ff");
+    }
+    if(themeBtn){
+      themeBtn.textContent = (mode === "dark") ? "🌙" : "🌞";
+      themeBtn.title = (mode === "dark") ? "الوضع الداكن" : "الوضع الفاتح";
+    }
+  }
+  function initTheme(){
+    const saved = localStorage.getItem(THEME_KEY);
+    if(saved === "light" || saved === "dark"){
+      applyTheme(saved);
+    }else{
+      applyTheme(systemPrefersDark() ? "dark" : "light");
+    }
+  }
+  initTheme();
+
+  // If user didn't choose, follow system changes live
+  if(window.matchMedia){
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    mq.addEventListener?.("change", (e)=>{
+      const saved = localStorage.getItem(THEME_KEY);
+      if(saved) return;
+      applyTheme(e.matches ? "dark" : "light");
+    });
+  }
+
+  themeBtn?.addEventListener("click", ()=>{
+    const current = document.documentElement.getAttribute("data-theme") || "light";
+    const next = (current === "dark") ? "light" : "dark";
+    localStorage.setItem(THEME_KEY, next);
+    applyTheme(next);
+  });
+
   const $ = (id) => document.getElementById(id);
   const show = (el,msg)=>{ el.textContent=msg; el.classList.add("show"); };
   const hide = (el)=>{ el.textContent=""; el.classList.remove("show"); };
