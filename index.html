@@ -3,243 +3,217 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AL-DOLLAR OFFICE</title>
+  <title>AL‑DOLLAR OFFICE</title>
   <meta name="theme-color" content="#070a12">
   <style>
     :root{
-      --bg1:#070a12; --bg2:#0b1226;
+      --bg:#070a12; --bg2:#0b1226;
       --text:#eef2ff; --muted:#b4c0e6;
-      --border: rgba(255,255,255,0.12);
-      --shadow: 0 18px 45px rgba(0,0,0,0.45);
-      --r: 22px;
-      --gold1: rgba(255,215,0,0.95);
-      --gold2: rgba(255,255,255,0.95);
-      --aqua: rgba(110,231,255,0.22);
-      --danger: rgba(255,80,80,0.12);
-      --dangerBorder: rgba(255,80,80,0.25);
-      --ok: rgba(90,255,170,0.10);
-      --okBorder: rgba(90,255,170,0.25);
+      --border:rgba(255,255,255,.12);
+      --gold:rgba(255,215,0,.9);
+      --aqua:rgba(110,231,255,.18);
+      --shadow:0 18px 45px rgba(0,0,0,.45);
+      --r:22px;
     }
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
     body{
       margin:0;
       font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, "Noto Kufi Arabic", sans-serif;
-      color: var(--text);
+      color:var(--text);
       background:
         radial-gradient(900px 650px at 20% -10%, rgba(255, 215, 0, 0.14), transparent 55%),
         radial-gradient(900px 650px at 110% 40%, rgba(110,231,255,0.14), transparent 55%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
-      padding: 16px;
-      display:flex;
-      justify-content:center;
+        linear-gradient(180deg, var(--bg), var(--bg2));
     }
-
-    .topWrap{
-      width:min(980px, 96vw);
-      margin: 0 auto;
-      display:grid;
-      gap: 10px;
-      align-content:start;
+    a{color:inherit}
+    .wrap{width:min(1100px, 94vw); margin:0 auto; padding:16px 0 48px}
+    .topBar{
+      position:sticky; top:0; z-index:9999;
+      backdrop-filter: blur(10px);
+      background: rgba(0,0,0,.22);
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:10px 12px; flex-wrap:wrap;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:1000; letter-spacing:.3px;
+    }
+    .brandMark{
+      width:34px; height:34px; border-radius:12px;
+      border:1px solid rgba(255,215,0,.22);
+      background: radial-gradient(18px 18px at 30% 30%, rgba(255,215,0,.25), rgba(0,0,0,.25));
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 10px 18px rgba(0,0,0,.25);
+    }
+    .brandTitle{
+      background: linear-gradient(90deg, rgba(255,215,0,.95), rgba(255,255,255,.92));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-transform:uppercase;
+    }
+    .navLinks{display:flex; gap:8px; flex-wrap:wrap}
+    .chip{
+      text-decoration:none;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.05);
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:12px;
+    }
+    .chip.primary{
+      background: linear-gradient(90deg, rgba(255,215,0,.30), var(--aqua));
     }
 
     .dhikrMini{
-      position: sticky;
-      top: 10px;
-      z-index: 9999;
-      padding: 8px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.12);
+      padding:8px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.12);
       background: rgba(0,0,0,0.22);
-      backdrop-filter: blur(8px);
       box-shadow: 0 10px 26px rgba(0,0,0,0.22);
       text-align:center;
       font-size: 13px;
       color: rgba(238,242,255,0.95);
       user-select:none;
+      margin:12px 0 0;
     }
 
-    .screen{ display:none; width:100%; }
-    .screen.active{ display:block; }
-
+    /* Sections */
+    section{padding:26px 0}
+    .hero{
+      display:grid; gap:16px;
+      padding:26px 0 14px;
+    }
+    .heroGrid{
+      display:grid; grid-template-columns: 1.15fr .85fr; gap:14px; align-items:stretch;
+    }
     .card{
-      width:100%;
       border:1px solid var(--border);
       background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
       border-radius: var(--r);
       box-shadow: var(--shadow);
-      padding: 24px 20px;
-      text-align:center;
+      padding: 22px 18px;
     }
-    .card.wide{ text-align:start; }
-
-    .badge{
+    .logoBox{
+      border-radius:20px;
+      border:1px solid rgba(255,215,0,.18);
+      background: rgba(0,0,0,.18);
+      padding:10px;
+    }
+    .logoBox img{width:100%; height:auto; display:block; border-radius:16px}
+    .kicker{
       display:inline-block;
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
+      padding:6px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
       background: rgba(255,255,255,0.05);
-      font-size: 12px;
+      font-size:12px;
       color: var(--muted);
       letter-spacing: 1px;
     }
-
-    .logoWrap{
-      width:min(420px, 92%);
-      margin: 14px auto 8px;
-      padding: 10px;
-      border-radius: 20px;
-      border: 1px solid rgba(255,215,0,0.18);
-      background:
-        radial-gradient(180px 120px at 20% 10%, rgba(255,215,0,0.18), transparent 65%),
-        rgba(0,0,0,0.18);
-      box-shadow: 0 18px 38px rgba(0,0,0,0.35);
+    h1{
+      margin:10px 0 6px;
+      font-size:40px; line-height:1.05;
+      background: linear-gradient(90deg, rgba(255,215,0,.95), rgba(255,255,255,.92));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-transform:uppercase;
     }
-    .logoWrap img{
-      width:100%;
-      height:auto;
-      display:block;
-      border-radius: 16px;
-      filter: drop-shadow(0 16px 22px rgba(0,0,0,.45));
-    }
-
-    .title{
-      margin: 10px 0 6px;
-      font-size: 40px;
-      line-height: 1.05;
-      letter-spacing: 0.6px;
-      background: linear-gradient(90deg, var(--gold1), var(--gold2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-transform: uppercase;
-      text-align:center;
-    }
-    .subtitle{
-      margin: 0 0 14px;
-      color: var(--muted);
-      font-size: 14px;
-      text-align:center;
-    }
-
-    .pledgeBox{
-      margin: 12px auto 0;
-      width: min(560px, 100%);
-      border-radius: 18px;
-      border: 1px solid rgba(255,215,0,0.18);
-      background: rgba(0,0,0,0.18);
-      padding: 12px 14px;
-      text-align: center;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.22);
-    }
-    .pledgeTitle{
-      font-weight: 900;
-      font-size: 13px;
-      letter-spacing: .5px;
-      margin-bottom: 6px;
-      background: linear-gradient(90deg, rgba(255,215,0,0.95), rgba(255,255,255,0.92));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .pledgeText{
-      font-size: 13px;
-      line-height: 1.7;
-      color: rgba(238,242,255,0.92);
-    }
-
-    .menu{ margin-top: 14px; display:grid; gap: 12px; }
-
-    .btnPrimary{
+    .lead{margin:0; color:rgba(238,242,255,.92); line-height:1.8; font-size:14px}
+    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .btn{
       cursor:pointer;
-      width:100%;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: linear-gradient(90deg, rgba(255,215,0,0.38), var(--aqua));
-      color: var(--text);
-      font-weight: 900;
-      font-size: 15px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      box-shadow: 0 14px 30px rgba(0,0,0,0.25);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-    }
-
-    .btnGhost{
-      cursor:pointer;
-      border: 1px solid var(--border);
+      border:1px solid rgba(255,255,255,0.14);
       background: rgba(255,255,255,0.05);
       color: var(--text);
-      font-weight: 800;
-      font-size: 13px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      white-space: nowrap;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-    }
-
-    .btnDanger{
-      cursor:pointer;
-      border: 1px solid rgba(255,80,80,0.28);
-      background: rgba(255,80,80,0.10);
-      color: rgba(255,230,230,0.98);
-      font-weight: 900;
-      font-size: 13px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      white-space: nowrap;
-    }
-
-    .topRow{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-      margin-bottom: 14px;
-      flex-wrap:wrap;
-    }
-    .sectionTitle{ margin:0; font-size: 18px; }
-    .actions{ display:flex; gap: 10px; flex-wrap: wrap; justify-content:flex-end; }
-
-    .list{ display:grid; gap: 10px; margin-top: 10px; }
-    .itemBtn{
-      width:100%;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
+      font-weight: 1000;
       padding: 12px 14px;
       border-radius: 16px;
+      text-decoration:none;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .btn.primary{background: linear-gradient(90deg, rgba(255,215,0,0.38), var(--aqua));}
+    .btn:active{transform:scale(.98)}
+    .miniNote{margin-top:10px; font-size:12px; color:rgba(238,242,255,.82); line-height:1.7}
+
+    /* Grids */
+    .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+    .grid2{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+    .title2{margin:0 0 8px; font-size:18px}
+    .muted{color:rgba(180,192,230,.9); font-size:13px; line-height:1.8; margin:0}
+
+    .svcCard{padding:16px; border-radius:18px; border:1px solid var(--border); background:rgba(0,0,0,.18)}
+    .svcIcon{font-size:22px}
+    .svcName{margin-top:6px; font-weight:1000}
+    .svcDesc{margin-top:6px; font-size:12.5px; line-height:1.7; color:rgba(238,242,255,.84)}
+
+    .marquee{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      border-radius:18px;
+      overflow:hidden;
+      padding:10px 0;
+    }
+    .track{
+      display:flex; gap:26px;
+      width:max-content;
+      animation: scroll 18s linear infinite;
+      padding-inline:18px;
+      align-items:center;
+    }
+    .badgeLogo{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      font-weight:1000;
+      font-size:12px;
+      color:rgba(238,242,255,.92);
+      white-space:nowrap;
+    }
+    @keyframes scroll{
+      from{transform:translateX(0)}
+      to{transform:translateX(-50%)}
+    }
+
+    .counters{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+    .countBox{padding:16px; border-radius:18px; border:1px solid var(--border); background:rgba(0,0,0,.18); text-align:center}
+    .countNum{
+      font-size:32px; font-weight:1100;
+      background: linear-gradient(90deg, rgba(255,215,0,.95), rgba(255,255,255,.92));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .countLbl{margin-top:6px; font-size:12.5px; color:rgba(238,242,255,.86)}
+
+    /* Visitor panel */
+    .panelBtns{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-start; margin-top:12px}
+    .panelBtns .btn{flex:1 1 180px}
+    .list{display:grid; gap:10px; margin-top:12px}
+    .item{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:16px;
       border:1px solid var(--border);
       background: rgba(0,0,0,0.22);
-      color: var(--text);
       text-decoration:none;
-      font-weight: 900;
+      font-weight:1000;
     }
     .pill{
-      font-size: 12px;
-      color: var(--muted);
+      font-size:12px;
+      color:var(--muted);
       border:1px solid rgba(255,255,255,0.12);
-      border-radius: 999px;
-      padding: 6px 10px;
+      border-radius:999px;
+      padding:6px 10px;
       background: rgba(255,255,255,0.05);
       white-space: nowrap;
     }
 
-    .form{
-      margin-top: 14px;
-      display:grid;
-      gap: 12px;
-      text-align:start;
-    }
-    .field{ display:grid; gap: 6px; }
-    .label{ color: var(--muted); font-size: 13px; padding-right: 4px; }
+    /* Forms / modals */
+    .field{display:grid; gap:6px; margin-top:10px}
+    label{font-size:13px; color:rgba(180,192,230,.95)}
     input{
       width:100%;
       padding: 12px 12px;
@@ -250,31 +224,25 @@
       outline: none;
       font-size: 14px;
     }
-    input::placeholder{ color: rgba(180,192,230,0.65); }
-
-    .choiceRow{
-      display:flex; gap:14px; flex-wrap:wrap;
-      padding: 6px 2px 2px;
-      align-items:center;
-    }
+    .choiceRow{display:flex; gap:12px; flex-wrap:wrap; margin-top:8px}
     .choice{
       display:flex; align-items:center; gap:8px;
-      cursor:pointer; user-select:none;
-      color: var(--text);
-      padding: 8px 10px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(0,0,0,0.18);
+      padding:8px 10px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      cursor:pointer;
+      user-select:none;
+      font-weight:900;
     }
-    .choice input{ width:auto; padding:0; }
+    .choice input{width:auto}
 
-    .message{
-      margin: 0;
-      padding: 16px;
-      border-radius: 16px;
+    .msg{
+      margin:0;
+      padding:16px;
+      border-radius:16px;
       border:1px solid var(--border);
       background: rgba(0,0,0,0.25);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
       color: var(--text);
       overflow:auto;
       line-height: 1.85;
@@ -282,311 +250,217 @@
       white-space: pre-wrap;
       word-break: break-word;
     }
-
-    .note{
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,215,0,0.18);
-      background: rgba(0,0,0,0.18);
-      color: rgba(238,242,255,0.92);
-      font-size: 12px;
-      line-height: 1.7;
-    }
-
-    .err{
-      display:none;
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid var(--dangerBorder);
-      background: var(--danger);
-      color: rgba(255,220,220,0.95);
-      font-size: 13px;
-      text-align:center;
+    .noteWarn{
+      margin-top:12px;
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(255,215,0,.18);
+      background: rgba(0,0,0,.18);
+      color:rgba(238,242,255,.90);
+      font-size:12px;
+      line-height:1.75;
     }
     .ok{
       display:none;
       margin-top: 10px;
       padding: 10px 12px;
       border-radius: 14px;
-      border: 1px solid var(--okBorder);
-      background: var(--ok);
+      border: 1px solid rgba(90,255,170,0.25);
+      background: rgba(90,255,170,0.10);
       color: rgba(210,255,235,0.95);
       font-size: 13px;
       text-align:center;
     }
-    .show{ display:block; }
-
-    .divider{
-      margin-top: 6px;
-      height:1px;
-      background: rgba(255,255,255,0.10);
-      border:0;
+    .err{
+      display:none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,80,80,0.25);
+      background: rgba(255,80,80,0.10);
+      color: rgba(255,220,220,0.95);
+      font-size: 13px;
+      text-align:center;
     }
+    .show{display:block}
 
-    .imgBox{
-      width:min(560px, 100%);
-      margin: 12px auto 0;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,0.12);
-      overflow:hidden;
-      background: rgba(0,0,0,0.18);
-      box-shadow: 0 18px 38px rgba(0,0,0,0.30);
+    dialog{
+      width:min(720px, 94vw);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:22px;
+      background: rgba(10,14,30,.92);
+      color:var(--text);
+      box-shadow: var(--shadow);
+      padding:0;
     }
-    .imgBox img{ width:100%; height:auto; display:block; }
-
-    .icon{ width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; }
-    .icon svg{ width:100%; height:100%; display:block; }
-
-    @media (max-width:420px){
-      .title{ font-size: 34px; }
+    dialog::backdrop{background: rgba(0,0,0,.55)}
+    .modalHead{
+      padding:14px 16px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
     }
-  
-/* ===== Landing (animated like premium sites) ===== */
-.landing{margin-top:18px;display:grid;gap:18px}
-.heroBtns{display:grid;gap:12px}
-.secTitle{margin:10px 0 0;font-size:18px;color:rgba(238,242,255,.95);text-align:center}
-.trustStrip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.trustCard{border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.18);border-radius:18px;padding:12px 12px;box-shadow:0 12px 26px rgba(0,0,0,.20);text-align:center}
-.trustTitle{font-weight:900;background:linear-gradient(90deg, rgba(255,215,0,.95), rgba(255,255,255,.92));-webkit-background-clip:text;background-clip:text;color:transparent}
-.trustText{font-size:12.5px;line-height:1.7;color:rgba(238,242,255,.88);margin-top:6px}
+    .modalBody{padding:16px}
+    .xbtn{border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.05); border-radius:12px; padding:8px 10px; cursor:pointer; font-weight:1000}
 
-.servicesGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.svcCard{border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.20);border-radius:18px;padding:14px;text-align:center}
-.svcIcon{font-size:22px}
-.svcName{margin-top:6px;font-weight:900}
-.svcDesc{margin-top:6px;font-size:12.5px;line-height:1.7;color:rgba(238,242,255,.84)}
+    /* Reveal on scroll */
+    .reveal{opacity:0; transform:translateY(14px); transition:opacity .55s ease, transform .55s ease}
+    .reveal.show{opacity:1; transform:translateY(0)}
 
-.counters{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.countBox{border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.18);border-radius:18px;padding:14px;text-align:center}
-.countNum{font-size:30px;font-weight:1000;background:linear-gradient(90deg, rgba(255,215,0,.95), rgba(255,255,255,.92));-webkit-background-clip:text;background-clip:text;color:transparent}
-.countLbl{margin-top:6px;font-size:12.5px;color:rgba(238,242,255,.85)}
-
-.contactBox{border:1px solid rgba(255,215,0,.18);background:rgba(0,0,0,.18);border-radius:18px;padding:14px;text-align:center}
-.contactTitle{font-weight:1000;margin-bottom:10px}
-.contactBtns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-.contactNote{margin-top:10px;font-size:12px;line-height:1.7;color:rgba(238,242,255,.86)}
-.mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;word-break:break-all}
-
-/* Reveal on scroll */
-.reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease, transform .55s ease}
-.reveal.show{opacity:1;transform:translateY(0)}
-
-/* Responsive */
-@media (max-width:780px){
-  .trustStrip,.servicesGrid,.counters{grid-template-columns:1fr;gap:12px}
-}
-
-</style>
+    @media (max-width:860px){
+      .heroGrid{grid-template-columns:1fr}
+      h1{font-size:34px}
+      .grid3,.grid2,.counters{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 
 <body>
-  <div class="topWrap">
+  <div class="topBar">
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand">
+          <div class="brandMark">💱</div>
+          <div class="brandTitle">AL‑DOLLAR OFFICE</div>
+          <span class="pill">Status: Online</span>
+        </div>
 
-    <div class="dhikrMini" aria-live="polite">
-      <span id="dhikrMiniText"></span>
+        <div class="navLinks">
+          <a class="chip" href="#home">الرئيسية</a>
+          <a class="chip" href="#services">الخدمات</a>
+          <a class="chip" href="#visitor">تواصل</a>
+          <a class="chip primary" href="#admin" id="openAdmin">المدير</a>
+        </div>
+      </div>
+
+      <div class="dhikrMini" aria-live="polite">
+        <span id="dhikrMiniText"></span>
+      </div>
     </div>
+  </div>
 
-    <!-- START -->
-    <main id="start" class="screen active">
-      <div class="card">
-        <div class="badge">WELCOME</div>
+  <div class="wrap">
 
-        <div class="logoWrap">
-          <img src="logo.png" alt="Dollar Exchange Office">
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="heroGrid">
+        <div class="card reveal">
+          <span class="kicker">Secure • Organized</span>
+          <h1>من مكتبنا… إلى العالم</h1>
+          <p class="lead">
+            تجربة تحويل ومطابقة <b>سريعة وواضحة</b> بهوية ثابتة. صفحة واحدة رسمية تجمع
+            التواصل، العروض، وطباعة المطابقة للمدير.
+          </p>
+
+          <div class="ctaRow">
+            <a class="btn primary" href="#visitor">تواصل سريع</a>
+            <button class="btn" id="btnPrintMatch">طباعة مطابقة</button>
+            <button class="btn" id="btnAddOp">إضافة عملية</button>
+          </div>
+
+          <div class="miniNote">
+            ⏱️ التوقيت داخل النص مضبوط على <b>GMT+2</b> — والرابط الرسمي يُضاف داخل المطابقة.
+          </div>
         </div>
 
-        <h1 class="title">AL-DOLLAR OFFICE</h1>
-        <p id="smartWelcome" class="subtitle"></p>
-        <section class="landing">
-          <div class="heroBtns stagger">
-            <button class="btnPrimary" onclick="go('visitorHome')">زائر</button>
-            <button class="btnPrimary" onclick="go('adminLogin')">المدير</button>
+        <div class="card reveal">
+          <div class="logoBox">
+            <img src="logo.png" alt="AL‑DOLLAR OFFICE Logo">
           </div>
-
-          <div class="trustStrip reveal">
-            <div class="trustCard">
-              <div class="trustTitle">ثقة + سرعة</div>
-              <div class="trustText">نظام واضح، مطابقة دقيقة، وتواصل مباشر.</div>
-            </div>
-            <div class="trustCard">
-              <div class="trustTitle">دعم فوري</div>
-              <div class="trustText">واتساب وإنستقرام بخطوة واحدة.</div>
-            </div>
-            <div class="trustCard">
-              <div class="trustTitle">24/7</div>
-              <div class="trustText">من السبت إلى الجمعة — على مدار الساعة.</div>
-            </div>
+          <div class="noteWarn">
+            ✅ القنوات الرسمية فقط. أي تواصل خارج القنوات المعتمدة لا يُعتبر تابعًا للمكتب.
           </div>
-
-          <h2 class="secTitle reveal">خدماتنا</h2>
-          <div class="servicesGrid">
-            <div class="svcCard reveal">
-              <div class="svcIcon">⚡</div>
-              <div class="svcName">تحويلات سريعة</div>
-              <div class="svcDesc">تنفيذ مرتب وواضح خطوة بخطوة.</div>
-            </div>
-            <div class="svcCard reveal">
-              <div class="svcIcon">🧾</div>
-              <div class="svcName">مطابقة حساب</div>
-              <div class="svcDesc">نص رسمي بتوقيت GMT+2 ورابط المكتب الرسمي.</div>
-            </div>
-            <div class="svcCard reveal">
-              <div class="svcIcon">🛡️</div>
-              <div class="svcName">أمان وخصوصية</div>
-              <div class="svcDesc">ثبات في الأسلوب والمحتوى يعطي ثقة للعميل.</div>
-            </div>
-          </div>
-
-          <h2 class="secTitle reveal">أرقام تثبت الثقة</h2>
-          <div class="counters">
-            <div class="countBox reveal">
-              <div class="countNum" data-count="24">0</div>
-              <div class="countLbl">ساعة خدمة</div>
-            </div>
-            <div class="countBox reveal">
-              <div class="countNum" data-count="7">0</div>
-              <div class="countLbl">أيام بالأسبوع</div>
-            </div>
-            <div class="countBox reveal">
-              <div class="countNum" data-count="2">0</div>
-              <div class="countLbl">قنوات تواصل</div>
-            </div>
-          </div>
-
-          <div class="contactBox reveal">
-            <div class="contactTitle">تواصل سريع</div>
-            <div class="contactBtns">
-              <a class="btnGhost" href="https://wa.me/972595172007?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B" target="_blank" rel="noopener">واتساب عماد</a>
-              <a class="btnGhost" href="https://wa.me/972567490629?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B" target="_blank" rel="noopener">واتساب منة</a>
-              <a class="btnGhost" href="https://www.instagram.com/dollar._pay?igsh=MW1yYzA0bDVveGpwMQ==" target="_blank" rel="noopener">إنستقرام المكتب</a>
-            </div>
-            <div class="contactNote">AL‑DOLLAR OFFICE — رابطنا الرسمي: <span class="mono">https://dollaroffice.github.io/al-dollar-office/</span></div>
-          </div>
-        </section>
-
-
-        <div class="pledgeBox">
-          <div class="pledgeTitle">تعهد المكتب</div>
-          <div class="pledgeText">نلتزم بالوضوح، الأمان، والسرعة في كل عملية.</div>
-        </div>
-
-        <div class="menu" style="display:none">
-          <button class="btnPrimary" onclick="go('visitorHome')">زائر</button>
-          <button class="btnPrimary" onclick="go('adminLogin')">المدير</button>
         </div>
       </div>
-    </main>
+    </section>
 
-    <!-- VISITOR HOME -->
-    <main id="visitorHome" class="screen">
-      <div class="card">
-        <div class="badge">VISITOR</div>
-        <h1 class="title" style="font-size:32px">واجهة الزائر</h1>
-        <p class="subtitle">اختر الخدمة المطلوبة</p>
-
-        <div class="menu">
-          <button class="btnPrimary" onclick="go('visitorWhatsApp')">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="#25D366">
-                <path d="M16 2.7c-7.4 0-13.3 5.9-13.3 13.3 0 2.3.6 4.6 1.8 6.6L2 30l7.6-2.4c2 .9 4.2 1.4 6.4 1.4 7.4 0 13.3-5.9 13.3-13.3S23.4 2.7 16 2.7zm0 24.2c-2 0-3.9-.5-5.6-1.4l-.4-.2-4.5 1.4 1.4-4.4-.2-.4c-1-1.8-1.6-3.9-1.6-6 0-6.2 5-11.2 11.2-11.2s11.2 5 11.2 11.2-5 11.2-11.2 11.2z"/>
-              </svg>
-            </span>
-            واتساب
-          </button>
-
-          <button class="btnPrimary" onclick="go('visitorInstagram')">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32">
-                <defs>
-                  <linearGradient id="igGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#f58529"/>
-                    <stop offset="50%" stop-color="#dd2a7b"/>
-                    <stop offset="100%" stop-color="#515bd4"/>
-                  </linearGradient>
-                </defs>
-                <path fill="url(#igGrad)" d="M16 7.3c2.8 0 3.1 0 4.2.1 1 .1 1.6.2 2 .4.5.2.8.4 1.2.8.4.4.6.7.8 1.2.2.4.3 1 .4 2 .1 1.1.1 1.4.1 4.2s0 3.1-.1 4.2c-.1 1-.2 1.6-.4 2-.2.5-.4.8-.8 1.2-.4.4-.7.6-1.2.8-.4.2-1 .3-2 .4-1.1.1-1.4.1-4.2.1s-3.1 0-4.2-.1c-1-.1-1.6-.2-2-.4-.5-.2-.8-.4-1.2-.8-.4-.4-.6-.7-.8-1.2-.2-.4-.3-1-.4-2-.1-1.1-.1-1.4-.1-4.2s0-3.1.1-4.2c.1-1 .2-1.6.4-2 .2-.5.4-.8.8-1.2.4-.4.7-.6 1.2-.8.4-.2 1-.3 2-.4 1.1-.1 1.4-.1 4.2-.1z"/>
-                <circle cx="16" cy="16" r="4.1" fill="white"/>
-                <circle cx="23.5" cy="8.5" r="1" fill="white"/>
-              </svg>
-            </span>
-            إنستقرام
-          </button>
-
-          <button class="btnPrimary" onclick="go('visitorOffers')">عروضنا</button>
-          <button class="btnPrimary" onclick="go('visitorCodes')">اكواد</button>
-          <button class="btnPrimary" onclick="go('visitorBinance')">محفظة باينانس</button>
-
-          <button class="btnGhost" onclick="go('start')">رجوع</button>
+    <!-- PARTNERS STRIP -->
+    <section class="reveal">
+      <div class="marquee">
+        <div class="track" aria-hidden="true">
+          <span class="badgeLogo">Binance</span>
+          <span class="badgeLogo">TRON</span>
+          <span class="badgeLogo">USDT‑TRC20</span>
+          <span class="badgeLogo">Visa</span>
+          <span class="badgeLogo">Mastercard</span>
+          <span class="badgeLogo">InstaPay</span>
+          <span class="badgeLogo">Vodafone Cash</span>
+          <span class="badgeLogo">Binance</span>
+          <span class="badgeLogo">TRON</span>
+          <span class="badgeLogo">USDT‑TRC20</span>
+          <span class="badgeLogo">Visa</span>
+          <span class="badgeLogo">Mastercard</span>
+          <span class="badgeLogo">InstaPay</span>
+          <span class="badgeLogo">Vodafone Cash</span>
         </div>
       </div>
-    </main>
+    </section>
 
-    <!-- VISITOR: WHATSAPP -->
-    <main id="visitorWhatsApp" class="screen">
-      <div class="card wide">
-        <div class="topRow">
-          <h2 class="sectionTitle">حساباتنا في واتساب</h2>
-          <div class="actions">
-            <button class="btnGhost" onclick="go('visitorHome')">رجوع</button>
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="grid3">
+        <div class="svcCard reveal">
+          <div class="svcIcon">⚡</div>
+          <div class="svcName">تحويلات سريعة</div>
+          <div class="svcDesc">تنفيذ مرتب وواضح خطوة بخطوة، مع متابعة فورية.</div>
+        </div>
+        <div class="svcCard reveal">
+          <div class="svcIcon">🧾</div>
+          <div class="svcName">مطابقة حساب</div>
+          <div class="svcDesc">نص رسمي ثابت + توقيت GMT+2 + رابط المكتب الرسمي داخل الرسالة.</div>
+        </div>
+        <div class="svcCard reveal">
+          <div class="svcIcon">🛡️</div>
+          <div class="svcName">أمان وخصوصية</div>
+          <div class="svcDesc">ثبات في الأسلوب والمحتوى يعطي ثقة للعميل، بدون تشويش.</div>
+        </div>
+      </div>
+
+      <div style="height:14px"></div>
+
+      <div class="counters">
+        <div class="countBox reveal">
+          <div class="countNum" data-count="24">0</div>
+          <div class="countLbl">ساعة خدمة</div>
+        </div>
+        <div class="countBox reveal">
+          <div class="countNum" data-count="7">0</div>
+          <div class="countLbl">أيام بالأسبوع</div>
+        </div>
+        <div class="countBox reveal">
+          <div class="countNum" data-count="2">0</div>
+          <div class="countLbl">قنوات تواصل</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISITOR -->
+    <section id="visitor">
+      <div class="grid2">
+        <div class="card reveal">
+          <h2 class="title2">تواصل سريع</h2>
+          <p class="muted">اختر القناة الرسمية:</p>
+          <div class="list">
+            <a class="item" href="https://wa.me/972595172007?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B" target="_blank" rel="noopener">
+              <span>واتساب — عماد زعرب</span><span class="pill">WhatsApp</span>
+            </a>
+            <a class="item" href="https://wa.me/972567490629?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B" target="_blank" rel="noopener">
+              <span>واتساب — منة قديح</span><span class="pill">WhatsApp</span>
+            </a>
+            <a class="item" href="https://www.instagram.com/emad_dollar?igsh=MXRydGc3YmFwYXNjbQ==" target="_blank" rel="noopener">
+              <span>إنستقرام — عماد زعرب</span><span class="pill">Instagram</span>
+            </a>
+            <a class="item" href="https://www.instagram.com/menna.qudeih?igsh=MWI0cWw4a3BxYjdvaA==" target="_blank" rel="noopener">
+              <span>إنستقرام — منة قديح</span><span class="pill">Instagram</span>
+            </a>
+            <a class="item" href="https://www.instagram.com/dollar._pay?igsh=MW1yYzA0bDVveGpwMQ==" target="_blank" rel="noopener">
+              <span>صفحة المكتب — Instagram</span><span class="pill">Official</span>
+            </a>
           </div>
         </div>
 
-        <div class="list">
-          <a class="itemBtn" href="https://wa.me/972595172007?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B" target="_blank" rel="noopener">
-            <span>عماد زعرب</span>
-            <span class="pill">WhatsApp</span>
-          </a>
-
-          <a class="itemBtn" href="https://wa.me/972567490629?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B" target="_blank" rel="noopener">
-            <span>منة قديح</span>
-            <span class="pill">WhatsApp</span>
-          </a>
-        </div>
-      </div>
-    </main>
-
-    <!-- VISITOR: INSTAGRAM -->
-    <main id="visitorInstagram" class="screen">
-      <div class="card wide">
-        <div class="topRow">
-          <h2 class="sectionTitle">حساباتنا في إنستقرام</h2>
-          <div class="actions">
-            <button class="btnGhost" onclick="go('visitorHome')">رجوع</button>
-          </div>
-        </div>
-
-        <div class="list">
-          <a class="itemBtn" href="https://www.instagram.com/emad_dollar?igsh=MXRydGc3YmFwYXNjbQ==" target="_blank" rel="noopener">
-            <span>عماد زعرب</span>
-            <span class="pill">Instagram</span>
-          </a>
-
-          <a class="itemBtn" href="https://www.instagram.com/menna.qudeih?igsh=MWI0cWw4a3BxYjdvaA==" target="_blank" rel="noopener">
-            <span>منة قديح</span>
-            <span class="pill">Instagram</span>
-          </a>
-
-          <a class="itemBtn" href="https://www.instagram.com/dollar._pay?igsh=MW1yYzA0bDVveGpwMQ==" target="_blank" rel="noopener">
-            <span>صفحة المكتب</span>
-            <span class="pill">Instagram</span>
-          </a>
-        </div>
-      </div>
-    </main>
-
-    <!-- VISITOR: OFFERS -->
-    <main id="visitorOffers" class="screen">
-      <div class="card wide">
-        <div class="topRow">
-          <h2 class="sectionTitle">عروضنا وخدماتنا</h2>
-          <div class="actions">
-            <button class="btnGhost" onclick="go('visitorHome')">رجوع</button>
-          </div>
-        </div>
-
-        <pre class="message">✨ AL-DOLLAR OFFICE ✨
+        <div class="card reveal">
+          <h2 class="title2">عروضنا</h2>
+          <pre class="msg">✨ AL‑DOLLAR OFFICE ✨
 نستقبل حوالاتكم من جميع دول العالم بدون استثناء وبسرعة وأمان.
 
 • حوالات داخلية وخارجية
@@ -595,269 +469,255 @@
 
 🕘 ساعات العمل:
 من السبت إلى الجمعة — على مدار الساعة (24/7) ✅</pre>
-      </div>
-    </main>
 
-    <!-- VISITOR: CODES -->
-    <main id="visitorCodes" class="screen">
+          <div class="panelBtns">
+            <button class="btn primary" id="openCodes">اكواد</button>
+            <button class="btn" id="openBinance">محفظة باينانس</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <section class="reveal">
       <div class="card">
-        <div class="badge">CODES</div>
-        <h1 class="title" style="font-size:32px">اكواد</h1>
-        <p class="subtitle">ادخل المعلومات ثم اضغط طباعة</p>
-
-        <div class="form">
-          <div class="field"><div class="label">رقم الهوية</div><input id="c_id" type="text" inputmode="numeric" placeholder="0"></div>
-          <div class="field"><div class="label">رقم الجوال</div><input id="c_phone" type="text" inputmode="tel" placeholder="0"></div>
-          <div class="field"><div class="label">رقم الكود</div><input id="c_code" type="text" inputmode="numeric" placeholder="0"></div>
-          <div class="field"><div class="label">المبلغ</div><input id="c_amount" type="text" inputmode="decimal" placeholder="0"></div>
-
-          <hr class="divider"/>
-
-          <div class="badge">معلومات المحفظة</div>
-
-          <div class="field"><div class="label">رقم الهوية</div><input id="w_id" type="text" inputmode="numeric" placeholder="0"></div>
-          <div class="field"><div class="label">رقم الجوال</div><input id="w_phone" type="text" inputmode="tel" placeholder="0"></div>
-          <div class="field"><div class="label">نسبة الخصم %</div><input id="w_discount" type="text" inputmode="decimal" placeholder="0"></div>
-
-          <button id="btnCodesPrint" class="btnPrimary" type="button">طباعة</button>
-          <button class="btnGhost" onclick="go('visitorHome')" type="button">رجوع</button>
+        <h2 class="title2">القنوات الرسمية</h2>
+        <p class="muted">
+          أي تواصل خارج هذه القنوات لا يُعتبر تابعاً للمكتب، ولا نتحمل مسؤولية عمليات تتم عبر جهات غير معتمدة.
+        </p>
+        <div class="noteWarn" style="margin-top:12px">
+          رابطنا الرسمي: <b class="mono">https://dollaroffice.github.io/al-dollar-office/</b>
         </div>
+        <p class="muted" style="margin-top:10px">© 2026 AL‑DOLLAR OFFICE</p>
       </div>
-    </main>
-
-    <!-- CODES RESULT -->
-    <main id="codesResult" class="screen">
-      <div class="card wide">
-        <div class="topRow">
-          <h2 class="sectionTitle">نتيجة الأكواد</h2>
-          <div class="actions">
-            <button id="btnCodesCopy" class="btnGhost">نسخ</button>
-            <button class="btnGhost" onclick="go('visitorCodes')">رجوع</button>
-            <button class="btnGhost" onclick="go('visitorHome')">واجهة الزائر</button>
-          </div>
-        </div>
-
-        <pre id="codesOut" class="message"></pre>
-        <div class="ok" id="codesOk"></div>
-      </div>
-    </main>
-
-    <!-- VISITOR: BINANCE -->
-    <main id="visitorBinance" class="screen">
-      <div class="card wide">
-        <div class="topRow">
-          <h2 class="sectionTitle">محفظة باينانس</h2>
-          <div class="actions">
-            <a class="btnGhost" href="binance-wallet.jpg" download>حفظ الصورة</a>
-            <button id="btnBinanceCopy" class="btnGhost" type="button">نسخ الرابط</button>
-            <button class="btnGhost" onclick="go('visitorHome')" type="button">رجوع</button>
-          </div>
-        </div>
-
-        <div class="imgBox"><img src="binance-wallet.jpg" alt="Binance Wallet"></div>
-
-        <div class="note">⚠️ العنوان أدناه ثابت ويتم نسخه كما هو تمامًا.</div>
-
-        <pre id="binanceText" class="message"></pre>
-        <div class="ok" id="binanceOk"></div>
-      </div>
-    </main>
-
-    <!-- ADMIN LOGIN -->
-    <main id="adminLogin" class="screen">
-      <div class="card">
-        <div class="badge">ADMIN</div>
-        <h1 class="title" style="font-size:32px">تسجيل دخول المدير</h1>
-        <p class="subtitle">أدخل اسم المستخدم وكلمة المرور</p>
-
-        <div class="form">
-          <div class="field"><div class="label">اسم المستخدم</div><input id="adminUser" type="text" placeholder="Username" autocomplete="username"></div>
-          <div class="field"><div class="label">كلمة المرور</div><input id="adminPass" type="password" placeholder="Password" autocomplete="current-password"></div>
-
-          <button id="btnAdminLogin" class="btnPrimary" type="button">دخول</button>
-          <button class="btnGhost" onclick="go('start')" type="button">رجوع</button>
-
-          <div id="adminErr" class="err"></div>
-          <div class="note">🔒 حماية داخلية بدون سيرفر (حماية قوية 100% تحتاج سيرفر).</div>
-        </div>
-      </div>
-    </main>
-
-    <!-- ADMIN PANEL -->
-    <main id="adminPanel" class="screen">
-      <div class="card">
-        <div class="badge">ADMIN PANEL</div>
-        <h1 class="title" style="font-size:32px">لوحة المدير</h1>
-        <p class="subtitle">اختر العملية المطلوبة</p>
-
-        <div class="menu">
-          <button class="btnPrimary" onclick="requireAdminThen('addOp')">إضافة العملية</button>
-          <button class="btnPrimary" onclick="requireAdminThen('match')">طباعة مطابقة</button>
-          <button id="btnLogout" class="btnDanger" type="button">تسجيل خروج</button>
-        </div>
-
-        <div class="note">✅ رقم العملية يبدأ من <b>011009</b> ويزيد تلقائيًا على نفس الجهاز.</div>
-      </div>
-    </main>
-
-    <!-- ADD OP -->
-    <main id="addOp" class="screen">
-      <div class="card">
-        <div class="badge">OPERATION</div>
-        <h1 class="title" style="font-size:32px">إضافة العملية</h1>
-        <p class="subtitle">اختر (لكم/لنا) وأدخل المبلغ والعملة</p>
-
-        <div class="form">
-          <div class="field">
-            <div class="label">الجهة</div>
-            <div class="choiceRow">
-              <label class="choice"><input type="radio" name="opSide" value="لكم" checked><span>لكم</span></label>
-              <label class="choice"><input type="radio" name="opSide" value="لنا"><span>لنا</span></label>
-            </div>
-          </div>
-
-          <div class="field"><div class="label">المبلغ</div><input id="opAmount" type="text" inputmode="decimal" placeholder="مثال: 250"></div>
-          <div class="field"><div class="label">العملة (اكتبها أنت)</div><input id="opCurrency" type="text" placeholder="مثال: USD / ILS / EUR"></div>
-
-          <button id="btnOpPrint" class="btnPrimary" type="button">طباعة</button>
-
-          <div class="actions" style="justify-content:flex-start">
-            <button class="btnGhost" onclick="go('adminPanel')" type="button">رجوع</button>
-          </div>
-
-          <div id="opErrBox" class="err"></div>
-        </div>
-      </div>
-    </main>
-
-    <!-- OP RESULT -->
-    <main id="opResult" class="screen">
-      <div class="card wide">
-        <div class="topRow">
-          <h2 class="sectionTitle">نتيجة العملية</h2>
-          <div class="actions">
-            <button id="btnOpCopy" class="btnGhost">نسخ</button>
-            <button class="btnGhost" onclick="go('addOp')">رجوع</button>
-            <button class="btnGhost" onclick="go('adminPanel')">لوحة المدير</button>
-          </div>
-        </div>
-
-        <pre id="opOut" class="message"></pre>
-        <div class="ok" id="opOk"></div>
-      </div>
-    </main>
-
-    <!-- MATCH -->
-    <main id="match" class="screen">
-      <div class="card">
-        <div class="badge">MATCH</div>
-        <h1 class="title" style="font-size:32px">طباعة مطابقة</h1>
-        <p class="subtitle">اكتب البيانات ثم اضغط مطابقة</p>
-
-        <div class="form">
-          <div class="field"><div class="label">الاسم</div><input id="inpName" type="text" placeholder="مثال: أحمد محمد"></div>
-          <div class="field"><div class="label">العملة (اكتبها أنت)</div><input id="inpCurrency" type="text" placeholder="مثال: USD / EUR / ILS"></div>
-          <div class="field"><div class="label">المبلغ</div><input id="inpAmount" type="text" inputmode="decimal" placeholder="مثال: 250"></div>
-
-          <div class="field">
-            <div class="label">الكلمة</div>
-            <div class="choiceRow">
-              <label class="choice"><input type="radio" name="side" value="لكم" checked><span>لكم</span></label>
-              <label class="choice"><input type="radio" name="side" value="لنا"><span>لنا</span></label>
-            </div>
-          </div>
-
-          <button id="btnMatch" class="btnPrimary" type="button">مطابقة</button>
-
-          <div class="actions" style="justify-content:flex-start">
-            <button class="btnGhost" onclick="go('adminPanel')" type="button">رجوع</button>
-          </div>
-
-          <div id="errBox" class="err"></div>
-        </div>
-      </div>
-    </main>
-
-    <!-- MATCH RESULT -->
-    <main id="result" class="screen">
-      <div class="card wide">
-        <div class="topRow">
-          <h2 class="sectionTitle">نتيجة المطابقة</h2>
-          <div class="actions">
-            <button id="btnCopy" class="btnGhost">نسخ</button>
-            <button id="btnWhats" class="btnGhost">مشاركة واتساب</button>
-            <button class="btnGhost" onclick="go('match')">رجوع</button>
-            <button class="btnGhost" onclick="go('adminPanel')">لوحة المدير</button>
-          </div>
-        </div>
-
-        <pre id="messageBox" class="message"></pre>
-        <div class="ok" id="matchOk"></div>
-        <div class="note">🕒 التوقيت داخل النص مضبوط على GMT+2.</div>
-      </div>
-    </main>
+    </section>
 
   </div>
+
+  <!-- MODALS -->
+  <dialog id="adminModal">
+    <div class="modalHead">
+      <div style="font-weight:1000">لوحة المدير</div>
+      <button class="xbtn" data-close="adminModal">إغلاق</button>
+    </div>
+    <div class="modalBody">
+      <div id="adminLoginBox">
+        <p class="muted">أدخل اسم المستخدم وكلمة المرور</p>
+        <div class="field"><label>اسم المستخدم</label><input id="adminUser" autocomplete="username" placeholder="emad"></div>
+        <div class="field"><label>كلمة المرور</label><input id="adminPass" type="password" autocomplete="current-password" placeholder="••••••••"></div>
+        <div class="ctaRow" style="margin-top:12px">
+          <button class="btn primary" id="btnAdminLogin">دخول</button>
+          <button class="btn" id="btnLogout" style="display:none">تسجيل خروج</button>
+        </div>
+        <div id="adminErr" class="err"></div>
+        <div class="noteWarn">🔒 حماية داخلية بدون سيرفر (حماية قوية 100% تحتاج سيرفر).</div>
+      </div>
+
+      <div id="adminPanel" style="display:none">
+        <div class="ctaRow">
+          <button class="btn primary" id="tabMatch">طباعة مطابقة</button>
+          <button class="btn" id="tabOp">إضافة عملية</button>
+        </div>
+
+        <div id="matchBox" style="margin-top:12px">
+          <div class="field"><label>الاسم</label><input id="inpName" placeholder="مثال: أحمد محمد"></div>
+          <div class="field"><label>العملة (اكتبها أنت)</label><input id="inpCurrency" placeholder="USD / EUR / ILS"></div>
+          <div class="field"><label>المبلغ</label><input id="inpAmount" inputmode="decimal" placeholder="250"></div>
+          <div class="field">
+            <label>الكلمة</label>
+            <div class="choiceRow">
+              <label class="choice"><input type="radio" name="side" value="لكم" checked> لكم</label>
+              <label class="choice"><input type="radio" name="side" value="لنا"> لنا</label>
+            </div>
+          </div>
+          <div class="ctaRow" style="margin-top:12px">
+            <button class="btn primary" id="btnMatch">مطابقة</button>
+            <button class="btn" id="btnCopy">نسخ</button>
+            <button class="btn" id="btnWhats">مشاركة واتساب</button>
+          </div>
+          <div id="errBox" class="err"></div>
+          <pre id="messageBox" class="msg" style="margin-top:12px"></pre>
+          <div id="matchOk" class="ok"></div>
+        </div>
+
+        <div id="opBox" style="display:none; margin-top:12px">
+          <div class="field">
+            <label>الجهة</label>
+            <div class="choiceRow">
+              <label class="choice"><input type="radio" name="opSide" value="لكم" checked> لكم</label>
+              <label class="choice"><input type="radio" name="opSide" value="لنا"> لنا</label>
+            </div>
+          </div>
+          <div class="field"><label>المبلغ</label><input id="opAmount" inputmode="decimal" placeholder="250"></div>
+          <div class="field"><label>العملة (اكتبها أنت)</label><input id="opCurrency" placeholder="USD / EUR / ILS"></div>
+
+          <div class="ctaRow" style="margin-top:12px">
+            <button class="btn primary" id="btnOpPrint">طباعة</button>
+            <button class="btn" id="btnOpCopy">نسخ</button>
+          </div>
+          <div id="opErrBox" class="err"></div>
+          <pre id="opOut" class="msg" style="margin-top:12px"></pre>
+          <div id="opOk" class="ok"></div>
+          <div class="noteWarn">✅ رقم العملية يبدأ من <b>011009</b> ويزيد تلقائيًا على نفس الجهاز.</div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="codesModal">
+    <div class="modalHead">
+      <div style="font-weight:1000">اكواد</div>
+      <button class="xbtn" data-close="codesModal">إغلاق</button>
+    </div>
+    <div class="modalBody">
+      <div class="field"><label>رقم الهوية</label><input id="c_id" inputmode="numeric" placeholder="0"></div>
+      <div class="field"><label>رقم الجوال</label><input id="c_phone" inputmode="tel" placeholder="0"></div>
+      <div class="field"><label>رقم الكود</label><input id="c_code" inputmode="numeric" placeholder="0"></div>
+      <div class="field"><label>المبلغ</label><input id="c_amount" inputmode="decimal" placeholder="0"></div>
+
+      <div class="noteWarn">معلومات المحفظة</div>
+      <div class="field"><label>رقم الهوية</label><input id="w_id" inputmode="numeric" placeholder="0"></div>
+      <div class="field"><label>رقم الجوال</label><input id="w_phone" inputmode="tel" placeholder="0"></div>
+      <div class="field"><label>نسبة الخصم %</label><input id="w_discount" inputmode="decimal" placeholder="0"></div>
+
+      <div class="ctaRow" style="margin-top:12px">
+        <button class="btn primary" id="btnCodesPrint">طباعة</button>
+        <button class="btn" id="btnCodesCopy">نسخ</button>
+      </div>
+      <pre id="codesOut" class="msg" style="margin-top:12px"></pre>
+      <div id="codesOk" class="ok"></div>
+    </div>
+  </dialog>
+
+  <dialog id="binanceModal">
+    <div class="modalHead">
+      <div style="font-weight:1000">محفظة باينانس</div>
+      <button class="xbtn" data-close="binanceModal">إغلاق</button>
+    </div>
+    <div class="modalBody">
+      <div class="logoBox">
+        <img src="binance-wallet.jpg" alt="Binance Wallet">
+      </div>
+      <div class="noteWarn">⚠️ العنوان أدناه ثابت ويتم نسخه كما هو تمامًا.</div>
+      <pre id="binanceText" class="msg"></pre>
+      <div class="ctaRow" style="margin-top:12px">
+        <a class="btn" href="binance-wallet.jpg" download>حفظ الصورة</a>
+        <button class="btn primary" id="btnBinanceCopy">نسخ الرابط</button>
+      </div>
+      <div id="binanceOk" class="ok"></div>
+    </div>
+  </dialog>
 
 <script>
 (() => {
   "use strict";
   const $ = (id) => document.getElementById(id);
+  const show = (el,msg)=>{ el.textContent=msg; el.classList.add("show"); };
+  const hide = (el)=>{ el.textContent=""; el.classList.remove("show"); };
+  const okFlash = (el,msg="تم ✅")=>{ el.textContent=msg; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"),1300); };
 
-  const screens = [
-    "start","visitorHome","visitorWhatsApp","visitorInstagram","visitorOffers","visitorCodes","codesResult","visitorBinance",
-    "adminLogin","adminPanel","addOp","opResult","match","result"
-  ];
-
-  function setActive(id){
-    screens.forEach(s => $(s).classList.remove("active"));
-    $(id).classList.add("active");
-    window.scrollTo({ top: 0, behavior: "instant" });
+  // ===== Sound & Vibration (very subtle) =====
+  let audioCtx;
+  function softTick(){
+    try{
+      if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type = "sine";
+      o.frequency.value = 880;
+      g.gain.value = 0.02;
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start();
+      setTimeout(()=>{ o.stop(); }, 80);
+    }catch(e){}
   }
-  window.go = (id) => setActive(id);
-
-  // ===== Admin auth =====
-  const ADMIN_USER = "emad";
-  const ADMIN_PASS = "Asd@2003";
-  const AUTH_KEY = "al_dollar_admin_auth";
-
-  function isAdmin(){ return sessionStorage.getItem(AUTH_KEY) === "1"; }
-  function requireAdminThen(target){
-    if (!isAdmin()) { setActive("adminLogin"); return; }
-    setActive(target);
+  function softVibe(){
+    if(navigator.vibrate){ navigator.vibrate(25); }
   }
-  window.requireAdminThen = requireAdminThen;
 
-  const adminErr = $("adminErr");
-  function show(el,msg){ el.textContent = msg; el.classList.add("show"); }
-  function hide(el){ el.textContent=""; el.classList.remove("show"); }
-  function okFlash(el,msg="تم ✅"){ el.textContent=msg; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"),1300); }
+  // ===== Dhikr mini (auto + on click) =====
+  const dhikrEl = $("dhikrMiniText");
+  const dhikrMorning = ["سبحان الله وبحمده","استغفر الله","اللهم صلِّ على محمد","حسبي الله ونعم الوكيل","لا حول ولا قوة إلا بالله"];
+  const dhikrNight   = ["سبحان الله العظيم","استغفر الله","لا إله إلا الله","اللهم صلِّ على محمد","حسبي الله ونعم الوكيل"];
+  const pick = (arr)=>arr[Math.floor(Math.random()*arr.length)];
+  function getHourGMT2(){
+    const h = new Intl.DateTimeFormat("en-GB",{timeZone:"Etc/GMT-2",hour:"2-digit",hour12:false}).format(new Date());
+    return Number(h);
+  }
+  function isMorning(){ const h=getHourGMT2(); return h>=5 && h<17; }
+  function renderDhikr(){
+    const prefix = isMorning() ? "☀️" : "🌙";
+    const arr = isMorning() ? dhikrMorning : dhikrNight;
+    dhikrEl.textContent = `${prefix} ${pick(arr)}`;
+  }
+  renderDhikr(); setInterval(renderDhikr, 25000);
+  let dhikrLock=false;
+  document.addEventListener("click",(e)=>{
+    const t=e.target;
+    const isBtn = t && (t.tagName==="BUTTON" || t.closest("button") || t.classList?.contains("btn"));
+    if(!isBtn) return;
+    if(dhikrLock) return;
+    dhikrLock=true; renderDhikr();
+    setTimeout(()=>dhikrLock=false,650);
+  });
 
-  $("btnAdminLogin").addEventListener("click", () => {
-    hide(adminErr);
-    const u = ($("adminUser").value||"").trim();
-    const p = ($("adminPass").value||"");
-    if (u === ADMIN_USER && p === ADMIN_PASS){
-      sessionStorage.setItem(AUTH_KEY,"1");
-      $("adminPass").value = "";
-      softVibe(); setActive("adminPanel");
-    } else {
-      show(adminErr,"اسم المستخدم أو كلمة المرور غير صحيحة.");
+  // ===== Reveal on scroll + counters =====
+  const revealEls = document.querySelectorAll(".reveal");
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add("show");
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  function animateCount(el, to){
+    const dur = 900, start = performance.now();
+    function step(t){
+      const p = Math.min(1, (t-start)/dur);
+      el.textContent = String(Math.round(to*p));
+      if(p<1) requestAnimationFrame(step);
     }
-  });
-
-  $("btnLogout").addEventListener("click", () => {
-    sessionStorage.removeItem(AUTH_KEY);
-    setActive("start");
-  });
-
-  // ===== Helpers =====
-  function sanitizeText(s){ return String(s ?? "").replace(/\s+/g," ").trim(); }
-  function amountNormalize(s){
-    const raw = String(s ?? "").trim();
-    const cleaned = raw.replace(/[^\d.,]/g,"");
-    return cleaned || "0";
+    requestAnimationFrame(step);
   }
+  const counterEls = document.querySelectorAll(".countNum[data-count]");
+  const cio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el = e.target;
+        animateCount(el, Number(el.getAttribute("data-count")||"0"));
+        cio.unobserve(el);
+      }
+    });
+  }, {threshold: 0.3});
+  counterEls.forEach(el=>cio.observe(el));
+
+  // ===== Modals =====
+  function openModal(id){ $(id).showModal(); }
+  function closeModal(id){ $(id).close(); }
+  document.addEventListener("click",(e)=>{
+    const btn = e.target.closest("[data-close]");
+    if(!btn) return;
+    closeModal(btn.getAttribute("data-close"));
+  });
+
+  $("openAdmin").addEventListener("click",(e)=>{ e.preventDefault(); openModal("adminModal"); });
+  $("btnPrintMatch").addEventListener("click",()=>{ openModal("adminModal"); setTimeout(()=>$("tabMatch").click(), 60); });
+  $("btnAddOp").addEventListener("click",()=>{ openModal("adminModal"); setTimeout(()=>$("tabOp").click(), 60); });
+  $("openCodes").addEventListener("click",()=>openModal("codesModal"));
+  $("openBinance").addEventListener("click",()=>openModal("binanceModal"));
+
+  // ===== Binance (fixed text) =====
+  const BINANCE_WALLET_TEXT = "TZGjoUZzjY9RDDwrDYhF4WAQQWcVQasj5T";
+  $("binanceText").textContent = BINANCE_WALLET_TEXT;
+  $("btnBinanceCopy").addEventListener("click", async () => {
+    await copyText(BINANCE_WALLET_TEXT);
+    okFlash($("binanceOk"),"تم نسخ العنوان ✅"); softTick(); softVibe();
+  });
+
+  // ===== Copy helper =====
   async function copyText(txt){
     try { await navigator.clipboard.writeText(txt); }
     catch{
@@ -868,6 +728,59 @@
     }
   }
 
+  // ===== Admin auth =====
+  const ADMIN_USER = "emad";
+  const ADMIN_PASS = "Asd@2003";
+  const AUTH_KEY = "al_dollar_admin_auth";
+  function isAdmin(){ return sessionStorage.getItem(AUTH_KEY) === "1"; }
+
+  const adminErr = $("adminErr");
+  $("btnAdminLogin").addEventListener("click", () => {
+    hide(adminErr);
+    const u = ($("adminUser").value||"").trim();
+    const p = ($("adminPass").value||"");
+    if (u === ADMIN_USER && p === ADMIN_PASS){
+      sessionStorage.setItem(AUTH_KEY,"1");
+      $("adminPass").value = "";
+      $("adminLoginBox").querySelector(".noteWarn").style.display = "none";
+      $("btnLogout").style.display = "inline-flex";
+      $("adminPanel").style.display = "block";
+      $("adminLoginBox").querySelector("p.muted").textContent = "تم تسجيل الدخول ✅";
+      softVibe();
+      $("tabMatch").click();
+    } else {
+      show(adminErr,"اسم المستخدم أو كلمة المرور غير صحيحة.");
+    }
+  });
+
+  $("btnLogout").addEventListener("click", () => {
+    sessionStorage.removeItem(AUTH_KEY);
+    $("adminPanel").style.display = "none";
+    $("adminLoginBox").querySelector("p.muted").textContent = "أدخل اسم المستخدم وكلمة المرور";
+    $("btnLogout").style.display = "none";
+    $("adminLoginBox").querySelector(".noteWarn").style.display = "block";
+  });
+
+  // Tabs
+  function ensureAdmin(){
+    if(!isAdmin()){
+      show(adminErr,"سجّل الدخول أولاً.");
+      return false;
+    }
+    hide(adminErr);
+    return true;
+  }
+  $("tabMatch").addEventListener("click",()=>{
+    if(!ensureAdmin()) return;
+    $("matchBox").style.display="block";
+    $("opBox").style.display="none";
+  });
+  $("tabOp").addEventListener("click",()=>{
+    if(!ensureAdmin()) return;
+    $("matchBox").style.display="none";
+    $("opBox").style.display="block";
+  });
+
   // ===== GMT+2 time =====
   const dtf = new Intl.DateTimeFormat("en-GB",{
     timeZone:"Etc/GMT-2",
@@ -875,144 +788,21 @@
     hour:"2-digit",minute:"2-digit",second:"2-digit",
     hour12:false
   });
-
   function formatGMT2(){
     const parts = dtf.formatToParts(new Date());
     const get = (t) => parts.find(p=>p.type===t)?.value || "";
     return `${get("day")}/${get("month")}/${get("year")} ${get("hour")}:${get("minute")}:${get("second")}`;
   }
-
-  function getHourGMT2(){
-    const h = new Intl.DateTimeFormat("en-GB",{timeZone:"Etc/GMT-2",hour:"2-digit",hour12:false}).format(new Date());
-    return Number(h);
-  }
-  function isMorning(){ const h=getHourGMT2(); return h>=5 && h<17; }
-
-  // ===== Smart Welcome =====
-  function renderSmartWelcome(){
-    const morningMsg = "صباح الخير، جاهزين لخدمتكم بكل محبة 🌿";
-    const nightMsg   = "مساء الخير، الخدمة مستمرة بكل أمان 🌙";
-    $("smartWelcome").textContent = isMorning() ? morningMsg : nightMsg;
-  }
-  renderSmartWelcome();
-  setInterval(renderSmartWelcome, 60000);
-
-  // ===== Dhikr mini (auto + on button click) =====
-  const dhikrEl = $("dhikrMiniText");
-  const dhikrMorning = ["سبحان الله وبحمده","استغفر الله","اللهم صلِّ على محمد","حسبي الله ونعم الوكيل","لا حول ولا قوة إلا بالله"];
-  const dhikrNight   = ["سبحان الله العظيم","استغفر الله","لا إله إلا الله","اللهم صلِّ على محمد","حسبي الله ونعم الوكيل"];
-  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-  function renderDhikr(){
-    const prefix = isMorning() ? "☀️" : "🌙";
-    const arr = isMorning() ? dhikrMorning : dhikrNight;
-    dhikrEl.textContent = `${prefix} ${pick(arr)}`;
-  }
-  renderDhikr();
-  setInterval(renderDhikr, 25000);
-
-  let dhikrLock=false;
-  document.addEventListener("click",(e)=>{
-    const t=e.target;
-    const isBtn = t && (t.tagName==="BUTTON" || t.closest("button"));
-    if(!isBtn) return;
-    if(dhikrLock) return;
-    dhikrLock=true;
-    renderDhikr();
-    setTimeout(()=>dhikrLock=false,650);
-  });
-
-  // ===== Sound & Vibration (very subtle) =====
-  let audioCtx;
-  function softTick(){
-    try{
-      if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const o = audioCtx.createOscillator();
-      const g = audioCtx.createGain();
-      o.type = "sine";
-      o.frequency.value = 880; // soft tick
-      g.gain.value = 0.02;     // very low volume
-      o.connect(g); g.connect(audioCtx.destination);
-      o.start();
-      setTimeout(()=>{ o.stop(); }, 80);
-    }catch(e){}
-  }
-  function softVibe(){
-    if(navigator.vibrate){
-      navigator.vibrate(25); // subtle vibration
-    }
+  function sanitizeText(s){ return String(s ?? "").replace(/\s+/g," ").trim(); }
+  function amountNormalize(s){
+    const raw = String(s ?? "").trim();
+    const cleaned = raw.replace(/[^\d.,]/g,"");
+    return cleaned || "0";
   }
 
-  // ===== Binance (fixed text) =====
-  const BINANCE_WALLET_TEXT = "TZGjoUZzjY9RDDwrDYhF4WAQQWcVQasj5T";
-  $("binanceText").textContent = BINANCE_WALLET_TEXT;
-  $("btnBinanceCopy").addEventListener("click", async () => {
-    await copyText(BINANCE_WALLET_TEXT);
-    okFlash($("binanceOk"),"تم نسخ العنوان ✅"); softTick(); softVibe();
-  });
-
-  // ===== Codes =====
-  const v = (id) => (($ (id).value || "").trim() || "0");
-  function buildCodesText(){
-    return `رقم الهوية : ${v("c_id")}
-رقم الجوال : ${v("c_phone")}
-رقم الكود : ${v("c_code")}
-المبلغ : ${v("c_amount")}
-
-معلومات المحفظة
-رقم الهوية : ${v("w_id")}
-رقم الجوال : ${v("w_phone")}
-نسبة الخصم : ${v("w_discount")} %`;
-  }
-
-  $("btnCodesPrint").addEventListener("click", () => {
-    $("codesOut").textContent = buildCodesText();
-    setActive("codesResult");
-  });
-
-  $("btnCodesCopy").addEventListener("click", async () => {
-    await copyText($("codesOut").textContent || "");
-    okFlash($("codesOk"),"تم النسخ ✅"); softTick(); softVibe();
-  });
-
-  // ===== Add Operation =====
-  const OP_KEY="al_dollar_op_counter";
-  const OP_START=11009; // 011009
-  function getOpCounter(){
-    const n=Number(localStorage.getItem(OP_KEY));
-    if(!Number.isFinite(n)||n<=0){ localStorage.setItem(OP_KEY,String(OP_START)); return OP_START; }
-    return n;
-  }
-  function nextOpNumber(){
-    const current=getOpCounter();
-    localStorage.setItem(OP_KEY,String(current+1));
-    return current;
-  }
-  function pad6(n){ return String(n).padStart(6,"0"); }
-
-  $("btnOpPrint").addEventListener("click", () => {
-    if(!isAdmin()){ setActive("adminLogin"); return; }
-    const err=$("opErrBox"); hide(err);
-
-    const side = document.querySelector('input[name="opSide"]:checked')?.value || "لكم";
-    const amount = amountNormalize($("opAmount").value);
-    const currency = sanitizeText($("opCurrency").value);
-
-    if(!currency) return show(err,"اكتب العملة لو سمحت (مثال: USD).");
-
-    const opNo = nextOpNumber();
-    $("opOut").textContent = `${side} ${amount} ${currency}\nتم اضافة العملية برقم ${pad6(opNo)}`;
-    setActive("opResult");
-  });
-
-  $("btnOpCopy").addEventListener("click", async () => {
-    if(!isAdmin()){ setActive("adminLogin"); return; }
-    await copyText($("opOut").textContent || "");
-    okFlash($("opOk"),"تم النسخ ✅"); softTick(); softVibe();
-  });
-
-  // ===== Match =====
+  // Match
   $("btnMatch").addEventListener("click", () => {
-    if(!isAdmin()){ setActive("adminLogin"); return; }
+    if(!ensureAdmin()) return;
     const err=$("errBox"); hide(err);
 
     const name = sanitizeText($("inpName").value);
@@ -1046,59 +836,78 @@ Al-Dollar Exchange Office
 https://dollaroffice.github.io/al-dollar-office/
 
 *ملاحظة : يرجى التأكيد على صحة المطابقة* `;
-
-    softTick(); setActive("result");
+    softTick();
   });
 
   $("btnCopy").addEventListener("click", async () => {
-    if(!isAdmin()){ setActive("adminLogin"); return; }
+    if(!ensureAdmin()) return;
     await copyText($("messageBox").textContent || "");
     okFlash($("matchOk"),"تم النسخ ✅"); softTick(); softVibe();
   });
 
   $("btnWhats").addEventListener("click", () => {
-    if(!isAdmin()){ setActive("adminLogin"); return; }
+    if(!ensureAdmin()) return;
     const txt = $("messageBox").textContent || "";
     window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener,noreferrer");
   });
 
-
-  // ===== Landing reveal + counters =====
-  const revealEls = document.querySelectorAll(".reveal");
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        e.target.classList.add("show");
-        io.unobserve(e.target);
-      }
-    });
-  }, {threshold: 0.15});
-  revealEls.forEach(el=>io.observe(el));
-
-  function animateCount(el, to){
-    const dur = 900;
-    const start = performance.now();
-    const from = 0;
-    function step(t){
-      const p = Math.min(1, (t-start)/dur);
-      const v = Math.round(from + (to-from)*p);
-      el.textContent = String(v);
-      if(p<1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
+  // ===== Add Operation =====
+  const OP_KEY="al_dollar_op_counter";
+  const OP_START=11009; // 011009
+  function getOpCounter(){
+    const n=Number(localStorage.getItem(OP_KEY));
+    if(!Number.isFinite(n)||n<=0){ localStorage.setItem(OP_KEY,String(OP_START)); return OP_START; }
+    return n;
   }
-  const counterEls = document.querySelectorAll(".countNum[data-count]");
-  const cio = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        const el = e.target;
-        const to = Number(el.getAttribute("data-count")||"0");
-        animateCount(el, to);
-        cio.unobserve(el);
-      }
-    });
-  }, {threshold: 0.3});
-  counterEls.forEach(el=>cio.observe(el));
+  function nextOpNumber(){
+    const current=getOpCounter();
+    localStorage.setItem(OP_KEY,String(current+1));
+    return current;
+  }
+  function pad6(n){ return String(n).padStart(6,"0"); }
+
+  $("btnOpPrint").addEventListener("click", () => {
+    if(!ensureAdmin()) return;
+    const err=$("opErrBox"); hide(err);
+
+    const side = document.querySelector('input[name="opSide"]:checked')?.value || "لكم";
+    const amount = amountNormalize($("opAmount").value);
+    const currency = sanitizeText($("opCurrency").value);
+
+    if(!currency) return show(err,"اكتب العملة لو سمحت (مثال: USD).");
+
+    const opNo = nextOpNumber();
+    $("opOut").textContent = `${side} ${amount} ${currency}\nتم اضافة العملية برقم ${pad6(opNo)}`;
+    softTick();
+  });
+
+  $("btnOpCopy").addEventListener("click", async () => {
+    if(!ensureAdmin()) return;
+    await copyText($("opOut").textContent || "");
+    okFlash($("opOk"),"تم النسخ ✅"); softTick(); softVibe();
+  });
+
+  // ===== Codes =====
+  const v = (id) => (($ (id).value || "").trim() || "0");
+  function buildCodesText(){
+    return `رقم الهوية : ${v("c_id")}
+رقم الجوال : ${v("c_phone")}
+رقم الكود : ${v("c_code")}
+المبلغ : ${v("c_amount")}
+
+معلومات المحفظة
+رقم الهوية : ${v("w_id")}
+رقم الجوال : ${v("w_phone")}
+نسبة الخصم : ${v("w_discount")} %`;
+  }
+  $("btnCodesPrint").addEventListener("click", () => {
+    $("codesOut").textContent = buildCodesText();
+    softTick();
+  });
+  $("btnCodesCopy").addEventListener("click", async () => {
+    await copyText($("codesOut").textContent || "");
+    okFlash($("codesOk"),"تم النسخ ✅"); softTick(); softVibe();
+  });
 
 })();
 </script>
