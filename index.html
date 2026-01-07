@@ -1,1021 +1,127 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="auto">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AL‑DOLLAR OFFICE</title>
-  <meta name="theme-color" content="#070a12">
-  <style>
-    :root{
-      /* Light defaults (will be overridden if system is dark) */
-      --bg:#f6f8ff; --bg2:#ffffff;
-      --text:#0b1226; --muted:#3a4a7a;
-      --border:rgba(10,20,50,.14);
-      --gold:rgba(186,140,0,.95);
-      --aqua:rgba(0,120,255,.10);
-      --shadow:0 16px 40px rgba(10,20,50,.10);
-      --r:22px;
-    }
-    /* Dark theme */
-    [data-theme="dark"]{
-      --bg:#070a12; --bg2:#0b1226;
-      --text:#eef2ff; --muted:#b4c0e6;
-      --border:rgba(255,255,255,.12);
-      --gold:rgba(255,215,0,.9);
-      --aqua:rgba(110,231,255,.18);
-      --shadow:0 18px 45px rgba(0,0,0,.45);
-    }
-    /* Light theme (explicit) */
-    [data-theme="light"]{
-      --bg:#f6f8ff; --bg2:#ffffff;
-      --text:#0b1226; --muted:#3a4a7a;
-      --border:rgba(10,20,50,.14);
-      --gold:rgba(186,140,0,.95);
-      --aqua:rgba(0,120,255,.10);
-      --shadow:0 16px 40px rgba(10,20,50,.10);
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AL‑DOLLAR OFFICE</title>
+<meta name="theme-color" content="#f7f9ff">
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, "Noto Kufi Arabic", sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(900px 650px at 20% -10%, rgba(255, 215, 0, 0.10), transparent 55%),
-        radial-gradient(900px 650px at 110% 40%, rgba(0,120,255,0.08), transparent 55%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
-    }
-
-    a{color:inherit}
-    .wrap{width:min(1100px, 94vw); margin:0 auto; padding:16px 0 48px}
-    .topBar{
-      position:sticky; top:0; z-index:9999;
-      backdrop-filter: blur(10px);
-      background: rgba(0,0,0,.22);
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:10px 12px; flex-wrap:wrap;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:1000; letter-spacing:.3px;
-    }
-    .brandMark{
-      width:34px; height:34px; border-radius:12px;
-      border:1px solid rgba(255,215,0,.22);
-      background: radial-gradient(18px 18px at 30% 30%, rgba(255,215,0,.25), rgba(0,0,0,.25));
-      display:flex; align-items:center; justify-content:center;
-      box-shadow:0 10px 18px rgba(0,0,0,.25);
-    }
-    .brandTitle{
-      background: linear-gradient(90deg, rgba(255,215,0,.95), rgba(255,255,255,.92));
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-      text-transform:uppercase;
-    }
-    .navLinks{display:flex; gap:8px; flex-wrap:wrap}
-    .chip{
-      text-decoration:none;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.05);
-      padding:8px 12px;
-      border-radius:999px;
-      font-weight:900;
-      font-size:12px;
-    }
-    /* Theme UI tweaks */
-    [data-theme="light"] .topBar{ background: rgba(255,255,255,.75); }
-    [data-theme="light"] .chip{ background: rgba(255,255,255,.85); }
-    [data-theme="light"] .chip.primary{ background: linear-gradient(90deg, rgba(186,140,0,0.22), rgba(0,120,255,0.12)); }
-    [data-theme="light"] .brandMark{ background: radial-gradient(18px 18px at 30% 30%, rgba(186,140,0,.18), rgba(255,255,255,.75)); }
-    [data-theme="light"] .pill{ color: rgba(30,40,70,.8); border-color: rgba(10,20,50,.14); background: rgba(255,255,255,.75); }
-
-    .chip.primary{
-      background: linear-gradient(90deg, rgba(255,215,0,.30), var(--aqua));
-    }
-
-    .dhikrMini{
-      padding:8px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,0.12);
-      background: rgba(0,0,0,0.22);
-      box-shadow: 0 10px 26px rgba(0,0,0,0.22);
-      text-align:center;
-      font-size: 13px;
-      color: rgba(238,242,255,0.95);
-      user-select:none;
-      margin:12px 0 0;
-    }
-
-    /* Sections */
-    section{padding:26px 0}
-    .hero{
-      display:grid; gap:16px;
-      padding:26px 0 14px;
-    }
-    .heroGrid{
-      display:grid; grid-template-columns: 1.15fr .85fr; gap:14px; align-items:stretch;
-    }
-    .card{
-      border:1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.55));
-      /* dark will still look fine due to page bg */
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      padding: 22px 18px;
-    }
-    .logoBox{
-      border-radius:20px;
-      border:1px solid rgba(255,215,0,.18);
-      background: rgba(0,0,0,.18);
-      padding:10px;
-    }
-    .logoBox img{width:100%; height:auto; display:block; border-radius:16px}
-    .kicker{
-      display:inline-block;
-      padding:6px 12px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,0.05);
-      font-size:12px;
-      color: var(--muted);
-      letter-spacing: 1px;
-    }
-    h1{
-      margin:10px 0 6px;
-      font-size:40px; line-height:1.05;
-      background: linear-gradient(90deg, rgba(255,215,0,.95), rgba(255,255,255,.92));
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-      text-transform:uppercase;
-    }
-    .lead{margin:0; color:rgba(238,242,255,.92); line-height:1.8; font-size:14px}
-    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
-    .btn{
-      cursor:pointer;
-      border:1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.05);
-      color: var(--text);
-      font-weight: 1000;
-      padding: 12px 14px;
-      border-radius: 16px;
-      text-decoration:none;
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      transition: transform .12s ease, filter .12s ease;
-    }
-    .btn.primary{background: linear-gradient(90deg, rgba(255,215,0,0.38), var(--aqua));}
-    .btn:active{transform:scale(.98)}
-    .miniNote{margin-top:10px; font-size:12px; color:rgba(238,242,255,.82); line-height:1.7}
-
-    /* Grids */
-    .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
-    .grid2{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
-    .title2{margin:0 0 8px; font-size:18px}
-    .muted{color:rgba(180,192,230,.9); font-size:13px; line-height:1.8; margin:0}
-
-    .svcCard{padding:16px; border-radius:18px; border:1px solid var(--border); background:rgba(0,0,0,.18)}
-    .svcIcon{font-size:22px}
-    .svcName{margin-top:6px; font-weight:1000}
-    .svcDesc{margin-top:6px; font-size:12.5px; line-height:1.7; color:rgba(238,242,255,.84)}
-
-    .marquee{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      border-radius:18px;
-      overflow:hidden;
-      padding:10px 0;
-    }
-    .track{
-      display:flex; gap:26px;
-      width:max-content;
-      animation: scroll 18s linear infinite;
-      padding-inline:18px;
-      align-items:center;
-    }
-    .badgeLogo{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      font-weight:1000;
-      font-size:12px;
-      color:rgba(238,242,255,.92);
-      white-space:nowrap;
-    }
-    @keyframes scroll{
-      from{transform:translateX(0)}
-      to{transform:translateX(-50%)}
-    }
-
-    .counters{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
-    .countBox{padding:16px; border-radius:18px; border:1px solid var(--border); background:rgba(0,0,0,.18); text-align:center}
-    .countNum{
-      font-size:32px; font-weight:1100;
-      background: linear-gradient(90deg, rgba(255,215,0,.95), rgba(255,255,255,.92));
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-    }
-    .countLbl{margin-top:6px; font-size:12.5px; color:rgba(238,242,255,.86)}
-
-    /* Visitor panel */
-    .panelBtns{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-start; margin-top:12px}
-    .panelBtns .btn{flex:1 1 180px}
-    .list{display:grid; gap:10px; margin-top:12px}
-    .item{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-      padding:12px 14px;
-      border-radius:16px;
-      border:1px solid var(--border);
-      background: rgba(0,0,0,0.22);
-      text-decoration:none;
-      font-weight:1000;
-    }
-    .pill{
-      font-size:12px;
-      color:var(--muted);
-      border:1px solid rgba(255,255,255,0.12);
-      border-radius:999px;
-      padding:6px 10px;
-      background: rgba(255,255,255,0.05);
-      white-space: nowrap;
-    }
-
-    /* Forms / modals */
-    .field{display:grid; gap:6px; margin-top:10px}
-    label{font-size:13px; color:rgba(180,192,230,.95)}
-    input{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(0,0,0,0.22);
-      color: var(--text);
-      outline: none;
-      font-size: 14px;
-    }
-    .choiceRow{display:flex; gap:12px; flex-wrap:wrap; margin-top:8px}
-    .choice{
-      display:flex; align-items:center; gap:8px;
-      padding:8px 10px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      cursor:pointer;
-      user-select:none;
-      font-weight:900;
-    }
-    .choice input{width:auto}
-
-    .msg{
-      margin:0;
-      padding:16px;
-      border-radius:16px;
-      border:1px solid var(--border);
-      background: rgba(0,0,0,0.25);
-      color: var(--text);
-      overflow:auto;
-      line-height: 1.85;
-      font-size: 14px;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-    .noteWarn{
-      margin-top:12px;
-      padding:12px 12px;
-      border-radius:16px;
-      border:1px solid rgba(255,215,0,.18);
-      background: rgba(0,0,0,.18);
-      color:rgba(238,242,255,.90);
-      font-size:12px;
-      line-height:1.75;
-    }
-    .ok{
-      display:none;
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(90,255,170,0.25);
-      background: rgba(90,255,170,0.10);
-      color: rgba(210,255,235,0.95);
-      font-size: 13px;
-      text-align:center;
-    }
-    .err{
-      display:none;
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,80,80,0.25);
-      background: rgba(255,80,80,0.10);
-      color: rgba(255,220,220,0.95);
-      font-size: 13px;
-      text-align:center;
-    }
-    .show{display:block}
-
-    dialog{
-      width:min(720px, 94vw);
-      border:1px solid rgba(255,255,255,.14);
-      border-radius:22px;
-      background: rgba(10,14,30,.92);
-      color:var(--text);
-      box-shadow: var(--shadow);
-      padding:0;
-    }
-    dialog::backdrop{background: rgba(0,0,0,.55)}
-    .modalHead{
-      padding:14px 16px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      display:flex; justify-content:space-between; align-items:center; gap:10px;
-    }
-    .modalBody{padding:16px}
-    .xbtn{border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.05); border-radius:12px; padding:8px 10px; cursor:pointer; font-weight:1000}
-
-    /* Reveal on scroll */
-    .reveal{opacity:0; transform:translateY(14px); transition:opacity .55s ease, transform .55s ease}
-    .reveal.show{opacity:1; transform:translateY(0)}
-
-    /* Dark card override */
-    [data-theme="dark"] .card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04)) !important;
-    }
-    [data-theme="dark"] .svcCard,
-    [data-theme="dark"] .countBox,
-    [data-theme="dark"] .item,
-    [data-theme="dark"] .marquee,
-    [data-theme="dark"] .dhikrMini,
-    [data-theme="dark"] .logoBox,
-    [data-theme="dark"] .noteWarn,
-    [data-theme="dark"] .msg,
-    [data-theme="dark"] input,
-    [data-theme="dark"] dialog{
-      background: rgba(0,0,0,0.20) !important;
-    }
-    [data-theme="light"] .svcCard,
-    [data-theme="light"] .countBox,
-    [data-theme="light"] .item,
-    [data-theme="light"] .marquee,
-    [data-theme="light"] .dhikrMini,
-    [data-theme="light"] .logoBox,
-    [data-theme="light"] .noteWarn,
-    [data-theme="light"] .msg,
-    [data-theme="light"] input,
-    [data-theme="light"] dialog{
-      background: rgba(255,255,255,0.72) !important;
-    }
-
-@media (max-width:860px){
-      .heroGrid{grid-template-columns:1fr}
-      h1{font-size:34px}
-      .grid3,.grid2,.counters{grid-template-columns:1fr}
-    }
-  </style>
+<style>
+:root{
+  --bg:#f7f9ff;
+  --card:#ffffff;
+  --text:#0b1226;
+  --muted:#3a4a7a;
+  --gold:#b38a00;
+  --border:rgba(10,20,50,.14);
+}
+[data-theme="dark"]{
+  --bg:#070a12;
+  --card:#0e162e;
+  --text:#eef2ff;
+  --muted:#b4c0e6;
+  --gold:#ffd700;
+  --border:rgba(255,255,255,.12);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,"Segoe UI",Tahoma;
+  background:var(--bg);
+  color:var(--text);
+}
+header{
+  background:var(--card);
+  border-bottom:1px solid var(--border);
+  padding:12px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand{
+  font-weight:900;
+  color:var(--gold);
+}
+nav button{
+  border:1px solid var(--border);
+  background:transparent;
+  padding:8px 12px;
+  border-radius:10px;
+  margin-left:6px;
+  font-weight:700;
+}
+main{padding:20px}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:16px;
+}
+h1{margin:0 0 8px;color:var(--gold)}
+.btn{
+  border:none;
+  border-radius:14px;
+  padding:12px 16px;
+  background:var(--gold);
+  color:#000;
+  font-weight:900;
+  margin:6px 4px 0 0;
+}
+.muted{color:var(--muted)}
+</style>
 </head>
 
 <body>
-  <div class="topBar">
-    <div class="wrap">
-      <div class="nav">
-        <div class="brand">
-          <div class="brandMark">💱</div>
-          <div class="brandTitle">AL‑DOLLAR OFFICE</div>
-          <span class="pill">Status: Online</span>
-        </div>
+<header>
+  <div class="brand">AL‑DOLLAR OFFICE</div>
+  <nav>
+    <button id="themeToggle">🌙 / 🌞</button>
+  </nav>
+</header>
 
-        <div class="navLinks">
-          <a class="chip" href="#home">الرئيسية</a>
-          <a class="chip" href="#services">الخدمات</a>
-          <a class="chip" href="#visitor">تواصل</a>
-          <a class="chip primary" href="#admin" id="openAdmin">المدير</a>
-          <button class="chip" id="themeToggle" type="button" aria-label="تبديل الوضع">🌙</button>
-        </div>
-      </div>
-
-      <div class="dhikrMini" aria-live="polite">
-        <span id="dhikrMiniText"></span>
-      </div>
-    </div>
+<main>
+  <div class="card">
+    <h1>من مكتبنا… إلى العالم</h1>
+    <p class="muted">تحويلات مالية • مطابقة حساب • تواصل مباشر بثقة</p>
+    <button class="btn">تواصل سريع</button>
+    <button class="btn">طباعة مطابقة</button>
+    <button class="btn">إضافة عملية</button>
   </div>
 
-  <div class="wrap">
-
-    <!-- HERO -->
-    <section id="home" class="hero">
-      <div class="heroGrid">
-        <div class="card reveal">
-          <span class="kicker">Secure • Organized</span>
-          <h1>من مكتبنا… إلى العالم</h1>
-          <p class="lead">
-            تجربة تحويل ومطابقة <b>سريعة وواضحة</b> بهوية ثابتة. صفحة واحدة رسمية تجمع
-            التواصل، العروض، وطباعة المطابقة للمدير.
-          </p>
-
-          <div class="ctaRow">
-            <a class="btn primary" href="#visitor">تواصل سريع</a>
-            <button class="btn" id="btnPrintMatch">طباعة مطابقة</button>
-            <button class="btn" id="btnAddOp">إضافة عملية</button>
-          </div>
-
-          <div class="miniNote">
-            ⏱️ التوقيت داخل النص مضبوط على <b>GMT+2</b> — والرابط الرسمي يُضاف داخل المطابقة.
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <div class="logoBox">
-            <img src="logo.png" alt="AL‑DOLLAR OFFICE Logo">
-          </div>
-          <div class="noteWarn">
-            ✅ القنوات الرسمية فقط. أي تواصل خارج القنوات المعتمدة لا يُعتبر تابعًا للمكتب.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PARTNERS STRIP -->
-    <section class="reveal">
-      <div class="marquee">
-        <div class="track" aria-hidden="true">
-          <span class="badgeLogo">Binance</span>
-          <span class="badgeLogo">TRON</span>
-          <span class="badgeLogo">USDT‑TRC20</span>
-          <span class="badgeLogo">Visa</span>
-          <span class="badgeLogo">Mastercard</span>
-          <span class="badgeLogo">InstaPay</span>
-          <span class="badgeLogo">Vodafone Cash</span>
-          <span class="badgeLogo">Binance</span>
-          <span class="badgeLogo">TRON</span>
-          <span class="badgeLogo">USDT‑TRC20</span>
-          <span class="badgeLogo">Visa</span>
-          <span class="badgeLogo">Mastercard</span>
-          <span class="badgeLogo">InstaPay</span>
-          <span class="badgeLogo">Vodafone Cash</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- SERVICES -->
-    <section id="services">
-      <div class="grid3">
-        <div class="svcCard reveal">
-          <div class="svcIcon">⚡</div>
-          <div class="svcName">تحويلات سريعة</div>
-          <div class="svcDesc">تنفيذ مرتب وواضح خطوة بخطوة، مع متابعة فورية.</div>
-        </div>
-        <div class="svcCard reveal">
-          <div class="svcIcon">🧾</div>
-          <div class="svcName">مطابقة حساب</div>
-          <div class="svcDesc">نص رسمي ثابت + توقيت GMT+2 + رابط المكتب الرسمي داخل الرسالة.</div>
-        </div>
-        <div class="svcCard reveal">
-          <div class="svcIcon">🛡️</div>
-          <div class="svcName">أمان وخصوصية</div>
-          <div class="svcDesc">ثبات في الأسلوب والمحتوى يعطي ثقة للعميل، بدون تشويش.</div>
-        </div>
-      </div>
-
-      <div style="height:14px"></div>
-
-      <div class="counters">
-        <div class="countBox reveal">
-          <div class="countNum" data-count="24">0</div>
-          <div class="countLbl">ساعة خدمة</div>
-        </div>
-        <div class="countBox reveal">
-          <div class="countNum" data-count="7">0</div>
-          <div class="countLbl">أيام بالأسبوع</div>
-        </div>
-        <div class="countBox reveal">
-          <div class="countNum" data-count="2">0</div>
-          <div class="countLbl">قنوات تواصل</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- VISITOR -->
-    <section id="visitor">
-      <div class="grid2">
-        <div class="card reveal">
-          <h2 class="title2">تواصل سريع</h2>
-          <p class="muted">اختر القناة الرسمية:</p>
-          <div class="list">
-            <a class="item" href="https://wa.me/972595172007?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B" target="_blank" rel="noopener">
-              <span>واتساب — عماد زعرب</span><span class="pill">WhatsApp</span>
-            </a>
-            <a class="item" href="https://wa.me/972567490629?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B" target="_blank" rel="noopener">
-              <span>واتساب — منة قديح</span><span class="pill">WhatsApp</span>
-            </a>
-            <a class="item" href="https://www.instagram.com/emad_dollar?igsh=MXRydGc3YmFwYXNjbQ==" target="_blank" rel="noopener">
-              <span>إنستقرام — عماد زعرب</span><span class="pill">Instagram</span>
-            </a>
-            <a class="item" href="https://www.instagram.com/menna.qudeih?igsh=MWI0cWw4a3BxYjdvaA==" target="_blank" rel="noopener">
-              <span>إنستقرام — منة قديح</span><span class="pill">Instagram</span>
-            </a>
-            <a class="item" href="https://www.instagram.com/dollar._pay?igsh=MW1yYzA0bDVveGpwMQ==" target="_blank" rel="noopener">
-              <span>صفحة المكتب — Instagram</span><span class="pill">Official</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <h2 class="title2">عروضنا</h2>
-          <pre class="msg">✨ AL‑DOLLAR OFFICE ✨
-نستقبل حوالاتكم من جميع دول العالم بدون استثناء وبسرعة وأمان.
-
-• حوالات داخلية وخارجية
-• صرف عملات بأسعار منافسة
-• متابعة فورية عبر واتساب
-
-🕘 ساعات العمل:
-من السبت إلى الجمعة — على مدار الساعة (24/7) ✅</pre>
-
-          <div class="panelBtns">
-            <button class="btn primary" id="openCodes">اكواد</button>
-            <button class="btn" id="openBinance">محفظة باينانس</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <section class="reveal">
-      <div class="card">
-        <h2 class="title2">القنوات الرسمية</h2>
-        <p class="muted">
-          أي تواصل خارج هذه القنوات لا يُعتبر تابعاً للمكتب، ولا نتحمل مسؤولية عمليات تتم عبر جهات غير معتمدة.
-        </p>
-        <div class="noteWarn" style="margin-top:12px">
-          رابطنا الرسمي: <b class="mono">https://dollaroffice.github.io/al-dollar-office/</b>
-        </div>
-        <p class="muted" style="margin-top:10px">© 2026 AL‑DOLLAR OFFICE</p>
-      </div>
-    </section>
-
+  <div class="card muted">
+    ☀️ حسبي الله ونعم الوكيل
   </div>
 
-  <!-- MODALS -->
-  <dialog id="adminModal">
-    <div class="modalHead">
-      <div style="font-weight:1000">لوحة المدير</div>
-      <button class="xbtn" data-close="adminModal">إغلاق</button>
-    </div>
-    <div class="modalBody">
-      <div id="adminLoginBox">
-        <p class="muted">أدخل اسم المستخدم وكلمة المرور</p>
-        <div class="field"><label>اسم المستخدم</label><input id="adminUser" autocomplete="username" placeholder="emad"></div>
-        <div class="field"><label>كلمة المرور</label><input id="adminPass" type="password" autocomplete="current-password" placeholder="••••••••"></div>
-        <div class="ctaRow" style="margin-top:12px">
-          <button class="btn primary" id="btnAdminLogin">دخول</button>
-          <button class="btn" id="btnLogout" style="display:none">تسجيل خروج</button>
-        </div>
-        <div id="adminErr" class="err"></div>
-        <div class="noteWarn">🔒 حماية داخلية بدون سيرفر (حماية قوية 100% تحتاج سيرفر).</div>
-      </div>
-
-      <div id="adminPanel" style="display:none">
-        <div class="ctaRow">
-          <button class="btn primary" id="tabMatch">طباعة مطابقة</button>
-          <button class="btn" id="tabOp">إضافة عملية</button>
-        </div>
-
-        <div id="matchBox" style="margin-top:12px">
-          <div class="field"><label>الاسم</label><input id="inpName" placeholder="مثال: أحمد محمد"></div>
-          <div class="field"><label>العملة (اكتبها أنت)</label><input id="inpCurrency" placeholder="USD / EUR / ILS"></div>
-          <div class="field"><label>المبلغ</label><input id="inpAmount" inputmode="decimal" placeholder="250"></div>
-          <div class="field">
-            <label>الكلمة</label>
-            <div class="choiceRow">
-              <label class="choice"><input type="radio" name="side" value="لكم" checked> لكم</label>
-              <label class="choice"><input type="radio" name="side" value="لنا"> لنا</label>
-            </div>
-          </div>
-          <div class="ctaRow" style="margin-top:12px">
-            <button class="btn primary" id="btnMatch">مطابقة</button>
-            <button class="btn" id="btnCopy">نسخ</button>
-            <button class="btn" id="btnWhats">مشاركة واتساب</button>
-          </div>
-          <div id="errBox" class="err"></div>
-          <pre id="messageBox" class="msg" style="margin-top:12px"></pre>
-          <div id="matchOk" class="ok"></div>
-        </div>
-
-        <div id="opBox" style="display:none; margin-top:12px">
-          <div class="field">
-            <label>الجهة</label>
-            <div class="choiceRow">
-              <label class="choice"><input type="radio" name="opSide" value="لكم" checked> لكم</label>
-              <label class="choice"><input type="radio" name="opSide" value="لنا"> لنا</label>
-            </div>
-          </div>
-          <div class="field"><label>المبلغ</label><input id="opAmount" inputmode="decimal" placeholder="250"></div>
-          <div class="field"><label>العملة (اكتبها أنت)</label><input id="opCurrency" placeholder="USD / EUR / ILS"></div>
-
-          <div class="ctaRow" style="margin-top:12px">
-            <button class="btn primary" id="btnOpPrint">طباعة</button>
-            <button class="btn" id="btnOpCopy">نسخ</button>
-          </div>
-          <div id="opErrBox" class="err"></div>
-          <pre id="opOut" class="msg" style="margin-top:12px"></pre>
-          <div id="opOk" class="ok"></div>
-          <div class="noteWarn">✅ رقم العملية يبدأ من <b>011009</b> ويزيد تلقائيًا على نفس الجهاز.</div>
-        </div>
-      </div>
-    </div>
-  </dialog>
-
-  <dialog id="codesModal">
-    <div class="modalHead">
-      <div style="font-weight:1000">اكواد</div>
-      <button class="xbtn" data-close="codesModal">إغلاق</button>
-    </div>
-    <div class="modalBody">
-      <div class="field"><label>رقم الهوية</label><input id="c_id" inputmode="numeric" placeholder="0"></div>
-      <div class="field"><label>رقم الجوال</label><input id="c_phone" inputmode="tel" placeholder="0"></div>
-      <div class="field"><label>رقم الكود</label><input id="c_code" inputmode="numeric" placeholder="0"></div>
-      <div class="field"><label>المبلغ</label><input id="c_amount" inputmode="decimal" placeholder="0"></div>
-
-      <div class="noteWarn">معلومات المحفظة</div>
-      <div class="field"><label>رقم الهوية</label><input id="w_id" inputmode="numeric" placeholder="0"></div>
-      <div class="field"><label>رقم الجوال</label><input id="w_phone" inputmode="tel" placeholder="0"></div>
-      <div class="field"><label>نسبة الخصم %</label><input id="w_discount" inputmode="decimal" placeholder="0"></div>
-
-      <div class="ctaRow" style="margin-top:12px">
-        <button class="btn primary" id="btnCodesPrint">طباعة</button>
-        <button class="btn" id="btnCodesCopy">نسخ</button>
-      </div>
-      <pre id="codesOut" class="msg" style="margin-top:12px"></pre>
-      <div id="codesOk" class="ok"></div>
-    </div>
-  </dialog>
-
-  <dialog id="binanceModal">
-    <div class="modalHead">
-      <div style="font-weight:1000">محفظة باينانس</div>
-      <button class="xbtn" data-close="binanceModal">إغلاق</button>
-    </div>
-    <div class="modalBody">
-      <div class="logoBox">
-        <img src="binance-wallet.jpg" alt="Binance Wallet">
-      </div>
-      <div class="noteWarn">⚠️ العنوان أدناه ثابت ويتم نسخه كما هو تمامًا.</div>
-      <pre id="binanceText" class="msg"></pre>
-      <div class="ctaRow" style="margin-top:12px">
-        <a class="btn" href="binance-wallet.jpg" download>حفظ الصورة</a>
-        <button class="btn primary" id="btnBinanceCopy">نسخ الرابط</button>
-      </div>
-      <div id="binanceOk" class="ok"></div>
-    </div>
-  </dialog>
+  <div class="card">
+    <b>خدماتنا</b>
+    <ul class="muted">
+      <li>تحويلات سريعة</li>
+      <li>مطابقة حساب</li>
+      <li>أمان وخصوصية</li>
+    </ul>
+  </div>
+</main>
 
 <script>
-(() => {
-  "use strict";
+const key="theme_choice";
+const btn=document.getElementById("themeToggle");
 
-  // ===== Theme (System default + user override) =====
-  const THEME_KEY = "al_dollar_theme";
-  const themeBtn = document.getElementById("themeToggle");
-  const metaTheme = document.querySelector('meta[name="theme-color"]');
+function apply(t){
+  document.documentElement.setAttribute("data-theme",t);
+  localStorage.setItem(key,t);
+}
+const saved=localStorage.getItem(key);
+if(saved){
+  apply(saved);
+}else if(window.matchMedia("(prefers-color-scheme: dark)").matches){
+  apply("dark");
+}
 
-  function systemPrefersDark(){
-    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-  }
-  function applyTheme(mode){
-    // mode: "light" | "dark"
-    document.documentElement.setAttribute("data-theme", mode);
-    if(metaTheme){
-      metaTheme.setAttribute("content", mode === "dark" ? "#070a12" : "#f6f8ff");
-    }
-    if(themeBtn){
-      themeBtn.textContent = (mode === "dark") ? "🌙" : "🌞";
-      themeBtn.title = (mode === "dark") ? "الوضع الداكن" : "الوضع الفاتح";
-    }
-  }
-  function initTheme(){
-    const saved = localStorage.getItem(THEME_KEY);
-    if(saved === "light" || saved === "dark"){
-      applyTheme(saved);
-    }else{
-      applyTheme(systemPrefersDark() ? "dark" : "light");
-    }
-  }
-  initTheme();
-
-  // If user didn't choose, follow system changes live
-  if(window.matchMedia){
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    mq.addEventListener?.("change", (e)=>{
-      const saved = localStorage.getItem(THEME_KEY);
-      if(saved) return;
-      applyTheme(e.matches ? "dark" : "light");
-    });
-  }
-
-  themeBtn?.addEventListener("click", ()=>{
-    const current = document.documentElement.getAttribute("data-theme") || "light";
-    const next = (current === "dark") ? "light" : "dark";
-    localStorage.setItem(THEME_KEY, next);
-    applyTheme(next);
-  });
-
-  const $ = (id) => document.getElementById(id);
-  const show = (el,msg)=>{ el.textContent=msg; el.classList.add("show"); };
-  const hide = (el)=>{ el.textContent=""; el.classList.remove("show"); };
-  const okFlash = (el,msg="تم ✅")=>{ el.textContent=msg; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"),1300); };
-
-  // ===== Sound & Vibration (very subtle) =====
-  let audioCtx;
-  function softTick(){
-    try{
-      if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const o = audioCtx.createOscillator();
-      const g = audioCtx.createGain();
-      o.type = "sine";
-      o.frequency.value = 880;
-      g.gain.value = 0.02;
-      o.connect(g); g.connect(audioCtx.destination);
-      o.start();
-      setTimeout(()=>{ o.stop(); }, 80);
-    }catch(e){}
-  }
-  function softVibe(){
-    if(navigator.vibrate){ navigator.vibrate(25); }
-  }
-
-  // ===== Dhikr mini (auto + on click) =====
-  const dhikrEl = $("dhikrMiniText");
-  const dhikrMorning = ["سبحان الله وبحمده","استغفر الله","اللهم صلِّ على محمد","حسبي الله ونعم الوكيل","لا حول ولا قوة إلا بالله"];
-  const dhikrNight   = ["سبحان الله العظيم","استغفر الله","لا إله إلا الله","اللهم صلِّ على محمد","حسبي الله ونعم الوكيل"];
-  const pick = (arr)=>arr[Math.floor(Math.random()*arr.length)];
-  function getHourGMT2(){
-    const h = new Intl.DateTimeFormat("en-GB",{timeZone:"Etc/GMT-2",hour:"2-digit",hour12:false}).format(new Date());
-    return Number(h);
-  }
-  function isMorning(){ const h=getHourGMT2(); return h>=5 && h<17; }
-  function renderDhikr(){
-    const prefix = isMorning() ? "☀️" : "🌙";
-    const arr = isMorning() ? dhikrMorning : dhikrNight;
-    dhikrEl.textContent = `${prefix} ${pick(arr)}`;
-  }
-  renderDhikr(); setInterval(renderDhikr, 25000);
-  let dhikrLock=false;
-  document.addEventListener("click",(e)=>{
-    const t=e.target;
-    const isBtn = t && (t.tagName==="BUTTON" || t.closest("button") || t.classList?.contains("btn"));
-    if(!isBtn) return;
-    if(dhikrLock) return;
-    dhikrLock=true; renderDhikr();
-    setTimeout(()=>dhikrLock=false,650);
-  });
-
-  // ===== Reveal on scroll + counters =====
-  const revealEls = document.querySelectorAll(".reveal");
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        e.target.classList.add("show");
-        io.unobserve(e.target);
-      }
-    });
-  }, {threshold: 0.15});
-  revealEls.forEach(el=>io.observe(el));
-
-  function animateCount(el, to){
-    const dur = 900, start = performance.now();
-    function step(t){
-      const p = Math.min(1, (t-start)/dur);
-      el.textContent = String(Math.round(to*p));
-      if(p<1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-  const counterEls = document.querySelectorAll(".countNum[data-count]");
-  const cio = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        const el = e.target;
-        animateCount(el, Number(el.getAttribute("data-count")||"0"));
-        cio.unobserve(el);
-      }
-    });
-  }, {threshold: 0.3});
-  counterEls.forEach(el=>cio.observe(el));
-
-  // ===== Modals =====
-  function openModal(id){ $(id).showModal(); }
-  function closeModal(id){ $(id).close(); }
-  document.addEventListener("click",(e)=>{
-    const btn = e.target.closest("[data-close]");
-    if(!btn) return;
-    closeModal(btn.getAttribute("data-close"));
-  });
-
-  $("openAdmin").addEventListener("click",(e)=>{ e.preventDefault(); openModal("adminModal"); });
-  $("btnPrintMatch").addEventListener("click",()=>{ openModal("adminModal"); setTimeout(()=>$("tabMatch").click(), 60); });
-  $("btnAddOp").addEventListener("click",()=>{ openModal("adminModal"); setTimeout(()=>$("tabOp").click(), 60); });
-  $("openCodes").addEventListener("click",()=>openModal("codesModal"));
-  $("openBinance").addEventListener("click",()=>openModal("binanceModal"));
-
-  // ===== Binance (fixed text) =====
-  const BINANCE_WALLET_TEXT = "TZGjoUZzjY9RDDwrDYhF4WAQQWcVQasj5T";
-  $("binanceText").textContent = BINANCE_WALLET_TEXT;
-  $("btnBinanceCopy").addEventListener("click", async () => {
-    await copyText(BINANCE_WALLET_TEXT);
-    okFlash($("binanceOk"),"تم نسخ العنوان ✅"); softTick(); softVibe();
-  });
-
-  // ===== Copy helper =====
-  async function copyText(txt){
-    try { await navigator.clipboard.writeText(txt); }
-    catch{
-      const ta=document.createElement("textarea");
-      ta.value=txt; document.body.appendChild(ta);
-      ta.select(); document.execCommand("copy");
-      document.body.removeChild(ta);
-    }
-  }
-
-  // ===== Admin auth =====
-  const ADMIN_USER = "emad";
-  const ADMIN_PASS = "Asd@2003";
-  const AUTH_KEY = "al_dollar_admin_auth";
-  function isAdmin(){ return sessionStorage.getItem(AUTH_KEY) === "1"; }
-
-  const adminErr = $("adminErr");
-  $("btnAdminLogin").addEventListener("click", () => {
-    hide(adminErr);
-    const u = ($("adminUser").value||"").trim();
-    const p = ($("adminPass").value||"");
-    if (u === ADMIN_USER && p === ADMIN_PASS){
-      sessionStorage.setItem(AUTH_KEY,"1");
-      $("adminPass").value = "";
-      $("adminLoginBox").querySelector(".noteWarn").style.display = "none";
-      $("btnLogout").style.display = "inline-flex";
-      $("adminPanel").style.display = "block";
-      $("adminLoginBox").querySelector("p.muted").textContent = "تم تسجيل الدخول ✅";
-      softVibe();
-      $("tabMatch").click();
-    } else {
-      show(adminErr,"اسم المستخدم أو كلمة المرور غير صحيحة.");
-    }
-  });
-
-  $("btnLogout").addEventListener("click", () => {
-    sessionStorage.removeItem(AUTH_KEY);
-    $("adminPanel").style.display = "none";
-    $("adminLoginBox").querySelector("p.muted").textContent = "أدخل اسم المستخدم وكلمة المرور";
-    $("btnLogout").style.display = "none";
-    $("adminLoginBox").querySelector(".noteWarn").style.display = "block";
-  });
-
-  // Tabs
-  function ensureAdmin(){
-    if(!isAdmin()){
-      show(adminErr,"سجّل الدخول أولاً.");
-      return false;
-    }
-    hide(adminErr);
-    return true;
-  }
-  $("tabMatch").addEventListener("click",()=>{
-    if(!ensureAdmin()) return;
-    $("matchBox").style.display="block";
-    $("opBox").style.display="none";
-  });
-  $("tabOp").addEventListener("click",()=>{
-    if(!ensureAdmin()) return;
-    $("matchBox").style.display="none";
-    $("opBox").style.display="block";
-  });
-
-  // ===== GMT+2 time =====
-  const dtf = new Intl.DateTimeFormat("en-GB",{
-    timeZone:"Etc/GMT-2",
-    year:"numeric",month:"2-digit",day:"2-digit",
-    hour:"2-digit",minute:"2-digit",second:"2-digit",
-    hour12:false
-  });
-  function formatGMT2(){
-    const parts = dtf.formatToParts(new Date());
-    const get = (t) => parts.find(p=>p.type===t)?.value || "";
-    return `${get("day")}/${get("month")}/${get("year")} ${get("hour")}:${get("minute")}:${get("second")}`;
-  }
-  function sanitizeText(s){ return String(s ?? "").replace(/\s+/g," ").trim(); }
-  function amountNormalize(s){
-    const raw = String(s ?? "").trim();
-    const cleaned = raw.replace(/[^\d.,]/g,"");
-    return cleaned || "0";
-  }
-
-  // Match
-  $("btnMatch").addEventListener("click", () => {
-    if(!ensureAdmin()) return;
-    const err=$("errBox"); hide(err);
-
-    const name = sanitizeText($("inpName").value);
-    const currency = sanitizeText($("inpCurrency").value);
-    const amount = amountNormalize($("inpAmount").value);
-    const side = document.querySelector('input[name="side"]:checked')?.value || "لكم";
-
-    if(!name) return show(err,"اكتب الاسم لو سمحت.");
-    if(!currency) return show(err,"اكتب العملة لو سمحت (مثال: USD).");
-
-    const dt = formatGMT2();
-    $("messageBox").textContent =
-`✅ الـــســـلام عــــليكــم ✅
-
-     ..........*مـكـتـب الـدولار*..........
-
-   مــــطــــابــــقــــة حــــســــاب
-
-((((( لـ  - ${name} )))))
-
- حتى تاريخ ${dt}
-
----------------------------------------------------------
-
-${side} 《 ${amount}- 》 ${currency}
-
----------------------------------------------------------
-Al-Dollar Exchange Office
-
-رابط المكتب الرسمي:
-https://dollaroffice.github.io/al-dollar-office/
-
-*ملاحظة : يرجى التأكيد على صحة المطابقة* `;
-    softTick();
-  });
-
-  $("btnCopy").addEventListener("click", async () => {
-    if(!ensureAdmin()) return;
-    await copyText($("messageBox").textContent || "");
-    okFlash($("matchOk"),"تم النسخ ✅"); softTick(); softVibe();
-  });
-
-  $("btnWhats").addEventListener("click", () => {
-    if(!ensureAdmin()) return;
-    const txt = $("messageBox").textContent || "";
-    window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener,noreferrer");
-  });
-
-  // ===== Add Operation =====
-  const OP_KEY="al_dollar_op_counter";
-  const OP_START=11009; // 011009
-  function getOpCounter(){
-    const n=Number(localStorage.getItem(OP_KEY));
-    if(!Number.isFinite(n)||n<=0){ localStorage.setItem(OP_KEY,String(OP_START)); return OP_START; }
-    return n;
-  }
-  function nextOpNumber(){
-    const current=getOpCounter();
-    localStorage.setItem(OP_KEY,String(current+1));
-    return current;
-  }
-  function pad6(n){ return String(n).padStart(6,"0"); }
-
-  $("btnOpPrint").addEventListener("click", () => {
-    if(!ensureAdmin()) return;
-    const err=$("opErrBox"); hide(err);
-
-    const side = document.querySelector('input[name="opSide"]:checked')?.value || "لكم";
-    const amount = amountNormalize($("opAmount").value);
-    const currency = sanitizeText($("opCurrency").value);
-
-    if(!currency) return show(err,"اكتب العملة لو سمحت (مثال: USD).");
-
-    const opNo = nextOpNumber();
-    $("opOut").textContent = `${side} ${amount} ${currency}\nتم اضافة العملية برقم ${pad6(opNo)}`;
-    softTick();
-  });
-
-  $("btnOpCopy").addEventListener("click", async () => {
-    if(!ensureAdmin()) return;
-    await copyText($("opOut").textContent || "");
-    okFlash($("opOk"),"تم النسخ ✅"); softTick(); softVibe();
-  });
-
-  // ===== Codes =====
-  const v = (id) => (($ (id).value || "").trim() || "0");
-  function buildCodesText(){
-    return `رقم الهوية : ${v("c_id")}
-رقم الجوال : ${v("c_phone")}
-رقم الكود : ${v("c_code")}
-المبلغ : ${v("c_amount")}
-
-معلومات المحفظة
-رقم الهوية : ${v("w_id")}
-رقم الجوال : ${v("w_phone")}
-نسبة الخصم : ${v("w_discount")} %`;
-  }
-  $("btnCodesPrint").addEventListener("click", () => {
-    $("codesOut").textContent = buildCodesText();
-    softTick();
-  });
-  $("btnCodesCopy").addEventListener("click", async () => {
-    await copyText($("codesOut").textContent || "");
-    okFlash($("codesOk"),"تم النسخ ✅"); softTick(); softVibe();
-  });
-
-})();
+btn.onclick=()=>{
+  const cur=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+  apply(cur);
+};
 </script>
 </body>
 </html>
