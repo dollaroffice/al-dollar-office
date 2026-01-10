@@ -369,7 +369,54 @@
       h1{font-size:34px}
       .grid3,.grid2,.counters{grid-template-columns:1fr}
     }
-  </style>
+  
+    /* Rotating Messages (RTL slide) */
+    .msgRotator{
+      margin-top:14px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,0.06);
+      border-radius:18px;
+      padding:14px 14px;
+      position:relative;
+      overflow:hidden;
+    }
+    [data-theme="dark"] .msgRotator{ background: rgba(0,0,0,0.22); }
+    [data-theme="light"] .msgRotator{ background: rgba(255,255,255,0.78); }
+
+    .msgRotatorBadge{
+      position:absolute;
+      top:10px; inset-inline-start:10px;
+      font-size:11px;
+      font-weight:1000;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,0.45);
+      color: var(--muted);
+    }
+    [data-theme="dark"] .msgRotatorBadge{ background: rgba(255,255,255,0.08); }
+
+    .rotText{
+      padding-top:18px;
+      font-size:15px;
+      font-weight:1000;
+      line-height:1.8;
+      text-align:right;
+      will-change: transform, opacity;
+    }
+    .rotIn{ animation: rotIn .55s ease both; }
+    .rotOut{ animation: rotOut .55s ease both; }
+
+    @keyframes rotIn{
+      from{ opacity:0; transform: translateX(24px); }
+      to{ opacity:1; transform: translateX(0); }
+    }
+    @keyframes rotOut{
+      from{ opacity:1; transform: translateX(0); }
+      to{ opacity:0; transform: translateX(-24px); }
+    }
+
+</style>
 </head>
 
 <body>
@@ -409,6 +456,12 @@
             تجربة تحويل ومطابقة <b>سريعة وواضحة</b> بهوية ثابتة. صفحة واحدة رسمية تجمع
             التواصل، العروض، وطباعة المطابقة للمدير.
           </p>
+
+          <div class="msgRotator reveal" aria-live="polite">
+            <div class="msgRotatorBadge">رسالة المكتب</div>
+            <div id="rotMsg" class="rotText">جاهزين نخدمكم بثقة ✅</div>
+          </div>
+
 
           <div class="ctaRow">
             <a class="btn primary" href="#visitor">تواصل سريع</a>
@@ -740,6 +793,42 @@
   function softVibe(){
     if(navigator.vibrate){ navigator.vibrate(25); }
   }
+
+
+  // ===== Rotating Messages (5s, services + trust) =====
+  const rotEl = document.getElementById("rotMsg");
+  const rotMsgs = [
+    "💱 نستقبل حوالاتكم من جميع دول العالم بدون استثناء — بثقة.",
+    "⚡ تنفيذ سريع + متابعة فورية عبر واتساب.",
+    "🧾 مطابقة حساب رسمية بتوقيت GMT+2 وبنفس الصيغة كل مرة.",
+    "🛡️ أمان وخصوصية — نشتغل بنظام واضح وخطوات ثابتة.",
+    "✅ رضا العميل أولاً — الوضوح قبل أي شيء.",
+    "📍 قنواتنا الرسمية فقط — حتى ما يضيع حقك."
+  ];
+  let rotIdx = 0;
+
+  function setRotText(next){
+    if(!rotEl) return;
+    rotEl.classList.remove("rotIn","rotOut");
+    rotEl.classList.add("rotOut");
+    setTimeout(()=>{
+      rotEl.textContent = next;
+      rotEl.classList.remove("rotOut");
+      rotEl.classList.add("rotIn");
+      setTimeout(()=> rotEl.classList.remove("rotIn"), 650);
+    }, 420);
+  }
+  function rotateNow(){
+    rotIdx = (rotIdx + 1) % rotMsgs.length;
+    setRotText(rotMsgs[rotIdx]);
+  }
+  if(rotEl){
+    rotEl.textContent = rotMsgs[0];
+    rotEl.classList.add("rotIn");
+    setTimeout(()=> rotEl.classList.remove("rotIn"), 650);
+    setInterval(rotateNow, 5000);
+  }
+
 
   // ===== Dhikr mini (auto + on click) =====
   const dhikrEl = $("dhikrMiniText");
