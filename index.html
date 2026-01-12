@@ -416,6 +416,43 @@
       to{ opacity:0; transform: translateX(-24px); }
     }
 
+
+/* --- Rest Room Floating Button --- */
+.rest-room-fab{
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,215,0,.35);
+  background: rgba(0,0,0,.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+.rest-room-fab .icon{
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display:grid;
+  place-items:center;
+  background: rgba(255,215,0,.12);
+  border: 1px solid rgba(255,215,0,.35);
+  font-size: 18px;
+}
+.rest-room-fab:active{ transform: translateY(1px); }
+@media (max-width:420px){
+  .rest-room-fab{ padding: 10px; }
+  .rest-room-fab .label{ display:none; }
+}
+
 </style>
 
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -1109,5 +1146,12 @@ https://dollaroffice.github.io/al-dollar-office/
 
 })();
 </script>
+
+<!-- Rest Room Floating Button -->
+<a class="rest-room-fab" href="rest.html" aria-label="غرفة الراحة">
+  <span class="icon">🕌</span>
+  <span class="label">غرفة الراحة</span>
+</a>
+
 </body>
 </html>
