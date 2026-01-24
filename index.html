@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>محلات أبو ياسر زعرب وأولاده (أبو عماد)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-main">محلات أبو ياسر زعرب وأولاده</div>
+      <div class="brand-sub">( أبو عماد )</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section>
+      <h2>إضافة صنف</h2>
+      <input id="itemName" placeholder="اسم الصنف">
+      <input id="buyPrice" type="number" placeholder="سعر الشراء / كغم">
+      <input id="sellPrice" type="number" placeholder="سعر البيع / كغم">
+      <button onclick="addItem()">إضافة</button>
+    </section>
+
+    <section>
+      <h2>شراء (يزيد المخزون)</h2>
+      <select id="buyItem"></select>
+      <input id="buyQty" type="number" placeholder="الوزن كغم">
+      <button onclick="buy()">شراء</button>
+    </section>
+
+    <section>
+      <h2>بيع (ينقص المخزون)</h2>
+      <select id="sellItem"></select>
+      <input id="sellQty" type="number" placeholder="الوزن كغم">
+      <button onclick="sell()">بيع</button>
+    </section>
+
+    <section>
+      <h2>المخزون</h2>
+      <ul id="stock"></ul>
+    </section>
+  </main>
+
+<script src="app.js"></script>
+</body>
+</html>

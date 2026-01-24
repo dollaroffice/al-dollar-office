@@ -1,0 +1,8 @@
+body{font-family:Arial;background:#f1f5f9;margin:0}
+.topbar{background:#0f172a;color:#fff;padding:12px;text-align:center}
+.brand-main{font-size:18px;font-weight:bold}
+.brand-sub{font-size:22px}
+.container{padding:15px}
+section{background:#fff;margin-bottom:12px;padding:12px;border-radius:8px}
+input,select,button{margin:4px;padding:6px}
+button{background:#0f172a;color:#fff;border:none;border-radius:4px}
