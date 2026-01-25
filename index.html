@@ -1,58 +1,325 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>محلات أبو ياسر زعرب وأولاده (أبو عماد)</title>
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>محلات الحاج أبو ياسر زعرب وأولاده (أبو عماد)</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header>
-<h1>محلات أبو ياسر زعرب وأولاده</h1>
-<h2>( أبو عماد )</h2>
-<nav>
-<button onclick="show('items')">الأصناف</button>
-<button onclick="show('buy')">شراء</button>
-<button onclick="show('sell')">بيع</button>
-<button onclick="show('stock')">المخزون</button>
-<button onclick="show('debts')">الديون</button>
-</nav>
-</header>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-main">محلات الحاج أبو ياسر زعرب وأولاده</div>
+      <div class="brand-sub">( أبو عماد )</div>
+    </div>
+    <div class="top-actions">
+      <button class="btn ghost" id="btnBackup" type="button">نسخ احتياطي</button>
+      <label class="btn ghost file">
+        استيراد
+        <input id="fileImport" type="file" accept="application/json" />
+      </label>
+    </div>
+  </header>
 
-<section id="items" class="view">
-<h3>إضافة صنف</h3>
-<input id="iname" placeholder="اسم الصنف">
-<input id="ibuy" type="number" placeholder="شراء/كغم">
-<input id="isell" type="number" placeholder="بيع/كغم">
-<button onclick="addItem()">إضافة</button>
-<ul id="itemsList"></ul>
-</section>
+  <nav class="bottom-nav">
+    <button class="nav active" data-view="dashboard">الرئيسية</button>
+    <button class="nav" data-view="purchase">شراء</button>
+    <button class="nav" data-view="sale">بيع</button>
+    <button class="nav" data-view="stock">مخزون</button>
+    <button class="nav" data-view="more">المزيد</button>
+  </nav>
 
-<section id="buy" class="view">
-<h3>شراء</h3>
-<select id="bitem"></select>
-<input id="bqty" type="number" placeholder="كغم">
-<button onclick="buy()">شراء</button>
-</section>
+  <main class="content">
+    <!-- DASHBOARD -->
+    <section class="view" id="view-dashboard">
+      <div class="grid2">
+        <div class="card">
+          <div class="card-title">مجموع المخزون (كغم)</div>
+          <div class="card-value" id="dashTotalKg">0</div>
+        </div>
+        <div class="card">
+          <div class="card-title">ربح اليوم (تقريبي)</div>
+          <div class="card-value" id="dashProfitToday">0</div>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <div class="card-title">ديون الزبائن (إلنا عليهم)</div>
+          <div class="card-value" id="dashCustDebt">0</div>
+        </div>
+        <div class="card">
+          <div class="card-title">ديون الموردين (إلهم علينا)</div>
+          <div class="card-value" id="dashSuppDebt">0</div>
+        </div>
+      </div>
 
-<section id="sell" class="view">
-<h3>بيع</h3>
-<select id="sitem"></select>
-<input id="sqty" type="number" placeholder="كغم">
-<button onclick="sell()">بيع</button>
-</section>
+      <div class="panel">
+        <h2>تنبيهات المخزون</h2>
+        <div class="hint">الأصناف تحت حد التنبيه.</div>
+        <div class="table-wrap" id="dashLowStock"></div>
+      </div>
 
-<section id="stock" class="view">
-<h3>المخزون</h3>
-<ul id="stockList"></ul>
-</section>
+      <div class="panel">
+        <h2>آخر الفواتير</h2>
+        <div class="hint">آخر 10 فواتير (شراء/بيع).</div>
+        <div class="table-wrap" id="dashRecent"></div>
+      </div>
+    </section>
 
-<section id="debts" class="view">
-<h3>الديون</h3>
-<p>قادم بالتوسعة التالية</p>
-</section>
+    <!-- PURCHASE -->
+    <section class="view hidden" id="view-purchase">
+      <div class="panel">
+        <h2>فاتورة شراء</h2>
+        <div class="form-row">
+          <input id="purDate" type="date" />
+          <select id="purSupplier"></select>
+        </div>
+        <div class="form-row">
+          <input id="purNote" placeholder="ملاحظة (اختياري)" />
+        </div>
 
-<script src="app.js"></script>
+        <div class="panel inner">
+          <div class="subhead">إضافة سطر</div>
+          <div class="form-row">
+            <select id="purItem"></select>
+            <input id="purQty" type="number" step="0.01" placeholder="كغم" />
+            <input id="purPrice" type="number" step="0.01" placeholder="سعر شراء/كغم" />
+            <button class="btn" id="btnPurAddLine" type="button">إضافة</button>
+          </div>
+          <div class="table-wrap" id="purLines"></div>
+        </div>
+
+        <div class="form-row end">
+          <div class="totals">الإجمالي: <strong id="purTotal">0</strong></div>
+          <input id="purPaid" type="number" step="0.01" placeholder="المدفوع" />
+          <button class="btn primary" id="btnSavePurchase" type="button">حفظ</button>
+          <button class="btn" id="btnPrintPurchase" type="button">طباعة</button>
+        </div>
+        <div class="hint">الحفظ يزيد المخزون. المتبقي يسجّل دين على المورد.</div>
+      </div>
+    </section>
+
+    <!-- SALE -->
+    <section class="view hidden" id="view-sale">
+      <div class="panel">
+        <h2>فاتورة بيع</h2>
+        <div class="form-row">
+          <input id="salDate" type="date" />
+          <select id="salCustomer"></select>
+        </div>
+        <div class="form-row">
+          <input id="salNote" placeholder="ملاحظة (اختياري)" />
+        </div>
+
+        <div class="panel inner">
+          <div class="subhead">إضافة سطر</div>
+          <div class="form-row">
+            <select id="salItem"></select>
+            <input id="salQty" type="number" step="0.01" placeholder="كغم" />
+            <input id="salPrice" type="number" step="0.01" placeholder="سعر بيع/كغم" />
+            <button class="btn" id="btnSalAddLine" type="button">إضافة</button>
+          </div>
+          <div class="hint" id="salStockHint"></div>
+          <div class="table-wrap" id="salLines"></div>
+        </div>
+
+        <div class="form-row end">
+          <div class="totals">الإجمالي: <strong id="salTotal">0</strong></div>
+          <input id="salPaid" type="number" step="0.01" placeholder="المدفوع" />
+          <button class="btn primary" id="btnSaveSale" type="button">حفظ</button>
+          <button class="btn" id="btnPrintSale" type="button">طباعة</button>
+        </div>
+        <div class="hint">الحفظ ينقص المخزون ويمنع البيع فوق المتوفر. المتبقي يسجّل دين على الزبون.</div>
+      </div>
+    </section>
+
+    <!-- STOCK -->
+    <section class="view hidden" id="view-stock">
+      <div class="panel">
+        <h2>المخزون</h2>
+        <div class="form-row">
+          <input id="stockSearch" placeholder="بحث بالصنف..." />
+          <button class="btn" id="btnLowOnly" type="button">الأقل من الحد</button>
+        </div>
+        <div class="table-wrap" id="stockTable"></div>
+      </div>
+
+      <div class="panel">
+        <h2>جرد / تلف / تسوية</h2>
+        <div class="hint">تعديل (+ يزيد) أو (- ينقص) بالكغم.</div>
+        <div class="form-row">
+          <input id="adjDate" type="date" />
+          <select id="adjItem"></select>
+          <input id="adjDelta" type="number" step="0.01" placeholder="+ / - كغم" />
+          <input id="adjReason" placeholder="السبب" />
+          <button class="btn" id="btnAddAdj" type="button">تطبيق</button>
+        </div>
+        <div class="table-wrap" id="adjTable"></div>
+      </div>
+    </section>
+
+    <!-- MORE -->
+    <section class="view hidden" id="view-more">
+      <div class="panel">
+        <h2>المزيد</h2>
+        <div class="tiles">
+          <button class="tile" data-open="items">الأصناف والأسعار</button>
+          <button class="tile" data-open="suppliers">الموردين</button>
+          <button class="tile" data-open="customers">الزبائن/المُصدّرين</button>
+          <button class="tile" data-open="debts">غرفة الديون</button>
+          <button class="tile" data-open="reports">التقارير</button>
+          <button class="tile" data-open="settings">الإعدادات</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ITEMS -->
+    <section class="view hidden" id="view-items">
+      <div class="panel">
+        <h2>الأصناف والأسعار</h2>
+        <div class="form-row">
+          <input id="itemName" placeholder="اسم الصنف" />
+          <input id="itemBuy" type="number" step="0.01" placeholder="شراء/كغم" />
+          <input id="itemSell" type="number" step="0.01" placeholder="بيع/كغم" />
+          <input id="itemAlert" type="number" step="0.01" placeholder="حد التنبيه (كغم)" />
+          <button class="btn" id="btnAddItem" type="button">إضافة</button>
+        </div>
+        <div class="table-wrap" id="itemsTable"></div>
+      </div>
+      <button class="fab" data-back>رجوع</button>
+    </section>
+
+    <!-- SUPPLIERS -->
+    <section class="view hidden" id="view-suppliers">
+      <div class="panel">
+        <h2>الموردين</h2>
+        <div class="form-row">
+          <input id="supName" placeholder="اسم المورد" />
+          <input id="supPhone" placeholder="جوال (اختياري)" />
+          <button class="btn" id="btnAddSupplier" type="button">إضافة</button>
+        </div>
+        <div class="table-wrap" id="suppliersTable"></div>
+      </div>
+
+      <div class="panel">
+        <h2>تسديد للمورد</h2>
+        <div class="form-row">
+          <select id="paySupId"></select>
+          <input id="paySupAmount" type="number" step="0.01" placeholder="المبلغ" />
+          <input id="paySupNote" placeholder="ملاحظة (اختياري)" />
+          <button class="btn" id="btnPaySupplier" type="button">تسديد</button>
+        </div>
+      </div>
+      <button class="fab" data-back>رجوع</button>
+    </section>
+
+    <!-- CUSTOMERS -->
+    <section class="view hidden" id="view-customers">
+      <div class="panel">
+        <h2>الزبائن / المُصدّرين</h2>
+        <div class="form-row">
+          <input id="cusName" placeholder="اسم الزبون/المُصدّر" />
+          <input id="cusPhone" placeholder="جوال (اختياري)" />
+          <button class="btn" id="btnAddCustomer" type="button">إضافة</button>
+        </div>
+        <div class="table-wrap" id="customersTable"></div>
+      </div>
+
+      <div class="panel">
+        <h2>قبض من الزبون</h2>
+        <div class="form-row">
+          <select id="payCusId"></select>
+          <input id="payCusAmount" type="number" step="0.01" placeholder="المبلغ" />
+          <input id="payCusNote" placeholder="ملاحظة (اختياري)" />
+          <button class="btn" id="btnPayCustomer" type="button">قبض</button>
+        </div>
+      </div>
+      <button class="fab" data-back>رجوع</button>
+    </section>
+
+    <!-- DEBTS -->
+    <section class="view hidden" id="view-debts">
+      <div class="panel">
+        <h2>غرفة الديون</h2>
+        <div class="tabs">
+          <button class="tab active" data-tab="debCust">ديون الزبائن</button>
+          <button class="tab" data-tab="debSupp">ديون الموردين</button>
+        </div>
+        <div id="tab-debCust" class="tabview"></div>
+        <div id="tab-debSupp" class="tabview hidden"></div>
+      </div>
+      <button class="fab" data-back>رجوع</button>
+    </section>
+
+    <!-- REPORTS -->
+    <section class="view hidden" id="view-reports">
+      <div class="panel">
+        <h2>التقارير</h2>
+        <div class="form-row">
+          <input id="repFrom" type="date" />
+          <input id="repTo" type="date" />
+          <button class="btn" id="btnRunReports" type="button">عرض</button>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <div class="card-title">مشتريات</div>
+            <div class="card-value" id="repPurchases">0</div>
+          </div>
+          <div class="card">
+            <div class="card-title">مبيعات</div>
+            <div class="card-value" id="repSales">0</div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:10px">
+          <div class="card-title">ربح تقديري</div>
+          <div class="card-value" id="repProfit">0</div>
+        </div>
+        <div class="panel inner" style="margin-top:10px">
+          <div class="subhead">حركة الأصناف</div>
+          <div class="table-wrap" id="repItemsMove"></div>
+        </div>
+        <div class="panel inner" style="margin-top:10px">
+          <div class="subhead">تفاصيل الفواتير</div>
+          <div class="table-wrap" id="repOps"></div>
+        </div>
+      </div>
+      <button class="fab" data-back>رجوع</button>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="view hidden" id="view-settings">
+      <div class="panel">
+        <h2>الإعدادات</h2>
+        <div class="form-row">
+          <label class="selectlike">
+            نوع الطباعة:
+            <select id="printMode">
+              <option value="A4">A4</option>
+              <option value="80">حرارية 80mm</option>
+            </select>
+          </label>
+        </div>
+        <div class="hint">تقدر تطبع من الجوال لأي طابعة داعمة (AirPrint/Google Cloud Print/أجهزة وسيطة).</div>
+        <div class="form-row">
+          <button class="btn" id="btnSeedDemo" type="button">بيانات تجريبية</button>
+          <button class="btn danger" id="btnWipe" type="button">مسح كل البيانات</button>
+        </div>
+        <div class="hint small">ملاحظة: البيانات محلية على الجهاز. اعمل نسخ احتياطي بشكل دوري.</div>
+      </div>
+      <button class="fab" data-back>رجوع</button>
+    </section>
+
+    <!-- PRINT AREA (hidden) -->
+    <section id="printArea" class="print-area hidden"></section>
+
+    <footer class="footer">
+      <span id="statusPwa"></span>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
 </body>
 </html>
