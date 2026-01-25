@@ -1,9 +1,0 @@
-{
-  "name": "نظام المخزون",
-  "short_name": "المخزون",
-  "start_url": "index.html",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0a5",
-  "icons": []
-}
