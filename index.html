@@ -1,23 +1,297 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>نظام المخزون</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>محلات الحاج أبو ياسر زعرب وأولاده – أبو عماد</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>نظام المخزون</h1>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand__title">محلات الحاج أبو ياسر زعرب وأولاده – أبو عماد</div>
+      <div class="brand__sub" id="clock"></div>
+    </div>
+    <button class="iconbtn" id="openSettings" title="الإعدادات" aria-label="الإعدادات">
+      <span>⚙️</span>
+    </button>
+  </header>
 
-  <div class="card">
-    <input id="name" placeholder="اسم الصنف">
-    <input id="qty" type="number" placeholder="الكمية">
-    <button onclick="addItem()">إضافة</button>
+  <main class="app">
+    <nav class="tabs" role="tablist" aria-label="التنقل">
+      <button class="tab active" data-view="dashboard" role="tab" aria-selected="true">الرئيسية</button>
+      <button class="tab" data-view="items" role="tab">الأصناف</button>
+      <button class="tab" data-view="buy" role="tab">شراء</button>
+      <button class="tab" data-view="sell" role="tab">بيع</button>
+      <button class="tab" data-view="invoices" role="tab">الفواتير</button>
+      <button class="tab" data-view="reports" role="tab">تقارير</button>
+    </nav>
+
+    <!-- DASHBOARD -->
+    <section class="view active" id="view-dashboard">
+      <div class="cards">
+        <div class="card">
+          <div class="card__label">عدد الأصناف</div>
+          <div class="card__value" id="kpiItems">0</div>
+        </div>
+        <div class="card">
+          <div class="card__label">إجمالي الكميات</div>
+          <div class="card__value" id="kpiQty">0</div>
+        </div>
+        <div class="card">
+          <div class="card__label">فواتير اليوم</div>
+          <div class="card__value" id="kpiTodayInvoices">0</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__title">بحث سريع</div>
+        <div class="row">
+          <input id="quickSearch" class="input" placeholder="ابحث باسم الصنف..." />
+          <button class="btn" id="quickSearchBtn">بحث</button>
+        </div>
+        <div id="quickResults" class="list"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__title">تنبيه المخزون</div>
+        <div class="row">
+          <label class="label">حد التنبيه</label>
+          <input id="lowStockThreshold" class="input small" type="number" min="0" step="1" />
+          <button class="btn ghost" id="saveThreshold">حفظ</button>
+        </div>
+        <div id="lowStockList" class="list"></div>
+      </div>
+    </section>
+
+    <!-- ITEMS -->
+    <section class="view" id="view-items">
+      <div class="panel">
+        <div class="panel__title">إضافة / تعديل صنف</div>
+        <form id="itemForm" class="form">
+          <input type="hidden" id="itemId" />
+          <div class="grid">
+            <div>
+              <label class="label">اسم الصنف</label>
+              <input id="itemName" class="input" required placeholder="مثال: بازلاء مجمدة" />
+            </div>
+            <div>
+              <label class="label">وحدة القياس</label>
+              <input id="itemUnit" class="input" placeholder="مثال: كرتونة / كيس / كيلو" />
+            </div>
+            <div>
+              <label class="label">سعر الشراء</label>
+              <input id="itemBuyPrice" class="input" type="number" min="0" step="0.01" placeholder="0" />
+            </div>
+            <div>
+              <label class="label">سعر البيع</label>
+              <input id="itemSellPrice" class="input" type="number" min="0" step="0.01" placeholder="0" />
+            </div>
+            <div>
+              <label class="label">الكمية الابتدائية</label>
+              <input id="itemQty" class="input" type="number" min="0" step="1" placeholder="0" />
+            </div>
+            <div>
+              <label class="label">ملاحظات</label>
+              <input id="itemNotes" class="input" placeholder="اختياري" />
+            </div>
+          </div>
+          <div class="row wrap">
+            <button class="btn" type="submit" id="saveItem">حفظ الصنف</button>
+            <button class="btn ghost" type="button" id="resetItemForm">تفريغ</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel__title">قائمة الأصناف</div>
+        <div class="row wrap">
+          <input id="itemsSearch" class="input" placeholder="بحث..." />
+          <button class="btn ghost" id="exportData">تصدير بيانات</button>
+          <label class="btn ghost filebtn">
+            استيراد بيانات
+            <input type="file" id="importData" accept="application/json" hidden />
+          </label>
+        </div>
+        <div id="itemsList" class="table"></div>
+      </div>
+    </section>
+
+    <!-- BUY -->
+    <section class="view" id="view-buy">
+      <div class="panel">
+        <div class="panel__title">عملية شراء (تزيد المخزون)</div>
+        <form id="buyForm" class="form">
+          <div class="grid">
+            <div>
+              <label class="label">الصنف</label>
+              <select id="buyItem" class="input" required></select>
+            </div>
+            <div>
+              <label class="label">الكمية</label>
+              <input id="buyQty" class="input" type="number" min="1" step="1" required />
+            </div>
+            <div>
+              <label class="label">سعر الوحدة</label>
+              <input id="buyUnitPrice" class="input" type="number" min="0" step="0.01" />
+            </div>
+            <div>
+              <label class="label">المورّد</label>
+              <input id="buySupplier" class="input" placeholder="اختياري" />
+            </div>
+            <div>
+              <label class="label">ملاحظات</label>
+              <input id="buyNotes" class="input" placeholder="اختياري" />
+            </div>
+          </div>
+          <div class="row wrap">
+            <button class="btn" type="submit">تسجيل شراء</button>
+            <button class="btn ghost" type="button" id="buyReset">تفريغ</button>
+          </div>
+        </form>
+        <div class="hint">ملاحظة: يتم حفظ كل العمليات داخل الجهاز فقط (LocalStorage).</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__title">آخر عمليات الشراء</div>
+        <div id="buyLog" class="table"></div>
+      </div>
+    </section>
+
+    <!-- SELL -->
+    <section class="view" id="view-sell">
+      <div class="panel">
+        <div class="panel__title">عملية بيع (تخصم من المخزون + فاتورة)</div>
+        <form id="sellForm" class="form">
+          <div class="grid">
+            <div>
+              <label class="label">الصنف</label>
+              <select id="sellItem" class="input" required></select>
+            </div>
+            <div>
+              <label class="label">الكمية</label>
+              <input id="sellQty" class="input" type="number" min="1" step="1" required />
+            </div>
+            <div>
+              <label class="label">سعر الوحدة</label>
+              <input id="sellUnitPrice" class="input" type="number" min="0" step="0.01" />
+            </div>
+            <div>
+              <label class="label">اسم الزبون</label>
+              <input id="sellCustomer" class="input" placeholder="اختياري" />
+            </div>
+            <div>
+              <label class="label">خصم</label>
+              <input id="sellDiscount" class="input" type="number" min="0" step="0.01" value="0" />
+            </div>
+            <div>
+              <label class="label">ملاحظات</label>
+              <input id="sellNotes" class="input" placeholder="اختياري" />
+            </div>
+          </div>
+          <div class="row wrap">
+            <button class="btn" type="submit">حفظ بيع + إنشاء فاتورة</button>
+            <button class="btn ghost" type="button" id="sellReset">تفريغ</button>
+          </div>
+        </form>
+        <div class="hint">إذا الكمية غير كافية، سيتم منع العملية.</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__title">آخر عمليات البيع</div>
+        <div id="sellLog" class="table"></div>
+      </div>
+    </section>
+
+    <!-- INVOICES -->
+    <section class="view" id="view-invoices">
+      <div class="panel">
+        <div class="panel__title">الفواتير</div>
+        <div class="row wrap">
+          <input id="invoiceSearch" class="input" placeholder="بحث برقم الفاتورة أو اسم الزبون..." />
+          <button class="btn ghost" id="printLastInvoice">طباعة آخر فاتورة</button>
+        </div>
+        <div id="invoiceList" class="table"></div>
+      </div>
+
+      <div class="panel" id="invoicePreviewPanel" style="display:none;">
+        <div class="panel__title">معاينة الفاتورة</div>
+        <div class="row wrap">
+          <button class="btn" id="printInvoiceBtn">طباعة</button>
+          <button class="btn ghost" id="closeInvoicePreview">إغلاق</button>
+        </div>
+        <div id="invoicePreview" class="invoice"></div>
+      </div>
+    </section>
+
+    <!-- REPORTS -->
+    <section class="view" id="view-reports">
+      <div class="panel">
+        <div class="panel__title">تقرير يومي</div>
+        <div class="row wrap">
+          <label class="label">التاريخ</label>
+          <input id="reportDate" class="input" type="date" />
+          <button class="btn" id="runDailyReport">عرض</button>
+          <button class="btn ghost" id="printReport">طباعة التقرير</button>
+        </div>
+        <div id="dailyReport" class="report"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__title">ملخص المخزون</div>
+        <div id="stockSummary" class="table"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- SETTINGS MODAL -->
+  <div class="modal" id="settingsModal" aria-hidden="true">
+    <div class="modal__card" role="dialog" aria-modal="true" aria-label="الإعدادات">
+      <div class="modal__head">
+        <div class="modal__title">الإعدادات</div>
+        <button class="iconbtn" id="closeSettings" aria-label="إغلاق">✖</button>
+      </div>
+
+      <div class="form">
+        <div class="grid">
+          <div>
+            <label class="label">اسم المحل (يظهر بالفاتورة)</label>
+            <input id="shopNameInput" class="input" />
+          </div>
+          <div>
+            <label class="label">رقم فاتورة ابتدائي</label>
+            <input id="startSerial" class="input" type="number" min="1" step="1" />
+          </div>
+          <div>
+            <label class="label">ملاحظة أسفل الفاتورة</label>
+            <input id="invoiceFooter" class="input" placeholder="مثال: شكراً لزيارتكم" />
+          </div>
+        </div>
+
+        <div class="row wrap">
+          <button class="btn" id="saveSettings">حفظ</button>
+          <button class="btn danger" id="resetAll">مسح كل البيانات</button>
+        </div>
+
+        <div class="hint warn">
+          تنبيه: “مسح كل البيانات” يحذف الأصناف والحركات والفواتير من الجهاز نهائياً.
+        </div>
+      </div>
+    </div>
   </div>
 
-  <ul id="list"></ul>
+  <!-- TOAST -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-<script src="app.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+    }
+  </script>
 </body>
 </html>
