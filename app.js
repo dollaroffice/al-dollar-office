@@ -1,39 +1,26 @@
-let data = JSON.parse(localStorage.getItem('data')||'{}');
-data.items = data.items || {};
-
-function save(){localStorage.setItem('data',JSON.stringify(data));render();}
-
+let db=JSON.parse(localStorage.getItem('db')||'{}');
+db.items=db.items||{};
+function save(){localStorage.setItem('db',JSON.stringify(db));render();}
+function show(id){document.querySelectorAll('.view').forEach(v=>v.style.display='none');document.getElementById(id).style.display='block';}
 function addItem(){
-  const n=itemName.value,pb=+buyPrice.value,ps=+sellPrice.value;
-  if(!n)return;
-  data.items[n]={buy:pb,sell:ps,qty:0};
-  save();
+ const n=iname.value; if(!n)return;
+ db.items[n]={buy:+ibuy.value,sell:+isell.value,qty:0};
+ save();
 }
-
 function buy(){
-  const n=buyItem.value,q=+buyQty.value;
-  if(!n||!q)return;
-  data.items[n].qty+=q;save();
+ const n=bitem.value; db.items[n].qty+=+bqty.value; save();
 }
-
 function sell(){
-  const n=sellItem.value,q=+sellQty.value;
-  if(!n||!q)return;
-  if(data.items[n].qty<q){alert('مخزون غير كافي');return;}
-  data.items[n].qty-=q;save();
+ const n=sitem.value; if(db.items[n].qty<sqty.value){alert('مخزون غير كافي');return;}
+ db.items[n].qty-=+sqty.value; save();
 }
-
 function render(){
-  buyItem.innerHTML=sellItem.innerHTML='';
-  stock.innerHTML='';
-  for(const n in data.items){
-    let o=document.createElement('option');
-    o.text=o.value=n;
-    buyItem.add(o.cloneNode(true));
-    sellItem.add(o.cloneNode(true));
-    let li=document.createElement('li');
-    li.textContent=`${n} : ${data.items[n].qty} كغم`;
-    stock.appendChild(li);
-  }
+ itemsList.innerHTML=''; bitem.innerHTML=''; sitem.innerHTML=''; stockList.innerHTML='';
+ for(let n in db.items){
+  itemsList.innerHTML+=`<li>${n}</li>`;
+  bitem.innerHTML+=`<option>${n}</option>`;
+  sitem.innerHTML+=`<option>${n}</option>`;
+  stockList.innerHTML+=`<li>${n}: ${db.items[n].qty} كغم</li>`;
+ }
 }
-render();
+show('items'); render();

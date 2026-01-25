@@ -1,48 +1,57 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#0f172a" />
-  <title>محلات أبو ياسر زعرب وأولاده (أبو عماد)</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>محلات أبو ياسر زعرب وأولاده (أبو عماد)</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-main">محلات أبو ياسر زعرب وأولاده</div>
-      <div class="brand-sub">( أبو عماد )</div>
-    </div>
-  </header>
+<header>
+<h1>محلات أبو ياسر زعرب وأولاده</h1>
+<h2>( أبو عماد )</h2>
+<nav>
+<button onclick="show('items')">الأصناف</button>
+<button onclick="show('buy')">شراء</button>
+<button onclick="show('sell')">بيع</button>
+<button onclick="show('stock')">المخزون</button>
+<button onclick="show('debts')">الديون</button>
+</nav>
+</header>
 
-  <main class="container">
-    <section>
-      <h2>إضافة صنف</h2>
-      <input id="itemName" placeholder="اسم الصنف">
-      <input id="buyPrice" type="number" placeholder="سعر الشراء / كغم">
-      <input id="sellPrice" type="number" placeholder="سعر البيع / كغم">
-      <button onclick="addItem()">إضافة</button>
-    </section>
+<section id="items" class="view">
+<h3>إضافة صنف</h3>
+<input id="iname" placeholder="اسم الصنف">
+<input id="ibuy" type="number" placeholder="شراء/كغم">
+<input id="isell" type="number" placeholder="بيع/كغم">
+<button onclick="addItem()">إضافة</button>
+<ul id="itemsList"></ul>
+</section>
 
-    <section>
-      <h2>شراء (يزيد المخزون)</h2>
-      <select id="buyItem"></select>
-      <input id="buyQty" type="number" placeholder="الوزن كغم">
-      <button onclick="buy()">شراء</button>
-    </section>
+<section id="buy" class="view">
+<h3>شراء</h3>
+<select id="bitem"></select>
+<input id="bqty" type="number" placeholder="كغم">
+<button onclick="buy()">شراء</button>
+</section>
 
-    <section>
-      <h2>بيع (ينقص المخزون)</h2>
-      <select id="sellItem"></select>
-      <input id="sellQty" type="number" placeholder="الوزن كغم">
-      <button onclick="sell()">بيع</button>
-    </section>
+<section id="sell" class="view">
+<h3>بيع</h3>
+<select id="sitem"></select>
+<input id="sqty" type="number" placeholder="كغم">
+<button onclick="sell()">بيع</button>
+</section>
 
-    <section>
-      <h2>المخزون</h2>
-      <ul id="stock"></ul>
-    </section>
-  </main>
+<section id="stock" class="view">
+<h3>المخزون</h3>
+<ul id="stockList"></ul>
+</section>
+
+<section id="debts" class="view">
+<h3>الديون</h3>
+<p>قادم بالتوسعة التالية</p>
+</section>
 
 <script src="app.js"></script>
 </body>
