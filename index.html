@@ -1,61 +1,17 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>محلات الحاج أبو ياسر زعرب وأولاده – أبو عماد</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-<header class="topbar">
-  <strong>محلات الحاج أبو ياسر زعرب وأولاده – أبو عماد</strong>
-</header>
-
-<main class="app">
-
-<nav class="tabs">
-  <button class="tab active" data-view="sell">بيع</button>
-  <button class="tab" data-view="customers">الذمم</button>
+<!doctype html><html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>محلات الحاج أبو ياسر زعرب وأولاده – أبو عماد</title><link rel="stylesheet" href="styles.css"></head><body>
+<header>محلات الحاج أبو ياسر زعرب وأولاده – أبو عماد</header>
+<nav>
+<button onclick="show('items')">الأصناف</button>
+<button onclick="show('buy')">شراء</button>
+<button onclick="show('sell')">بيع</button>
+<button onclick="show('customers')">الذمم</button>
 </nav>
-
-<section class="view active" id="view-sell">
-  <h2>بيع جديد</h2>
-  <form id="sellForm">
-    <input id="sellCustomer" placeholder="اسم الزبون" required>
-    <input id="sellAmount" type="number" placeholder="قيمة الفاتورة" required>
-    <select id="sellPayMethod">
-      <option value="cash">نقداً</option>
-      <option value="bank">بنك</option>
-      <option value="credit">آجل</option>
-    </select>
-    <button type="submit">حفظ البيع</button>
-  </form>
-</section>
-
-<section class="view" id="view-customers">
-  <h2>ذمم الزبائن</h2>
-  <div id="customersList"></div>
-</section>
-
-</main>
-
-<button class="fab" id="fabPay">تسديد</button>
-
-<div class="modal" id="payModal">
-  <div class="modalCard">
-    <h3>تسديد دين</h3>
-    <select id="payCustomer"></select>
-    <input id="payAmount" type="number" placeholder="المبلغ">
-    <select id="payMethod">
-      <option value="cash">نقداً</option>
-      <option value="bank">بنك</option>
-    </select>
-    <button id="confirmPay">تأكيد التسديد</button>
-    <button onclick="closePay()">إلغاء</button>
-  </div>
-</div>
-
-<script src="app.js"></script>
-</body>
-</html>
+<section id="items"><input id="itemName" placeholder="اسم الصنف"><input id="itemQty" type="number" placeholder="الكمية"><button onclick="addItem()">حفظ</button><div id="itemsList"></div></section>
+<section id="buy" class="hide"><input id="buyName" placeholder="اسم الصنف"><input id="buyQty" type="number" placeholder="الكمية"><button onclick="buyItem()">شراء</button></section>
+<section id="sell" class="hide"><input id="sellCustomer" placeholder="اسم الزبون"><input id="sellName" placeholder="اسم الصنف"><input id="sellQty" type="number" placeholder="الكمية"><select id="sellPay"><option value="cash">نقداً</option><option value="bank">بنك</option><option value="credit">آجل</option></select><button onclick="sellItem()">بيع</button></section>
+<section id="customers" class="hide"><div id="custList"></div></section>
+<button class="fab" onclick="openPay()">تسديد</button>
+<div id="payModal" class="modal"><div class="card"><select id="payCustomer"></select><input id="payAmount" type="number" placeholder="المبلغ"><button onclick="confirmPay()">تأكيد</button><button onclick="closePay()">إلغاء</button></div></div>
+<script src="app.js"></script></body></html>
